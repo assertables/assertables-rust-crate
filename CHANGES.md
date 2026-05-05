@@ -2,6 +2,10 @@
 
 Changes are summarized here as highlights for recent major versions.
 
+## Version 10.x
+
+- 10.0.0 Upgrade Rust edition from 2021 to 2024. Upgrade org from SixArm to Assertables.
+
 ## Version 9.x
 
 - 9.9.0 Add `assert_all_*` and `assert_any_*`.

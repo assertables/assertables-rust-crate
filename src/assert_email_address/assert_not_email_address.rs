@@ -59,7 +59,7 @@ macro_rules! assert_not_email_address_as_result {
                                     format!(
                                         concat!(
                                             "assertion failed: `assert_not_email_address!(a)`\n",
-                                            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_not_email_address.html\n",
+                                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_not_email_address.html\n",
                                             " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
                                             " a label: `{}`,\n",
                                             " a debug: `{:?}`,\n",
@@ -231,7 +231,7 @@ mod test_assert_not_email_address_as_result {
         let actual = assert_not_email_address_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_not_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_not_email_address.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_not_email_address.html\n",
             " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@example.com\"`,\n",
@@ -276,7 +276,7 @@ mod test_assert_not_email_address_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_email_address!(a)`\n",
-/// #     "https://docs.rs/assertables/9.9.0/assertables/macro.assert_not_email_address.html\n",
+/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_not_email_address.html\n",
 /// #     " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"hello@example.com\"`,\n",
@@ -367,7 +367,7 @@ mod test_assert_not_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_not_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_not_email_address.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_not_email_address.html\n",
             " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@example.com\"`,\n",
@@ -480,7 +480,7 @@ mod test_debug_assert_not_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_not_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_not_email_address.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_not_email_address.html\n",
             " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@example.com\"`,\n",

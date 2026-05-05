@@ -52,7 +52,7 @@ macro_rules! assert_io_read_to_string_gt_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+                                        "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
                                         " a_reader label: `{}`,\n",
                                         " a_reader debug: `{:?}`,\n",
                                         "   b_expr label: `{}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_io_read_to_string_gt_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+                                    "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
                                     " a_reader label: `{}`,\n",
                                     " a_reader debug: `{:?}`,\n",
                                     "   b_expr label: `{}`,\n",
@@ -149,7 +149,7 @@ mod test_assert_io_read_to_string_gt_x_as_result {
         let actual = assert_io_read_to_string_gt_x_as_result!(reader, x);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",
@@ -167,7 +167,7 @@ mod test_assert_io_read_to_string_gt_x_as_result {
         let actual = assert_io_read_to_string_gt_x_as_result!(reader, x);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",
@@ -218,7 +218,7 @@ mod test_assert_io_read_to_string_gt_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
 /// #     " a_reader label: `reader`,\n",
 /// #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 /// #     "   b_expr label: `x`,\n",
@@ -276,7 +276,7 @@ mod test_assert_io_read_to_string_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",
@@ -303,7 +303,7 @@ mod test_assert_io_read_to_string_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",
@@ -386,7 +386,7 @@ mod test_debug_assert_io_read_to_string_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",
@@ -413,7 +413,7 @@ mod test_debug_assert_io_read_to_string_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_gt_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",

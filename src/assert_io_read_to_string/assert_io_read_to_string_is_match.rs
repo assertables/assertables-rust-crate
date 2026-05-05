@@ -52,7 +52,7 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-                                        "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
+                                        "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
                                         "  reader label: `{}`,\n",
                                         "  reader debug: `{:?}`,\n",
                                         " matcher label: `{}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-                                    "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
+                                    "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
                                     "  reader label: `{}`,\n",
                                     "  reader debug: `{:?}`,\n",
                                     " matcher label: `{}`,\n",
@@ -146,7 +146,7 @@ mod test_assert_io_read_to_string_is_match_as_result {
         let actual = assert_io_read_to_string_is_match_as_result!(reader, matcher);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
             "  reader label: `reader`,\n",
             "  reader debug: `[97, 108, 102, 97]`,\n",
             " matcher label: `matcher`,\n",
@@ -195,7 +195,7 @@ mod test_assert_io_read_to_string_is_match_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-/// #     "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
 /// #     "  reader label: `reader`,\n",
 /// #     "  reader debug: `[104, 101, 108, 108, 111]`,\n",
 /// #     " matcher label: `matcher`,\n",
@@ -252,7 +252,7 @@ mod test_assert_io_read_to_string_is_match {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
             "  reader label: `reader`,\n",
             "  reader debug: `[97, 108, 102, 97]`,\n",
             " matcher label: `matcher`,\n",
@@ -334,7 +334,7 @@ mod test_debug_assert_io_read_to_string_is_match {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_io_read_to_string_is_match.html\n",
             "  reader label: `reader`,\n",
             "  reader debug: `[97, 108, 102, 97]`,\n",
             " matcher label: `matcher`,\n",

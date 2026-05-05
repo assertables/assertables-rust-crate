@@ -28,10 +28,12 @@ regex = "1.12" # Regular expressions parser, compiler, and executer
 walkdir = "2.5" # Recursively walk a directory.
 
 [dev-dependencies]
-cargo-diet = "1.3" #  Make your crate lean
-cargo-deny = "0.19.4" # Lint dependencies
-cargo-dist = "0.31" # Distribution builder for release engineering
-cargo-release = "1.1" # Release automation
-cargo-semver-checks = "0.47" # Scan for semantic version errors
 regex = "1.12" # Regular expressions parser, compiler, and executer
-rustdoc-md = "0.2" # Convert Rust documentation JSON into clean, organized Markdown files.
+
+# [cargo-install-dependencies]
+# cargo-diet = "1.3" #  Make your crate lean
+# cargo-deny = "0.19.4" # Lint dependencies
+# cargo-dist = "0.31" # Distribution builder for release engineering
+# cargo-release = "1.1" # Release automation
+# cargo-semver-checks = "0.47" # Scan for semantic version errors
+# rustdoc-md = "0.2" # Convert Rust documentation JSON into clean, organized Markdown files.

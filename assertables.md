@@ -13,9 +13,9 @@ to improve your compile-time tests and run-time reliability.
 
 **[documentation](https://docs.rs/assertables/)**
 •
-**[source](https://github.com/sixarm/assertables-rust-crate/)**
+**[source](https://github.com/assertables/assertables-rust-crate/)**
 •
-**[llms.txt](https://raw.githubusercontent.com/sixarm/assertables-rust-crate/refs/heads/main/llms.txt)**
+**[llms.txt](https://raw.githubusercontent.com/assertables/assertables-rust-crate/refs/heads/main/llms.txt)**
 •
 **[crate](https://crates.io/crates/assertables)**
 •
@@ -68,19 +68,19 @@ Benefits:
 * You will troubleshoot faster because error messages show more detail.
 
 Learning:
-[FAQ](https://github.com/SixArm/assertables-rust-crate/tree/main/help/faq),
+[FAQ](https://github.com/assertables/assertables-rust-crate/tree/main/help/faq),
 [docs](https://docs.rs/assertables/),
-[examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/examples/),
-[changes](https://github.com/SixArm/assertables-rust-crate/tree/main/CHANGES.md),
-[upgrades](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9),
-[developing](https://github.com/SixArm/assertables-rust-crate/tree/main/help/developing/).
+[examples](https://github.com/assertables/assertables-rust-crate/blob/main/tests/examples/),
+[changes](https://github.com/assertables/assertables-rust-crate/tree/main/CHANGES.md),
+[upgrades](https://github.com/assertables/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9),
+[developing](https://github.com/assertables/assertables-rust-crate/tree/main/help/developing/).
 
 Comparisons:
-[more_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/more_asserts),
-[cool_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/cool_asserts),
-[assert2](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/assert2),
-[claims](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/claims),
-[etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
+[more_asserts](https://github.com/assertables/assertables-rust-crate/tree/main/help/comparisons/more_asserts),
+[cool_asserts](https://github.com/assertables/assertables-rust-crate/tree/main/help/comparisons/cool_asserts),
+[assert2](https://github.com/assertables/assertables-rust-crate/tree/main/help/comparisons/assert2),
+[claims](https://github.com/assertables/assertables-rust-crate/tree/main/help/comparisons/claims),
+[etc.](https://github.com/assertables/assertables-rust-crate/tree/main/help/comparisons)
 
 ## Examples
 

@@ -12,9 +12,9 @@ authors:
     orcid: 'https://orcid.org/0009-0000-4681-282X'
 identifiers:
   - type: url
-    value: 'https://github.com/SixArm/assertables-rust-crate/'
+    value: 'https://github.com/assertables/assertables-rust-crate/'
     description: Assertables: Rust crate of assert macros for testing
-repository-code: 'https://github.com/SixArm/assertables-rust-crate/'
+repository-code: 'https://github.com/assertables/assertables-rust-crate/'
 abstract: >-
   Assertables: Rust crate of assert macros for testing
 license: See license file

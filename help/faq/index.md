@@ -125,7 +125,7 @@ for more-sophisticated needs.
 
 If you use GitHub, then you can create a GitHub issue, or create a GitHub pull request:
 
-* [https://github.com/sixarm/assertables](https://github.com/sixarm/assertables)
+* [https://github.com/assertables/assertables](https://github.com/assertables/assertables)
 
 If you prefer email, then you can email the maintainer:
 

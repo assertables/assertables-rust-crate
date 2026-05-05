@@ -19,7 +19,7 @@
             "url": "https://crates.io/crates/assertables"
         },
         "repositoryUrl": {
-            "url": "https://github.com/sixarm/assertables"
+            "url": "https://github.com/assertables/assertables"
         },
         "licenses": ["spdx:MIT", "spdx:Apache-2.0", "spdx:GPL-2.0", "spdx:GPL-3.0"],
         "tags": ["assert", "test", "debug", "development", "rust", "crate"]

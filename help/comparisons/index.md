@@ -2,56 +2,51 @@
 
 Assertables comparisons to other Rust crates and assertion techniques.
 
+| Name                                                | Version | Updated | Licenses              |
+| --------------------------------------------------- | ------- | ------- | --------------------- |
+| [assertables](https://crates.io/crates/assertables) | 10.0.0  | 2026    | Apache, MIT, BSD, GPL |
+| [assert_approx_eq](assert_approx_eq)                | 1.1.0   | 2018    | Apache, MIT           |
+| [assert_matches](assert_matches)                    | 1.5.0   | 2021    | Apache, MIT           |
+| [assert2](assert2)                                  | 0.4.0   | 2026    | BSD                   |
+| [claim](claim)                                      | 0.5.0   | 2021    | Apache, MIT           |
+| [claims](claims)                                    | 0.8.0   | 2024    | Apache, MIT           |
+| [cool_asserts](cool_asserts)                        | 2.0.4   | 2025    | Mozilla               |
+| [galvanic-assert](galvanic-assert)                  | 0.8.7   | 2018    | Apache                |
+| [more_asserts](more_asserts)                        | 0.3.1   | 2022    | Apache, MIT           |
+| [totems](totems)                                    | 0.2.7   | 2019    | MIT                   |
+
 Assertables aims for comparable goals as these crates:
 
-- [more_asserts](more_asserts) <!-- 13,100,250 -->
+- [more_asserts](more_asserts) <!--  25,151,087 -->
 
-- [cool_asserts](cool_asserts) <!-- 2,205,482 -->
+- [cool_asserts](cool_asserts) <!-- 4,861,508 -->
 
-- [assert2](assert2) <!-- 846,247 -->
+- [assert2](assert2) <!-- 2,742,736 -->
 
-- [claim](claim) <!-- 412,181 -->
+- [claim](claim) <!-- 630,889 -->
 
-- [claims](claims) <!-- 688,304 -->
+- [claims](claims) <!-- 2,578,556 -->
 
-- [galvanic-assert](galvanic-assert) <!-- 112,779 -->
+- [galvanic-assert](galvanic-assert) <!-- 157,817 -->
 
-- [totems](totems) <!-- 26,229 -->
+- [totems](totems) <!-- 39,102 -->
 
 Specific assertion categories:
 
-- [assert_cmd](assert_cmd) <!--  17,960,529 -->
+- [assert_cmd](assert_cmd) <!-- 60,526,294 -->
 
-- [assert_approx_eq](assert_approx_eq) <!-- 4,333,267 -->
+- [assert_approx_eq](assert_approx_eq) <!-- 8,285,814 -->
 
 If you have more complex needs, then these crates are complementary:
 
-- [static_assertions](static_assertions) <!--  126,564,971 -->
+- [static_assertions](static_assertions) <!-- 343,599,439 -->
 
-- [pretty_assertions](pretty_assertions) <!-- 49,710,216 -->
+- [pretty_assertions](pretty_assertions) <!-- 148,318,131 -->
 
-- [approx](approx) <!-- 36,278,843 -->
+- [approx](approx) <!-- 108,844,247 -->
 
-- [assert_matches](assert_matches) <!-- 20,754,383 -->
+- [assert_matches](assert_matches) <!-- 57,705,291 -->
 
 If you prefer fluent assertions:
 
-- [spectral](spectral) <!-- 541,786 -->
-
-## Licenses
-
-To the best of our knowledge, as of this writing, these crates use these licenses.
-
-| Name                                                | Version | Year | Licenses              |
-| --------------------------------------------------- | ------- | ---- | --------------------- |
-| [assertables](https://crates.io/crates/assertables) | 9.8.5   | 2026 | Apache, MIT, BSD, GPL |
-| [assert_approx_eq](assert_approx_eq)                | 1.1.0   | 2018 | Apache, MIT           |
-| [assert_matches](assert_matches)                    | 1.5.0   | 2021 | Apache, MIT           |
-| [cool_asserts](cool_asserts)                        | 2.0.4   | 2025 | Mozilla               |
-| [more_asserts](more_asserts)                        | 0.3.1   | 2022 | Apache, MIT           |
-| [assert2](assert2)                                  | 0.3.16  | 2025 | BSD                   |
-| [claim](claim)                                      | 0.5.0   | 2021 | Apache, MIT           |
-| [claims](claims)                                    | 0.8.0   | 2024 | Apache, MIT           |
-| [galvanic-assert](galvanic-assert)                  | 0.8.7   | 2018 | Apache                |
-| [totems](totems)                                    | 0.2.7   | 2019 | MIT                   |
-s
+- [spectral](spectral) <!-- 729,018 -->

@@ -236,7 +236,7 @@ Assertables puts all the logic in the logic macro, and developers can use the sa
 
 You can see the difference for yourself, such as in these two source code files:
 
-* [`assert_gt`](https://github.com/SixArm/assertables-rust-crate/blob/main/src/assert_gt.rs) by Assertables.
+* [`assert_gt`](https://github.com/assertables/assertables-rust-crate/blob/main/src/assert_gt.rs) by Assertables.
 
 * [`assert_gt`](https://crates.io/crates/rust-claim) by rust-claim.
 

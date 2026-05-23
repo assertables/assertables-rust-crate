@@ -264,6 +264,11 @@
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
+// Each macro group lives in `src/assert_X/` with a `mod.rs` that re-exports
+// the same-named macro file (`assert_X/assert_X.rs`); this mirrors the public
+// macro names and is intentional.
+#![allow(clippy::module_inception)]
+
 // Assert truth
 pub mod assert; // (in addition to what's provided by Rust `std`)
 

@@ -234,8 +234,7 @@ mod test_assert_approx_eq_as_result {
 /// approximations:
 ///
 /// * For an approximation, the absolute error (i.e. approx) is the magnitude of
-///   the difference between the exact value and the approximation. For this,
-///  use the macro
+///   the difference between the exact value and the approximation.
 ///
 /// * For an approximation, the relative error (i.e. epsilon) is the absolute
 ///   error divided by the magnitude of the minimum value. This can be used to
@@ -342,7 +341,7 @@ mod test_assert_approx_eq {
 /// # Module macros
 ///
 /// * [`assert_approx_eq`](macro@crate::assert_approx_eq)
-/// * [`assert_approx_eq`](macro@crate::assert_approx_eq)
+/// * [`assert_approx_eq_as_result`](macro@crate::assert_approx_eq_as_result)
 /// * [`debug_assert_approx_eq`](macro@crate::debug_assert_approx_eq)
 ///
 #[macro_export]

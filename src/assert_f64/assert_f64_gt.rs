@@ -19,7 +19,7 @@
 //! * [`assert_f64_gt_as_result`](macro@crate::assert_f64_gt_as_result)
 //! * [`debug_assert_f64_gt`](macro@crate::debug_assert_f64_gt)
 
-/// Assert two floating point numbers are equal within f64::EPSILON.
+/// Assert a floating point 64-bit number is greater than another within f64::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a > b

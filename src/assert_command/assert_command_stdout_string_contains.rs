@@ -177,7 +177,7 @@ mod test_assert_command_stdout_string_contains_as_result {
 /// This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 ///
 /// * The containee can be a &str, char, a slice of chars, or a function or
-/// closure that determines if a character contains.
+///   closure that determines if a character contains.
 ///
 /// # Examples
 ///

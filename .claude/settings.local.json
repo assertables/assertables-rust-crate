@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(cargo update:*)",
-      "Bash(cargo search:*)"
+      "Bash(cargo search:*)",
+      "Bash(cargo build *)",
+      "Bash(cargo test *)",
+      "Bash(cargo clippy *)",
+      "Bash(cargo doc *)",
+      "Bash(RUSTDOCFLAGS='-D rustdoc::broken_intra_doc_links' cargo doc --no-deps)",
+      "Bash(find src *)",
+      "Bash(awk *)"
     ]
   }
 }

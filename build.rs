@@ -58,9 +58,9 @@ fn do_assert_file_entry(e: walkdir::DirEntry) {
     let text =
         std::fs::read_to_string(path).unwrap_or_else(|path| panic!("read_to_string {}", path));
     // println!("path:{}, stem:{}, len:{}", path.display(), stem, text.len());
-    vet_test_assert_x_as_result(&path, &stem, &text);
-    vet_test_assert_x(&path, &stem, &text);
-    vet_test_debug_assert_x(&path, &stem, &text);
+    vet_test_assert_x_as_result(path, stem, &text);
+    vet_test_assert_x(path, stem, &text);
+    vet_test_debug_assert_x(path, stem, &text);
 }
 
 fn vet_test_assert_x_as_result(path: &Path, stem: &str, text: &str) {
@@ -68,7 +68,7 @@ fn vet_test_assert_x_as_result(path: &Path, stem: &str, text: &str) {
         r"(?m)(?s)^\#\[cfg\(test\)\]\nmod (?P<mod>test_{}_as_result) ",
         stem
     );
-    match Regex::new(&regex_string).unwrap().captures(&text) {
+    match Regex::new(&regex_string).unwrap().captures(text) {
         Some(_captures) => {
             // let x = String::from(captures.name("mod").unwrap().as_str());
             // println!("{}", x);
@@ -83,7 +83,7 @@ fn vet_test_assert_x_as_result(path: &Path, stem: &str, text: &str) {
 
 fn vet_test_assert_x(path: &Path, stem: &str, text: &str) {
     let regex_string = format!(r"(?m)(?s)^\#\[cfg\(test\)\]\nmod (?P<mod>test_{}) ", stem);
-    match Regex::new(&regex_string).unwrap().captures(&text) {
+    match Regex::new(&regex_string).unwrap().captures(text) {
         Some(_captures) => {
             // let x = String::from(captures.name("mod").unwrap().as_str());
             // println!("{}", x);
@@ -98,7 +98,7 @@ fn vet_test_assert_x(path: &Path, stem: &str, text: &str) {
 
 // fn fix_test_debug_assert_x(path: &Path, stem: &str, text: &str) {
 //     let regex_string = format!(r"(?m)(?s)^(?P<block>\#\[cfg\(test\)\]\nmod test_{} .\n.*?\n}})", stem);
-//     match Regex::new(&regex_string).unwrap().captures(&text) {
+//     match Regex::new(&regex_string).unwrap().captures(text) {
 //         Some(captures) => {
 //             let test_assert_x = String::from(captures.name("block").unwrap().as_str());
 //             let test_debug_assert_x = test_assert_x
@@ -120,7 +120,7 @@ fn vet_test_debug_assert_x(path: &Path, stem: &str, text: &str) {
         r"(?m)(?s)^\#\[cfg\(test\)\]\nmod (?P<mod>test_debug_{}) ",
         stem
     );
-    match Regex::new(&regex_string).unwrap().captures(&text) {
+    match Regex::new(&regex_string).unwrap().captures(text) {
         Some(_captures) => {
             // let x = String::from(captures.name("mod").unwrap().as_str());
             // println!("{}", x);
@@ -144,5 +144,5 @@ fn main() {
                 && !HYBRID_FILE_NAME_LIST.contains(&file_name)
                 && !DEPRECATED_FILE_NAME_LIST.contains(&file_name)
         })
-        .for_each(|e| do_assert_file_entry(e))
+        .for_each(do_assert_file_entry)
 }

@@ -1,7 +1,7 @@
 //! Assert a command stderr string contains a given containee.
 //!
 //! Deprecated. Please rename from `assert_command_stderr_contains`
-/// into `assert_command_stderr_string_contains`.
+//! into `assert_command_stderr_string_contains`.
 
 /// Assert a command stderr string contains a given containee.
 ///

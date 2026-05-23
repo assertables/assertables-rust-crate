@@ -45,19 +45,19 @@
 //!
 //! * `==`  equal
 //! * `!=`  not equal
-//! * `<`	less than
-//! * `<=`	less than or equal to
-//! * `>`	greater than
-//! * `>=`	greater than or equal to
+//! * `<`   less than
+//! * `<=`  less than or equal to
+//! * `>`   greater than
+//! * `>=`  greater than or equal to
 //!
 //! For booleans:
 //!
-//! * `^`	logical XOR
-//! * `!`	logical NOT
-//! * `&`	logical AND
-//! * `|`	logical OR
-//! * `&&`	logical lazy AND
-//! * `||`	logical lazy OR
+//! * `^`   logical XOR
+//! * `!`   logical NOT
+//! * `&`   logical AND
+//! * `|`   logical OR
+//! * `&&`  logical lazy AND
+//! * `||`  logical lazy OR
 //!
 //! # Module macros
 //!
@@ -193,19 +193,19 @@ mod test_assert_infix_as_result {
 ///
 /// * `==`  equal
 /// * `!=`  not equal
-/// * `<`	less than
-/// * `<=`	less than or equal to
-/// * `>`	greater than
-/// * `>=`	greater than or equal to
+/// * `<`   less than
+/// * `<=`  less than or equal to
+/// * `>`   greater than
+/// * `>=`  greater than or equal to
 ///
 /// For booleans:
 ///
-/// * `^`	logical XOR
-/// * `!`	logical NOT
-/// * `&`	logical AND
-/// * `|`	logical OR
-/// * `&&`	logical lazy AND
-/// * `||`	logical lazy OR
+/// * `^`   logical XOR
+/// * `!`   logical NOT
+/// * `&`   logical AND
+/// * `|`   logical OR
+/// * `&&`  logical lazy AND
+/// * `||`  logical lazy OR
 ///
 /// # Module macros
 ///

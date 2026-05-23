@@ -1,4 +1,4 @@
-//! Assert a floating point 32-bit number is equal to another within f32::EPSILON.
+//! Assert a floating point 32-bit number is less than another within f32::EPSILON.
 //!
 //! Pseudocode:<br>
 //! a < b
@@ -19,7 +19,7 @@
 //! * [`assert_f32_lt_as_result`](macro@crate::assert_f32_lt_as_result)
 //! * [`debug_assert_f32_lt`](macro@crate::debug_assert_f32_lt)
 
-//! Assert a floating point 32-bit number is equal to another within f32::EPSILON.
+/// Assert a floating point 32-bit number is less than another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a < b

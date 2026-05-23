@@ -259,8 +259,7 @@ mod test_assert_in_epsilon_as_result {
 /// approximations:
 ///
 /// * For an approximation, the absolute error (i.e. delta) is the magnitude of
-///   the difference between the exact value and the approximation. For this,
-///  use the macro
+///   the difference between the exact value and the approximation.
 ///
 /// * For an approximation, the relative error (i.e. epsilon) is the absolute
 ///   error divided by the magnitude of the exact value. This can be used to

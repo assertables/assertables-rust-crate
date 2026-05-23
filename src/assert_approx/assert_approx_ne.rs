@@ -234,8 +234,7 @@ mod test_assert_approx_ne_as_result {
 /// approximations:
 ///
 /// * For an approximation, the absolute error (i.e. approx) is the magnitude of
-///   the difference between the exact value and the approximation. For this,
-///  use the macro
+///   the difference between the exact value and the approximation.
 ///
 /// * For an approximation, the relative error (i.e. epsilon) is the absolute
 ///   error divided by the magnitude of the minimum value. This can be used to
@@ -342,7 +341,7 @@ mod test_assert_approx_ne {
 /// # Module macros
 ///
 /// * [`assert_approx_ne`](macro@crate::assert_approx_ne)
-/// * [`assert_approx_ne`](macro@crate::assert_approx_ne)
+/// * [`assert_approx_ne_as_result`](macro@crate::assert_approx_ne_as_result)
 /// * [`debug_assert_approx_ne`](macro@crate::debug_assert_approx_ne)
 ///
 #[macro_export]

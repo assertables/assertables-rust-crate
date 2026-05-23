@@ -19,7 +19,7 @@
 //! * [`assert_eq_f32_as_result`](macro@crate::assert_eq_f32_as_result)
 //! * [`debug_assert_eq_f32`](macro@crate::debug_assert_eq_f32)
 
-//! Assert a floating point 32-bit number is equal to another within f32::EPSILON.
+/// Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b

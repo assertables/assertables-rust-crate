@@ -19,7 +19,7 @@
 //! * [`assert_some_eq_as_result`](macro@crate::assert_some_eq_as_result)
 //! * [`debug_assert_some_eq`](macro@crate::debug_assert_some_eq)
 
-//! Assert two expressions are Some and their values are equal.
+/// Assert two expressions are Some and their values are equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Some(a1) ⇒ a1) = (b ⇒ Some(b1) ⇒ b1)

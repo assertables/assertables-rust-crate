@@ -23,16 +23,16 @@
 //!   equality within 1e-6. The macro name and the approximate value are chosen
 //!   to be similar to the longtime popular rust crate `assert_approx_eq`.
 //!
-//! * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+//! * [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
 //!   tests the absolute error (i.e. delta). This is the magnitude of the
 //!   difference between the exact value and the approximation.
-//!   This macro is purposefully identical to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
+//!   This macro is purposefully the complement to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
 //!
 //! * [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
 //!   tests the relative error (i.e. epsilon). This is the absolute error divided
 //!   by the magnitude of the minimum value. This can be used to compare
 //!   approximations of numbers of wildly differing size.
-//!   This macro is purposefully identical to [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error).
+//!   This macro is purposefully the complement to the macro [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
 //!
 //! ## Absolute error and relative error
 //!
@@ -80,7 +80,7 @@
 ///
 /// This macro is useful for runtime checks, such as checking parameters, or
 /// sanitizing inputs, or handling different results in different ways.
-/// 
+///
 /// ## Absolute error and relative error
 ///
 /// * For an approximation, the absolute error (i.e. delta) is the magnitude of
@@ -419,7 +419,7 @@ mod test_assert_approx_ne_with_relative_error {
 /// # Module macros
 ///
 /// * [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
-/// * [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+/// * [`assert_approx_ne_with_relative_error_as_result`](macro@crate::assert_approx_ne_with_relative_error_as_result)
 /// * [`debug_assert_approx_ne_with_relative_error`](macro@crate::debug_assert_approx_ne_with_relative_error)
 ///
 #[macro_export]

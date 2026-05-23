@@ -19,7 +19,7 @@
 //! * [`assert_f32_ge_as_result`](macro@crate::assert_f32_ge_as_result)
 //! * [`debug_assert_f32_ge`](macro@crate::debug_assert_f32_ge)
 
-//! Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
+/// Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a ≥ b

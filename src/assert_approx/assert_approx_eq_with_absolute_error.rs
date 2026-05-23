@@ -26,13 +26,13 @@
 //! * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
 //!   tests the absolute error (i.e. delta). This is the magnitude of the
 //!   difference between the exact value and the approximation.
-//!   This macro is purposefully identical to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
+//!   This macro is purposefully identical to [`assert_in_delta`](macro@crate::assert_in_delta).
 //!
 //! * [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
 //!   tests the relative error (i.e. epsilon). This is the absolute error divided
 //!   by the magnitude of the minimum value. This can be used to compare
 //!   approximations of numbers of wildly differing size.
-//!   This macro is purposefully identical to [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error).
+//!   This macro is purposefully identical to [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
 //!
 //! ## Absolute error and relative error
 //!
@@ -68,7 +68,7 @@
 //! * [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
 //! * [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
 
-//! Assert a number is approximately equal to another by using absolute error a.k.a. delta.
+/// Assert a number is approximately equal to another by using absolute error a.k.a. delta.
 ///
 /// Pseudocode:<br>
 /// | a - b | ≤ Δ
@@ -96,13 +96,13 @@
 /// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
 ///   tests the absolute error (i.e. delta). This is the magnitude of the
 ///   difference between the exact value and the approximation.
-///   This macro is purposefully identical to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
+///   This macro is purposefully identical to [`assert_in_delta`](macro@crate::assert_in_delta).
 ///
 /// * [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
 ///   tests the relative error (i.e. epsilon). This is the absolute error divided
 ///   by the magnitude of the minimum value. This can be used to compare
 ///   approximations of numbers of wildly differing size.
-///   This macro is purposefully identical to [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error).
+///   This macro is purposefully identical to [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
 ///
 /// ## Absolute error and relative error
 ///
@@ -322,13 +322,13 @@ mod test_assert_approx_eq_with_absolute_error_as_result {
 /// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
 ///   tests the absolute error (i.e. delta). This is the magnitude of the
 ///   difference between the exact value and the approximation.
-///   This macro is purposefully identical to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
+///   This macro is purposefully identical to [`assert_in_delta`](macro@crate::assert_in_delta).
 ///
 /// * [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
 ///   tests the relative error (i.e. epsilon). This is the absolute error divided
 ///   by the magnitude of the minimum value. This can be used to compare
 ///   approximations of numbers of wildly differing size.
-///   This macro is purposefully identical to [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error).
+///   This macro is purposefully identical to [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
 ///
 /// ## Absolute error and relative error
 ///
@@ -454,7 +454,7 @@ mod test_assert_approx_eq_with_absolute_error {
 /// # Module macros
 ///
 /// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
-/// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
 /// * [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
 ///
 #[macro_export]

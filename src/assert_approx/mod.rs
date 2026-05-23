@@ -19,3 +19,9 @@
 
 pub mod assert_approx_eq;
 pub mod assert_approx_ne;
+
+//pub mod assert_approx_eq_using_absolute_error;
+//pub mod assert_approx_ne_using_absolute_error;
+
+pub mod assert_approx_eq_using_relative_error;
+//pub mod assert_approx_ne_using_relative_error;

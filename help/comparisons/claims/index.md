@@ -1,255 +1,189 @@
-# Comparisons: claims and related crates
+# Comparisons: claims and Assertables
 
 <https://crates.io/crates/claims>
 
-There are various Rust crates that provide assert macros:
+The `claims` crate is a community-maintained fork of [`claim`](../claim). It provides assertion macros for `Result`, `Option`, `Poll`, and value comparisons.
 
-* [`claims`](https://crates.io/crates/claims)
+The `assertables` crate provides direct equivalents for every `claims` macro, plus many more categories (collections, strings, regex, fs, io, commands, ranges, approximations, infix, …). Migration is mostly a dependency swap and a small number of `_x` suffix additions.
 
-* [`claim`](https://crates.io/crates/claim) which was forked to create `claims`.
+The rest of this page is information about how you could migrate from `claims` to `assertables`.
 
-Each of these crates are doing the same surface-level thing as Assertables, by adding new assert macros.
+## Migrate your `Cargo.toml`
 
-Assertables has two major differences:
+Replace:
 
-* More assertions
+```toml
+[dev-dependencies]
+claims = "0.8.0"
+```
 
-* More logic leverage
+With:
 
+```toml
+[dev-dependencies]
+assertables = "10.0.0"
+```
 
-## Assertables has more assertions
+In your test files, replace:
 
-If there's an assertion from any of those crates that you would like us to add to Assertables, then let us know, or create a merge request, and we'll add it.
+```rust
+use claims::*;
+```
 
-<table>
+With:
 
-<thead>
+```rust
+use assertables::*;
+```
 
-<tr>
-<th>Category</th>
-<th>Assertables</th>
-<th>claims</th>
-</tr>
+## Macro migration table
 
-</thead>
+| `claims` (old)                                   | `assertables` (new)                          | Notes                                                       |
+| ------------------------------------------------ | -------------------------------------------- | ----------------------------------------------------------- |
+| **Comparisons**                                  |                                              |                                                             |
+| `assert_lt!(a, b)`                               | `assert_lt!(a, b)`                           | Identical.                                                  |
+| `assert_le!(a, b)`                               | `assert_le!(a, b)`                           | Identical.                                                  |
+| `assert_gt!(a, b)`                               | `assert_gt!(a, b)`                           | Identical.                                                  |
+| `assert_ge!(a, b)`                               | `assert_ge!(a, b)`                           | Identical.                                                  |
+| **Result**                                       |                                              |                                                             |
+| `assert_ok!(result)`                             | `assert_ok!(result)`                         | Returns the inner `T`.                                      |
+| `assert_ok_eq!(result, expected)`                | `assert_ok_eq_x!(result, expected)`          | `_x` form compares the inner `T` to a value.                |
+| *(none)*                                         | `assert_ok_eq!(a, b)`                        | Compare two `Result::Ok` values.                            |
+| *(none)*                                         | `assert_ok_ne_x!(result, expected)` / `assert_ok_ne!(a, b)` | Inverse equality.                            |
+| `assert_err!(result)`                            | `assert_err!(result)`                        | Returns the inner `E`.                                      |
+| *(none)*                                         | `assert_err_eq_x!`, `assert_err_eq!`, `assert_err_ne_x!`, `assert_err_ne!` | Inner-error comparisons.       |
+| **Option**                                       |                                              |                                                             |
+| `assert_some!(option)`                           | `assert_some!(option)`                       | Returns the inner `T`.                                      |
+| `assert_some_eq!(option, expected)`              | `assert_some_eq_x!(option, expected)`        | `_x` form compares inner `T` to a value.                    |
+| *(none)*                                         | `assert_some_ne_x!`, `assert_some_eq!`, `assert_some_ne!` | Inverse and same-kind comparisons.            |
+| `assert_none!(option)`                           | `assert_none!(option)`                       |                                                             |
+| **Poll**                                         |                                              |                                                             |
+| `assert_ready!(poll)`                            | `assert_ready!(poll)`                        | Returns the inner `T`.                                      |
+| `assert_ready_eq!(poll, x)`                      | `assert_ready_eq_x!(poll, x)`                | `_x` form.                                                  |
+| `assert_ready_ok!(poll)`                         | `assert_ready_ok!(poll)`                     |                                                             |
+| `assert_ready_err!(poll)`                        | `assert_ready_err!(poll)`                    |                                                             |
+| `assert_pending!(poll)`                          | `assert_pending!(poll)`                      |                                                             |
+| **Matching**                                     |                                              |                                                             |
+| `assert_matches!(expr, pat)`                     | `assert_matches!(expr, pat)`                 |                                                             |
+| **Debug variants**                               |                                              |                                                             |
+| `debug_assert_*!(...)`                           | `debug_assert_*!(...)`                       | Every macro has a debug form.                               |
 
-<tbody>
+## Examples
 
-<tr>
-<td>Version</td>
-<td>8.4</td>
-<td>0.7</td>
-</tr>
+### Result and Option
 
-<tr>
-<td>Updated</td>
-<td>2024</td>
-<td>2022</td>
-</tr>
+Before:
 
-<tr>
-<td>
-Compare
-</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/macro.assert_lt.html">assert_lt</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/macro.assert_le.html">assert_le</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/macro.assert_gt.html">assert_gt</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/macro.assert_ge.html">assert_ge</a>
-</td>
-<td>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_lt.html">assert_lt</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_le</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_gt</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_ge</a>
-</td>
-</tr>
+```rust
+use claims::*;
 
-<tr>
-<td>Nearness</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_in_delta">assert_in_delta</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_in_epsilon">assert_in_epsilon</a>
-</td>
-<td>
-</td>
-</tr>
+let r: Result<i32, &str> = Ok(7);
+assert_ok!(r);
+assert_ok_eq!(r, 7);
 
-<tr>
-<td>
-Match
-</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_is_match">assert_is_match</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_not_match">assert_not_match</a>
-</td>
-<td>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_matches.html">assert_matches</a><br>
-&nbsp;
-</td>
-</tr>
+let o: Option<i32> = Some(7);
+assert_some!(o);
+assert_some_eq!(o, 7);
+```
 
-<tr>
-<td>Contains</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_contains">assert_contains</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_not_contains">assert_not_contains</a>
-</td>
-<td>
-</td>
-</tr>
+After:
 
-<tr>
-<td>Starts With</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_starts_with">assert_starts_with</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_not_starts_with">assert_not_starts_with</a>
-</td>
-<td>
-</td>
-</tr>
+```rust
+use assertables::*;
 
-<tr>
-<td>Ends With</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_ends_with">assert_ends_with</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_not_ends_with">assert_not_ends_with</a>
-</td>
-<td>
-</td>
-</tr>
+let r: Result<i32, &str> = Ok(7);
+let inner = assert_ok!(r);              // returns 7
+assert_ok_eq_x!(r, 7);
 
-<tr>
-<td>Result </td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/macro.assert_err.html">assert_ok</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_ok_eq">assert_ok_eq</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_ok_ne">assert_ok_ne</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_err">assert_err</a>
-</td>
-<td>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_ok</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ok_eq.html">assert_ok_eq</a><br>
--<br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_err.html">assert_err</a>
-</td>
-</tr>
+let o: Option<i32> = Some(7);
+let inner = assert_some!(o);            // returns 7
+assert_some_eq_x!(o, 7);
+```
 
-<tr>
-<td>Option</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_some">assert_some</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_some_eq">assert_some_eq</a>&nbsp;(eta&nbsp;v8.5)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_some_ne">assert_some_ne</a>&nbsp;(eta&nbsp;v8.5)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_none">assert_none</a>
-</td>
-<td>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_some.html">assert_some</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_some_eq.html">assert_some_eq</a><br>
--<br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_none.html">assert_none</a>
-</td>
-</tr>
+### Poll
 
-<tr>
-<td>Poll</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready">assert_ready</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_eq">assert_ready_eq</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_ne">assert_ready_ne</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_ok">assert_ready_ok</a>(eta 8.7)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_err">assert_ready_err</a>(eta 8.7)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_pending">assert_pending</a></td>
-</td>
-<td>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ready.html">assert_ready</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ready_eq.html">assert_ready_eq</a><br>
--<br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ready_ok.html">assert_ready_ok</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_ready_err.html">assert_ready_err</a><br>
-<a href="https://docs.rs/claims/latest/claims/macro.assert_pending.html">assert_pending</a><br>
-</td>
-</tr>
+Before:
 
-<tr>
-<td>Readers</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_fs_read_to_string">assert_fs_read_to_string_*</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_io_read_to_string">assert_io_read_to_string_*</a>
-<td>
-</td>
-</tr>
+```rust
+use claims::*;
+use std::task::Poll;
 
-<tr>
-<td>Commands</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_command">assert_command_*</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_program_args">assert_program_args_*</a></td>
-<td>
-</td>
-</tr>
+let p: Poll<Result<i32, ()>> = Poll::Ready(Ok(1));
+assert_ready!(p);
+assert_ready_ok!(p);
+```
 
-<tr>
-<td>Collections</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_set">assert_set_*</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_bag">assert_bag_*</a>
-</td>
-<td>
-</td>
-</tr>
+After:
 
-<tr>
-<td>Functions</td>
-<td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_fn">assert_fn_*</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_fn_ok">assert_fn_ok_*</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_fn_err">assert_fn_err_*</a></td>
-<td>
-</td>
-</tr>
+```rust
+use assertables::*;
+use std::task::Poll;
 
-</tbody>
-</table>
+let p: Poll<Result<i32, ()>> = Poll::Ready(Ok(1));
+assert_ready!(p);
+assert_ready_ok!(p);
+```
 
+### Matching
 
-## Assertables has more logic leverage
+Before:
 
-Assertables makes deliberate design decisions to implement each concept as three macros:
+```rust
+use claims::assert_matches;
 
-* The logic macro. This returns a Result and is the most important of the three macros.
+let v: Result<i32, &str> = Ok(42);
+assert_matches!(v, Ok(_));
+```
 
-* The panic macro. This is what a typical cargo test uses.
+After:
 
-* The debug macro. This is what a typical runtime debug config uses.
+```rust
+use assertables::*;
 
-Assertables puts all the logic in the logic macro, and developers can use the same logic anywhere they want, even for totally different purposes:
+let v: Result<i32, &str> = Ok(42);
+assert_matches!(v, Ok(_));
+```
 
-* Runtime production analysis using a Result. This works without triggering a panic, and without needing any debug config.
+## Naming difference: `_eq` vs `_eq_x`
 
-* Chaos engineering where logic macros can detect dirty input, or missing files, or bad data. This well for UI interactions with users, with fallback files, and with data sanitization.
+`claims` writes `assert_ok_eq!(result, value)`. Assertables uses two distinct names:
 
-* Custom macro wrapping where developers prefer to write their own syntax for their tests. This works well because the new syntax is just a surface-level addition, and can delegate to the logic macro.
+- `assert_ok_eq!(a, b)` — compares **two** `Result::Ok` values.
+- `assert_ok_eq_x!(result, x)` — compares the inner `T` of a single `Result::Ok` to an **arbitrary expression** `x`.
 
+When migrating, change every `claims::assert_ok_eq!(r, v)` to `assertables::assert_ok_eq_x!(r, v)`. The same `_x` suffix rule applies to `assert_some_eq`, `assert_err_eq`, `assert_ready_eq`, and their inverse `_ne` forms.
 
-## Compare a macro with various implementations
+## Beyond what `claims` offers
 
-You can see the difference for yourself, such as in these two source code files:
+Once migrated, you also gain:
 
-* [`assert_gt`](https://github.com/assertables/assertables-rust-crate/blob/main/src/assert_gt.rs) by Assertables.
+- **Inverse forms** for every wrapper macro: `assert_ok_ne_x!`, `assert_err_ne_x!`, `assert_some_ne_x!`, `assert_ready_ne_x!`, …
+- **Logic forms** — every macro has `*_as_result!` that returns `Result<_, String>`.
+- **Strings and regex** — `assert_starts_with!`, `assert_ends_with!`, `assert_contains!`, `assert_is_match!`, `assert_email_address!`, …
+- **Collections** — `assert_set_*`, `assert_bag_*`, `assert_iter_*`, `assert_len_*`, `assert_count_*`, `assert_is_empty!`, `assert_all!`, `assert_any!`.
+- **Approximations and ranges** — `assert_approx_*`, `assert_in_delta!`, `assert_in_epsilon!`, `assert_in_range!`, `assert_abs_diff_*`, `assert_diff_*`.
+- **Files and IO** — `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`.
+- **Subprocesses** — `assert_command_*`, `assert_program_args_*`, `assert_status_*`.
+- **Functions** — `assert_fn_*`, `assert_fn_ok_*`, `assert_fn_err_*`.
+- **Infix** — `assert_infix!(a == b)`, `assert_infix!(a && b)`, etc.
 
-* [`assert_gt`](https://crates.io/crates/rust-claim) by rust-claim.
+## Design rationale
 
-You can see `assertables` provides three macros:
+Assertables makes a deliberate design decision to implement each concept as three macros:
 
-* The logic macro is `assert_gt_as_result`. It does the comparison and returns a Result and possible error message.
+- The **logic macro** (`*_as_result`) — returns a `Result<_, String>`. This is the most important of the three because it can be reused outside of tests for runtime validation, custom test wrappers, chaos engineering, etc.
+- The **panic macro** (`assert_*`) — a thin wrapper used by typical `cargo test`.
+- The **debug macro** (`debug_assert_*`) — a thin wrapper used by typical runtime debug configs.
 
-* The panic macro is `assert_gt`. It is a thin wrapper.
+`claims` provides two: the panic macro and the debug macro. The logic lives inside the panic macro, which makes it hard to reuse outside of the panicking test path.
 
-* The debug macro is `debug_assert_gt`. It is a thin wrapper.
+## See also
 
-You can see `claim` provides two macros:
-
-* The panic macro is `assert_gt`. It contains the logic, which means the logic can't be reused independently.
-
-* The debug macro is `debug_assert_gt`. It is a thin wrapper.
+- [`assert_ok`](https://docs.rs/assertables/latest/assertables/assert_ok/) module
+- [`assert_err`](https://docs.rs/assertables/latest/assertables/assert_err/) module
+- [`assert_some`](https://docs.rs/assertables/latest/assertables/assert_some/) module
+- [`assert_none`](https://docs.rs/assertables/latest/assertables/assert_none/) module
+- [`assert_ready`](https://docs.rs/assertables/latest/assertables/assert_ready/) module
+- [`assert_pending`](https://docs.rs/assertables/latest/assertables/assert_pending/) module
+- [`assert_matches`](https://docs.rs/assertables/latest/assertables/assert_matches/) module
+- [`claim` comparison guide](../claim) — the original crate that `claims` forked from

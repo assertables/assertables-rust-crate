@@ -268,8 +268,8 @@ Many of the macros has a "success return", which means the macro returns data th
 * Package: assertables-rust-crate
 * Version: 10.0.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2026-05-04T06:59:00Z
-* License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
+* Updated: 2026-05-23T16:03:31Z
+* License: MIT or BSD or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
 ## Modules
@@ -469,7 +469,6 @@ assert_eq_f32!(a, b);
 * [`assert_eq_f32`](macro@crate::assert_eq_f32)
 * [`assert_eq_f32_as_result`](macro@crate::assert_eq_f32_as_result)
 * [`debug_assert_eq_f32`](macro@crate::debug_assert_eq_f32)
-Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
 ```rust
 pub mod assert_eq_f32 { /* ... */ }
@@ -553,7 +552,6 @@ assert_f32_eq!(a, b);
 * [`assert_f32_eq`](macro@crate::assert_f32_eq)
 * [`assert_f32_eq_as_result`](macro@crate::assert_f32_eq_as_result)
 * [`debug_assert_f32_eq`](macro@crate::debug_assert_f32_eq)
-Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
 ```rust
 pub mod assert_f32_eq { /* ... */ }
@@ -581,7 +579,6 @@ assert_f32_ge!(a, b);
 * [`assert_f32_ge`](macro@crate::assert_f32_ge)
 * [`assert_f32_ge_as_result`](macro@crate::assert_f32_ge_as_result)
 * [`debug_assert_f32_ge`](macro@crate::debug_assert_f32_ge)
-Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
 
 ```rust
 pub mod assert_f32_ge { /* ... */ }
@@ -609,7 +606,6 @@ assert_f32_gt!(a, b);
 * [`assert_f32_gt`](macro@crate::assert_f32_gt)
 * [`assert_f32_gt_as_result`](macro@crate::assert_f32_gt_as_result)
 * [`debug_assert_f32_gt`](macro@crate::debug_assert_f32_gt)
-Assert a floating point 32-bit number is greater than another within f32::EPSILON.
 
 ```rust
 pub mod assert_f32_gt { /* ... */ }
@@ -637,7 +633,6 @@ assert_f32_le!(a, b);
 * [`assert_f32_le`](macro@crate::assert_f32_le)
 * [`assert_f32_le_as_result`](macro@crate::assert_f32_le_as_result)
 * [`debug_assert_f32_le`](macro@crate::debug_assert_f32_le)
-Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 
 ```rust
 pub mod assert_f32_le { /* ... */ }
@@ -645,7 +640,7 @@ pub mod assert_f32_le { /* ... */ }
 
 ## Module `assert_f32_lt`
 
-Assert a floating point 32-bit number is equal to another within f32::EPSILON.
+Assert a floating point 32-bit number is less than another within f32::EPSILON.
 
 Pseudocode:<br>
 a < b
@@ -665,7 +660,6 @@ assert_f32_lt!(a, b);
 * [`assert_f32_lt`](macro@crate::assert_f32_lt)
 * [`assert_f32_lt_as_result`](macro@crate::assert_f32_lt_as_result)
 * [`debug_assert_f32_lt`](macro@crate::debug_assert_f32_lt)
-Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
 ```rust
 pub mod assert_f32_lt { /* ... */ }
@@ -693,7 +687,6 @@ assert_f32_ne!(a, b);
 * [`assert_f32_ne`](macro@crate::assert_f32_ne)
 * [`assert_f32_ne_as_result`](macro@crate::assert_f32_ne_as_result)
 * [`debug_assert_f32_ne`](macro@crate::debug_assert_f32_ne)
-Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
 
 ```rust
 pub mod assert_f32_ne { /* ... */ }
@@ -811,7 +804,7 @@ pub mod assert_f64_gt { /* ... */ }
 
 ## Module `assert_f64_le`
 
-Assert a floating point 64-bit number is equal to another within f64::EPSILON.
+Assert a floating point 64-bit number is less than or equal to another within f64::EPSILON.
 
 Pseudocode:<br>
 a ≤ b
@@ -1167,6 +1160,14 @@ where one number may be very close to another number but not quite equal.
 
 * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne) ≈ a is approximately not equal to b
 
+* [`assert_approx_eq_with_absolute_error!(a, b, Δ)`](macro@crate::assert_approx_eq_with_absolute_error) ≈ a is approximately equal to b by using absolute error a.k.a. delta.
+
+* [`assert_approx_ne_with_absolute_error!(a, b, Δ)`](macro@crate::assert_approx_ne_with_absolute_error) ≈ a is approximately not equal to b by using absolute error a.k.a. delta.
+
+* [`assert_approx_eq_with_relative_error!(a, b, ε)`](macro@crate::assert_approx_eq_with_relative_error) ≈ a is approximately equal to b by using relative error a.k.a. epsilon.
+
+* [`assert_approx_ne_with_relative_error!(a, b, ε)`](macro@crate::assert_approx_ne_with_relative_error) ≈ a is approximately not equal to b by using relative error a.k.a. epsilon.
+
 # Example
 
 ```rust
@@ -1309,6 +1310,310 @@ Examples:
 
 ```rust
 pub mod assert_approx_ne { /* ... */ }
+```
+
+## Module `assert_approx_eq_with_absolute_error`
+
+Assert a number is approximately equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | ≤ Δ
+
+# Example
+
+```rust
+use assertables::*;
+
+let a: i8 = 10;
+let b: i8 = 11;
+let delta: i8 = 1;
+assert_approx_eq_with_absolute_error!(a, b, delta);    
+```
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully identical to [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully identical to [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+* [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
+* [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
+
+```rust
+pub mod assert_approx_eq_with_absolute_error { /* ... */ }
+```
+
+## Module `assert_approx_ne_with_absolute_error`
+
+Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | > Δ
+
+# Example
+
+```rust
+use assertables::*;
+
+let a: i8 = 10;
+let b: i8 = 12;
+let delta: i8 = 1;
+assert_approx_ne_with_absolute_error!(a, b, delta);    
+```
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully the complement to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully the complement to the macro [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+* [`assert_approx_ne_with_absolute_error_as_result`](macro@crate::assert_approx_ne_with_absolute_error_as_result)
+* [`debug_assert_approx_ne_with_absolute_error`](macro@crate::debug_assert_approx_ne_with_absolute_error)
+
+```rust
+pub mod assert_approx_ne_with_absolute_error { /* ... */ }
+```
+
+## Module `assert_approx_eq_with_relative_error`
+
+Assert a number is approximately equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | ≤ ε * min(a, b)
+
+# Example
+
+```rust
+use assertables::*;
+
+let a: f32 = 100.0;
+let b: f32 = 103.0;
+let epsilon: f32 = 0.03;
+assert_approx_eq_with_relative_error!(a, b, epsilon);
+```
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully identical to [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully identical to the macro [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+* [`assert_approx_eq_with_relative_error_as_result`](macro@crate::assert_approx_eq_with_relative_error_as_result)
+* [`debug_assert_approx_eq_with_relative_error`](macro@crate::debug_assert_approx_eq_with_relative_error)
+
+```rust
+pub mod assert_approx_eq_with_relative_error { /* ... */ }
+```
+
+## Module `assert_approx_ne_with_relative_error`
+
+Assert a number is approximately not equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | > ε * min(a, b)
+
+# Example
+
+```rust
+use assertables::*;
+
+let a: f32 = 100.0;
+let b: f32 = 103.0;
+let epsilon: f32 = 0.02;
+assert_approx_ne_with_relative_error!(a, b, epsilon);
+```
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully the complement to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully the complement to the macro [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+* [`assert_approx_ne_with_relative_error_as_result`](macro@crate::assert_approx_ne_with_relative_error_as_result)
+* [`debug_assert_approx_ne_with_relative_error`](macro@crate::debug_assert_approx_ne_with_relative_error)
+
+```rust
+pub mod assert_approx_ne_with_relative_error { /* ... */ }
 ```
 
 ## Module `assert_diff`
@@ -2239,19 +2544,19 @@ For values:
 
 * `==`  equal
 * `!=`  not equal
-* `<`	less than
-* `<=`	less than or equal to
-* `>`	greater than
-* `>=`	greater than or equal to
+* `<`   less than
+* `<=`  less than or equal to
+* `>`   greater than
+* `>=`  greater than or equal to
 
 For booleans:
 
-* `^`	logical XOR
-* `!`	logical NOT
-* `&`	logical AND
-* `|`	logical OR
-* `&&`	logical lazy AND
-* `||`	logical lazy OR
+* `^`   logical XOR
+* `!`   logical NOT
+* `&`   logical AND
+* `|`   logical OR
+* `&&`  logical lazy AND
+* `||`  logical lazy OR
 
 # Module macros
 
@@ -4258,7 +4563,6 @@ assert_some_eq!(a, b);
 * [`assert_some_eq`](macro@crate::assert_some_eq)
 * [`assert_some_eq_as_result`](macro@crate::assert_some_eq_as_result)
 * [`debug_assert_some_eq`](macro@crate::debug_assert_some_eq)
-Assert two expressions are Some and their values are equal.
 
 ```rust
 pub mod assert_some_eq { /* ... */ }
@@ -8448,6 +8752,7 @@ pub mod assert_command_stderr_ne_x { /* ... */ }
 Assert a command stderr string contains a given containee.
 
 Deprecated. Please rename from `assert_command_stderr_contains`
+into `assert_command_stderr_string_contains`.
 
 ```rust
 pub mod assert_command_stderr_contains { /* ... */ }
@@ -9020,7 +9325,7 @@ Pseudocode:<br>
 This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 
 * The containee can be a &str, char, a slice of chars, or a function or
-closure that determines if a character contains.
+  closure that determines if a character contains.
 
 # Example
 
@@ -9444,7 +9749,7 @@ Pseudocode:<br>
 This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 
 * The containee can be a &str, char, a slice of chars, or a function or
-closure that determines if a character contains.
+  closure that determines if a character contains.
 
 # Example
 
@@ -10057,7 +10362,7 @@ pub mod assert_success_false { /* ... */ }
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a condition is true.
 
@@ -10088,7 +10393,7 @@ pub macro_rules! assert_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is equal to another.
 
@@ -10124,7 +10429,7 @@ pub macro_rules! assert_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is greater than or equal to another.
 
@@ -10157,7 +10462,7 @@ pub macro_rules! assert_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is greater than or equal to another.
 
@@ -10225,7 +10530,7 @@ pub macro_rules! assert_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is greater than or equal to another.
 
@@ -10271,7 +10576,7 @@ pub macro_rules! debug_assert_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is greater than another.
 
@@ -10304,7 +10609,7 @@ pub macro_rules! assert_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is greater than another.
 
@@ -10372,7 +10677,7 @@ pub macro_rules! assert_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is greater than another.
 
@@ -10418,7 +10723,7 @@ pub macro_rules! debug_assert_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is less than or equal to another.
 
@@ -10451,7 +10756,7 @@ pub macro_rules! assert_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is less than or equal to another.
 
@@ -10519,7 +10824,7 @@ pub macro_rules! assert_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is less than or equal to another.
 
@@ -10565,7 +10870,7 @@ pub macro_rules! debug_assert_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is less than another.
 
@@ -10599,7 +10904,7 @@ pub macro_rules! assert_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is less than another.
 
@@ -10667,7 +10972,7 @@ pub macro_rules! assert_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is less than another.
 
@@ -10713,7 +11018,7 @@ pub macro_rules! debug_assert_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is not equal to another.
 
@@ -10750,8 +11055,9 @@ pub macro_rules! assert_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
 Pseudocode:<br>
 a = b
@@ -10782,7 +11088,7 @@ pub macro_rules! assert_eq_f32_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -10854,7 +11160,7 @@ pub macro_rules! assert_eq_f32 {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -10901,9 +11207,9 @@ pub macro_rules! debug_assert_eq_f32 {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
-Assert two floating point numbers are equal within f64::EPSILON.
+Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
 Pseudocode:<br>
 a = b
@@ -10934,7 +11240,7 @@ pub macro_rules! assert_eq_f64_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -11006,7 +11312,7 @@ pub macro_rules! assert_eq_f64 {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -11052,8 +11358,9 @@ pub macro_rules! debug_assert_eq_f64 {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
 Pseudocode:<br>
 a = b
@@ -11084,7 +11391,7 @@ pub macro_rules! assert_f32_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -11156,7 +11463,7 @@ pub macro_rules! assert_f32_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -11203,8 +11510,9 @@ pub macro_rules! debug_assert_f32_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
 
 Pseudocode:<br>
 a ≥ b
@@ -11235,7 +11543,7 @@ pub macro_rules! assert_f32_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
 
@@ -11307,7 +11615,7 @@ pub macro_rules! assert_f32_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
 
@@ -11354,8 +11662,9 @@ pub macro_rules! debug_assert_f32_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert a floating point 32-bit number is greater than another within f32::EPSILON.
 
 Pseudocode:<br>
 a > b
@@ -11386,7 +11695,7 @@ pub macro_rules! assert_f32_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is greater than another within f32::EPSILON.
 
@@ -11458,7 +11767,7 @@ pub macro_rules! assert_f32_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is greater than another within f32::EPSILON.
 
@@ -11505,8 +11814,9 @@ pub macro_rules! debug_assert_f32_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 
 Pseudocode:<br>
 a ≤ b
@@ -11537,7 +11847,7 @@ pub macro_rules! assert_f32_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 
@@ -11609,7 +11919,7 @@ pub macro_rules! assert_f32_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 
@@ -11656,8 +11966,9 @@ pub macro_rules! debug_assert_f32_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert a floating point 32-bit number is less than another within f32::EPSILON.
 
 Pseudocode:<br>
 a < b
@@ -11688,7 +11999,7 @@ pub macro_rules! assert_f32_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -11760,7 +12071,7 @@ pub macro_rules! assert_f32_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -11807,8 +12118,9 @@ pub macro_rules! debug_assert_f32_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
 
 Pseudocode:<br>
 a ≠ b
@@ -11839,7 +12151,7 @@ pub macro_rules! assert_f32_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
 
@@ -11911,7 +12223,7 @@ pub macro_rules! assert_f32_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
 
@@ -11958,9 +12270,9 @@ pub macro_rules! debug_assert_f32_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
-Assert two floating point numbers are equal within f64::EPSILON.
+Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
 Pseudocode:<br>
 a = b
@@ -11991,7 +12303,7 @@ pub macro_rules! assert_f64_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -12063,7 +12375,7 @@ pub macro_rules! assert_f64_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -12109,9 +12421,9 @@ pub macro_rules! debug_assert_f64_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
-Assert two floating point numbers are equal within f64::EPSILON.
+Assert a floating point 64-bit number is greater than or equal to another within f64::EPSILON.
 
 Pseudocode:<br>
 a ≥ b
@@ -12142,7 +12454,7 @@ pub macro_rules! assert_f64_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is greater than or equal to another within f64::EPSILON.
 
@@ -12214,7 +12526,7 @@ pub macro_rules! assert_f64_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is greater than or equal to another within f64::EPSILON.
 
@@ -12260,9 +12572,9 @@ pub macro_rules! debug_assert_f64_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
-Assert two floating point numbers are equal within f64::EPSILON.
+Assert a floating point 64-bit number is greater than another within f64::EPSILON.
 
 Pseudocode:<br>
 a > b
@@ -12293,7 +12605,7 @@ pub macro_rules! assert_f64_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is greater than another within f64::EPSILON.
 
@@ -12365,7 +12677,7 @@ pub macro_rules! assert_f64_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is greater than another within f64::EPSILON.
 
@@ -12411,9 +12723,9 @@ pub macro_rules! debug_assert_f64_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
-Assert two floating point numbers are equal within f64::EPSILON.
+Assert a floating point 64-bit number is less than or equal to another within f64::EPSILON.
 
 Pseudocode:<br>
 a ≤ b
@@ -12444,7 +12756,7 @@ pub macro_rules! assert_f64_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -12516,7 +12828,7 @@ pub macro_rules! assert_f64_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -12562,9 +12874,9 @@ pub macro_rules! debug_assert_f64_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
-Assert two floating point numbers are equal within f64::EPSILON.
+Assert a floating point 64-bit number is less than another within f64::EPSILON.
 
 Pseudocode:<br>
 a < b
@@ -12595,7 +12907,7 @@ pub macro_rules! assert_f64_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is less than another within f64::EPSILON.
 
@@ -12667,7 +12979,7 @@ pub macro_rules! assert_f64_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is less than another within f64::EPSILON.
 
@@ -12713,9 +13025,9 @@ pub macro_rules! debug_assert_f64_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
-Assert two floating point numbers are equal within f64::EPSILON.
+Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
 
 Pseudocode:<br>
 a ≠ b
@@ -12746,7 +13058,7 @@ pub macro_rules! assert_f64_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
 
@@ -12818,7 +13130,7 @@ pub macro_rules! assert_f64_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
 
@@ -12864,7 +13176,7 @@ pub macro_rules! debug_assert_f64_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is equal to an expression.
 
@@ -12898,7 +13210,7 @@ pub macro_rules! assert_abs_diff_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is equal to an expression.
 
@@ -12976,7 +13288,7 @@ pub macro_rules! assert_abs_diff_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is equal to an expression.
 
@@ -13022,7 +13334,7 @@ pub macro_rules! debug_assert_abs_diff_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is greater than or equal to an expression.
 
@@ -13056,7 +13368,7 @@ pub macro_rules! assert_abs_diff_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is greater than or equal to an expression.
 
@@ -13134,7 +13446,7 @@ pub macro_rules! assert_abs_diff_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is greater than or equal to an expression.
 
@@ -13180,7 +13492,7 @@ pub macro_rules! debug_assert_abs_diff_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is greater than an expression.
 
@@ -13214,7 +13526,7 @@ pub macro_rules! assert_abs_diff_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is greater than an expression.
 
@@ -13292,7 +13604,7 @@ pub macro_rules! assert_abs_diff_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is greater than an expression.
 
@@ -13338,7 +13650,7 @@ pub macro_rules! debug_assert_abs_diff_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is less than or equal to an expression.
 
@@ -13372,7 +13684,7 @@ pub macro_rules! assert_abs_diff_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is less than or equal to an expression.
 
@@ -13450,7 +13762,7 @@ pub macro_rules! assert_abs_diff_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is less than or equal to an expression.
 
@@ -13496,7 +13808,7 @@ pub macro_rules! debug_assert_abs_diff_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is less than an expression.
 
@@ -13530,7 +13842,7 @@ pub macro_rules! assert_abs_diff_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is less than an expression.
 
@@ -13608,7 +13920,7 @@ pub macro_rules! assert_abs_diff_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is less than an expression.
 
@@ -13654,7 +13966,7 @@ pub macro_rules! debug_assert_abs_diff_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is not equal to an expression.
 
@@ -13688,7 +14000,7 @@ pub macro_rules! assert_abs_diff_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is not equal to an expression.
 
@@ -13766,7 +14078,7 @@ pub macro_rules! assert_abs_diff_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an absolute difference is not equal to an expression.
 
@@ -13812,7 +14124,7 @@ pub macro_rules! debug_assert_abs_diff_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_eq_as_result` into `assert_abs_diff_eq_x_as_result`.
 
@@ -13833,7 +14145,7 @@ pub macro_rules! assert_abs_diff_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_eq` into `assert_abs_diff_eq_x`.
 
@@ -13854,7 +14166,7 @@ pub macro_rules! assert_abs_diff_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_eq` into `debug_assert_abs_diff_eq_x`.
 
@@ -13875,7 +14187,7 @@ pub macro_rules! debug_assert_abs_diff_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ge_as_result` into `assert_abs_diff_ge_x_as_result`.
 
@@ -13896,7 +14208,7 @@ pub macro_rules! assert_abs_diff_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ge` into `assert_abs_diff_ge_x`.
 
@@ -13917,7 +14229,7 @@ pub macro_rules! assert_abs_diff_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_ge` into `debug_assert_abs_diff_ge_x`.
 
@@ -13938,7 +14250,7 @@ pub macro_rules! debug_assert_abs_diff_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_gt_as_result` into `assert_abs_diff_gt_x_as_result`.
 
@@ -13959,7 +14271,7 @@ pub macro_rules! assert_abs_diff_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_gt` into `assert_abs_diff_gt_x`.
 
@@ -13980,7 +14292,7 @@ pub macro_rules! assert_abs_diff_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_gt` into `debug_assert_abs_diff_gt_x`.
 
@@ -14001,7 +14313,7 @@ pub macro_rules! debug_assert_abs_diff_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_le_as_result` into `assert_abs_diff_le_x_as_result`.
 
@@ -14022,7 +14334,7 @@ pub macro_rules! assert_abs_diff_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_le` into `assert_abs_diff_le_x`.
 
@@ -14043,7 +14355,7 @@ pub macro_rules! assert_abs_diff_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_le` into `debug_assert_abs_diff_le_x`.
 
@@ -14064,7 +14376,7 @@ pub macro_rules! debug_assert_abs_diff_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_lt_as_result` into `assert_abs_diff_lt_x_as_result`.
 
@@ -14085,7 +14397,7 @@ pub macro_rules! assert_abs_diff_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_lt` into `assert_abs_diff_lt_x`.
 
@@ -14106,7 +14418,7 @@ pub macro_rules! assert_abs_diff_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_lt` into `debug_assert_abs_diff_lt_x`.
 
@@ -14127,7 +14439,7 @@ pub macro_rules! debug_assert_abs_diff_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ne_as_result` into `assert_abs_diff_ne_x_as_result`.
 
@@ -14148,7 +14460,7 @@ pub macro_rules! assert_abs_diff_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ne` into `assert_abs_diff_ne_x`.
 
@@ -14169,7 +14481,7 @@ pub macro_rules! assert_abs_diff_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_ne` into `debug_assert_abs_diff_ne_x`.
 
@@ -14190,7 +14502,7 @@ pub macro_rules! debug_assert_abs_diff_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is approximately equal to another.
 
@@ -14227,7 +14539,7 @@ pub macro_rules! assert_approx_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is approximately equal to another.
 
@@ -14285,11 +14597,10 @@ The macros `assert_approx_eq` and `assert_in_epsilon` can test
 approximations:
 
 * For an approximation, the absolute error (i.e. approx) is the magnitude of
-  the difference between the exact value and the approximation. For this,
- use the macro
+  the difference between the exact value and the approximation.
 
 * For an approximation, the relative error (i.e. epsilon) is the absolute
-  error divided by the magnitude of the exact value. This can be used to
+  error divided by the magnitude of the minimum value. This can be used to
   compare approximations of numbers of wildly differing size.
 
 * For example, approximating the number 1,000 with an absolute error of 3
@@ -14319,7 +14630,7 @@ pub macro_rules! assert_approx_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is approximately equal to another.
 
@@ -14349,7 +14660,7 @@ This macro is intended to work in a similar way to
 # Module macros
 
 * [`assert_approx_eq`](macro@crate::assert_approx_eq)
-* [`assert_approx_eq`](macro@crate::assert_approx_eq)
+* [`assert_approx_eq_as_result`](macro@crate::assert_approx_eq_as_result)
 * [`debug_assert_approx_eq`](macro@crate::debug_assert_approx_eq)
 
 
@@ -14365,7 +14676,7 @@ pub macro_rules! debug_assert_approx_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is approximately not equal to another.
 
@@ -14402,7 +14713,7 @@ pub macro_rules! assert_approx_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is approximately not equal to another.
 
@@ -14460,11 +14771,10 @@ The macros `assert_approx_ne` and `assert_in_epsilon` can test
 approximations:
 
 * For an approximation, the absolute error (i.e. approx) is the magnitude of
-  the difference between the exact value and the approximation. For this,
- use the macro
+  the difference between the exact value and the approximation.
 
 * For an approximation, the relative error (i.e. epsilon) is the absolute
-  error divided by the magnitude of the exact value. This can be used to
+  error divided by the magnitude of the minimum value. This can be used to
   compare approximations of numbers of wildly differing size.
 
 * For example, approximating the number 1,000 with an absolute error of 3
@@ -14494,7 +14804,7 @@ pub macro_rules! assert_approx_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is approximately not equal to another.
 
@@ -14524,7 +14834,7 @@ This macro is intended to work in a similar way to
 # Module macros
 
 * [`assert_approx_ne`](macro@crate::assert_approx_ne)
-* [`assert_approx_ne`](macro@crate::assert_approx_ne)
+* [`assert_approx_ne_as_result`](macro@crate::assert_approx_ne_as_result)
 * [`debug_assert_approx_ne`](macro@crate::debug_assert_approx_ne)
 
 
@@ -14536,11 +14846,957 @@ pub macro_rules! debug_assert_approx_ne {
 }
 ```
 
+### Macro `assert_approx_eq_with_absolute_error_as_result`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | ≤ Δ
+
+* If true, return Result `Ok((lhs, rhs))`.
+
+* When false, return [`Err`] with a message and the values of the
+  expressions with their debug representations.
+
+This macro provides the same statements as [`assert_`](macro.assert_.html), except this macro
+returns a Result, rather than doing a panic.
+
+This macro is useful for runtime checks, such as checking parameters, or
+sanitizing inputs, or handling different results in different ways.
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully identical to [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully identical to [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+* [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
+* [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
+
+
+```rust
+pub macro_rules! assert_approx_eq_with_absolute_error_as_result {
+    /* macro_rules! assert_approx_eq_with_absolute_error_as_result {
+    ($a:expr, $b:expr, $delta:expr $(,)?) => { ... };
+} */
+}
+```
+
+### Macro `assert_approx_eq_with_absolute_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | ≤ Δ
+
+* If true, return `(lhs, rhs)`.
+
+* Otherwise, call [`panic!`] with a message and the values of the
+  expressions with their debug representations.
+
+# Examples
+
+```rust
+use assertables::*;
+# use std::panic;
+
+# fn main() {
+let a: i8 = 10;
+let b: i8 = 11;
+let delta: i8 = 1;
+assert_approx_eq_with_absolute_error!(a, b, delta);
+
+# let result = panic::catch_unwind(|| {
+// This will panic
+let a: i8 = 10;
+let b: i8 = 12;
+let delta: i8 = 1;
+assert_approx_eq_with_absolute_error!(a, b, delta);
+# });
+// assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`
+// https://docs.rs/assertables/…/assertables/macro.assert_approx_eq_with_absolute_error.html
+//        a label: `a`,
+//        a debug: `10`,
+//        b label: `b`,
+//        b debug: `12`,
+//        Δ label: `delta`,
+//        Δ debug: `1`,
+//      | a - b |: `2`,
+//  | a - b | ≤ Δ: false
+# let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+# let message = concat!(
+#     "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
+#     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
+#     "       a label: `a`,\n",
+#     "       a debug: `10`,\n",
+#     "       b label: `b`,\n",
+#     "       b debug: `12`,\n",
+#     "       Δ label: `delta`,\n",
+#     "       Δ debug: `1`,\n",
+#     "     | a - b |: `2`,\n",
+#     " | a - b | ≤ Δ: false",
+# );
+# assert_eq!(actual, message);
+# }
+```
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully identical to [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully identical to [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+* [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
+* [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
+
+
+```rust
+pub macro_rules! assert_approx_eq_with_absolute_error {
+    /* macro_rules! assert_approx_eq_with_absolute_error {
+    ($a:expr, $b:expr, $delta:expr $(,)?) => { ... };
+    ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => { ... };
+} */
+}
+```
+
+### Macro `debug_assert_approx_eq_with_absolute_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | ≤ Δ
+
+This macro provides the same statements as [`assert_approx_eq_with_absolute_error`](macro.assert_approx_eq_with_absolute_error.html),
+except this macro's statements are only enabled in non-optimized
+builds by default. An optimized build will not execute this macro's
+statements unless `-C debug-assertions` is passed to the compiler.
+
+This macro is useful for checks that are too expensive to be present
+in a release build but may be helpful during development.
+
+The result of expanding this macro is always type checked.
+
+An unchecked assertion allows a program in an inconsistent state to
+keep running, which might have unexpected consequences but does not
+introduce unsafety as long as this only happens in safe code. The
+performance cost of assertions, however, is not measurable in general.
+Replacing `assert*!` with `debug_assert*!` is thus only encouraged
+after thorough profiling, and more importantly, only in safe code!
+
+This macro is intended to work in a similar way to
+[`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+
+# Module macros
+
+* [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+* [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
+* [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
+
+
+```rust
+pub macro_rules! debug_assert_approx_eq_with_absolute_error {
+    /* macro_rules! debug_assert_approx_eq_with_absolute_error {
+    ($($arg:tt)*) => { ... };
+} */
+}
+```
+
+### Macro `assert_approx_ne_with_absolute_error_as_result`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | > Δ
+
+* If true, return Result `Ok((lhs, rhs))`.
+
+* When false, return [`Err`] with a message and the values of the
+  expressions with their debug representations.
+
+This macro provides the same statements as [`assert_`](macro.assert_.html), except this macro
+returns a Result, rather than doing a panic.
+
+This macro is useful for runtime checks, such as checking parameters, or
+sanitizing inputs, or handling different results in different ways.
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully the complement to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully the complement to the macro [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+* [`assert_approx_ne_with_absolute_error_as_result`](macro@crate::assert_approx_ne_with_absolute_error_as_result)
+* [`debug_assert_approx_ne_with_absolute_error`](macro@crate::debug_assert_approx_ne_with_absolute_error)
+
+
+```rust
+pub macro_rules! assert_approx_ne_with_absolute_error_as_result {
+    /* macro_rules! assert_approx_ne_with_absolute_error_as_result {
+    ($a:expr, $b:expr, $delta:expr $(,)?) => { ... };
+} */
+}
+```
+
+### Macro `assert_approx_ne_with_absolute_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | > Δ
+
+* If true, return `(lhs, rhs)`.
+
+* Otherwise, call [`panic!`] with a message and the values of the
+  expressions with their debug representations.
+
+# Examples
+
+```rust
+use assertables::*;
+# use std::panic;
+
+# fn main() {
+let a: i8 = 10;
+let b: i8 = 12;
+let delta: i8 = 1;
+assert_approx_ne_with_absolute_error!(a, b, delta);
+
+# let result = panic::catch_unwind(|| {
+// This will panic
+let a: i8 = 10;
+let b: i8 = 11;
+let delta: i8 = 1;
+assert_approx_ne_with_absolute_error!(a, b, delta);
+# });
+// assertion failed: `assert_approx_ne_with_absolute_error!(a, b, Δ)`
+// https://docs.rs/assertables/…/assertables/macro.assert_approx_ne_with_absolute_error.html
+//        a label: `a`,
+//        a debug: `10`,
+//        b label: `b`,
+//        b debug: `11`,
+//        Δ label: `delta`,
+//        Δ debug: `1`,
+//      | a - b |: `1`,
+//  | a - b | > Δ: false
+# let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+# let message = concat!(
+#     "assertion failed: `assert_approx_ne_with_absolute_error!(a, b, Δ)`\n",
+#     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_ne_with_absolute_error.html\n",
+#     "       a label: `a`,\n",
+#     "       a debug: `10`,\n",
+#     "       b label: `b`,\n",
+#     "       b debug: `11`,\n",
+#     "       Δ label: `delta`,\n",
+#     "       Δ debug: `1`,\n",
+#     "     | a - b |: `1`,\n",
+#     " | a - b | > Δ: false",
+# );
+# assert_eq!(actual, message);
+# }
+```
+
+## Comparisons
+
+This crate provides macro groups that test approximations and nearness:
+
+* [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+  [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+  equality within 1e-6. The macro name and the approximate value are chosen
+  to be similar to the longtime popular rust crate `assert_approx_eq`.
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+  tests the absolute error (i.e. delta). This is the magnitude of the
+  difference between the exact value and the approximation.
+  This macro is purposefully the complement to [`assert_in_delta`](macro@crate::assert_in_delta).
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+  tests the relative error (i.e. epsilon). This is the absolute error divided
+  by the magnitude of the minimum value. This can be used to compare
+  approximations of numbers of wildly differing size.
+  This macro is purposefully the complement to [`assert_in_epsilon`](macro@crate::assert_in_epsilon).
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+* [`assert_approx_ne_with_absolute_error_as_result`](macro@crate::assert_approx_ne_with_absolute_error_as_result)
+* [`debug_assert_approx_ne_with_absolute_error`](macro@crate::debug_assert_approx_ne_with_absolute_error)
+
+
+```rust
+pub macro_rules! assert_approx_ne_with_absolute_error {
+    /* macro_rules! assert_approx_ne_with_absolute_error {
+    ($a:expr, $b:expr, $delta:expr $(,)?) => { ... };
+    ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => { ... };
+} */
+}
+```
+
+### Macro `debug_assert_approx_ne_with_absolute_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+
+Pseudocode:<br>
+| a - b | > Δ
+
+This macro provides the same statements as [`assert_approx_ne_with_absolute_error`](macro.assert_approx_ne_with_absolute_error.html),
+except this macro's statements are only enabled in non-optimized
+builds by default. An optimized build will not execute this macro's
+statements unless `-C debug-assertions` is passed to the compiler.
+
+This macro is useful for checks that are too expensive to be present
+in a release build but may be helpful during development.
+
+The result of expanding this macro is always type checked.
+
+An unchecked assertion allows a program in an inconsistent state to
+keep running, which might have unexpected consequences but does not
+introduce unsafety as long as this only happens in safe code. The
+performance cost of assertions, however, is not measurable in general.
+Replacing `assert*!` with `debug_assert*!` is thus only encouraged
+after thorough profiling, and more importantly, only in safe code!
+
+This macro is intended to work in a similar way to
+[`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+
+# Module macros
+
+* [`assert_approx_ne_with_absolute_error`](macro@crate::assert_approx_ne_with_absolute_error)
+* [`assert_approx_ne_with_absolute_error_as_result`](macro@crate::assert_approx_ne_with_absolute_error_as_result)
+* [`debug_assert_approx_ne_with_absolute_error`](macro@crate::debug_assert_approx_ne_with_absolute_error)
+
+
+```rust
+pub macro_rules! debug_assert_approx_ne_with_absolute_error {
+    /* macro_rules! debug_assert_approx_ne_with_absolute_error {
+    ($($arg:tt)*) => { ... };
+} */
+}
+```
+
+### Macro `assert_approx_eq_with_relative_error_as_result`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | ≤ ε * min(a, b)
+
+* If true, return Result `Ok((lhs, rhs))`.
+
+* When false, return [`Err`] with a message and the values of the
+  expressions with their debug representations.
+
+This macro is useful for runtime checks, such as checking parameters, or
+sanitizing inputs, or handling different results in different ways.
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+* [`assert_approx_eq_with_relative_error_as_result`](macro@crate::assert_approx_eq_with_relative_error_as_result)
+* [`debug_assert_approx_eq_with_relative_error`](macro@crate::debug_assert_approx_eq_with_relative_error)
+
+
+```rust
+pub macro_rules! assert_approx_eq_with_relative_error_as_result {
+    /* macro_rules! assert_approx_eq_with_relative_error_as_result {
+    ($a:expr, $b:expr, $epsilon:expr $(,)?) => { ... };
+} */
+}
+```
+
+### Macro `assert_approx_eq_with_relative_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | ≤ ε * min(a, b)
+
+* If true, return `(lhs, rhs)`.
+
+* Otherwise, call [`panic!`] with a message and the values of the
+  expressions with their debug representations.
+
+# Examples
+
+```rust
+use assertables::*;
+# use std::panic;
+
+# fn main() {
+let a: f32 = 100.0;
+let b: f32 = 103.0;
+let epsilon: f32 = 0.03;
+assert_approx_eq_with_relative_error!(a, b, epsilon);
+
+# let result = panic::catch_unwind(|| {
+// This will panic
+let a: f32 = 100.0;
+let b: f32 = 103.0;
+let epsilon: f32 = 0.02;
+assert_approx_eq_with_relative_error!(a, b, epsilon);
+# });
+// assertion failed: `assert_approx_eq_with_relative_error!(a, b, epsilon)`
+// https://docs.rs/assertables/…/assertables/macro.assert_approx_eq_with_relative_error.html
+//                    a label: `a`,
+//                    a debug: `100.0`,
+//                    b label: `b`,
+//                    b debug: `103.0`,
+//                    ε label: `epsilon`,
+//                    ε debug: `0.02`,
+//                  | a - b |: `3.0`,
+//              ε * min(a, b): `2.0`,\n",
+//  | a - b | ≤ ε * min(a, b): false"
+# let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+# let message = concat!(
+#     "assertion failed: `assert_approx_eq_with_relative_error!(a, b, ε)`\n",
+#     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_relative_error.html\n",
+#     "                   a label: `a`,\n",
+#     "                   a debug: `100.0`,\n",
+#     "                   b label: `b`,\n",
+#     "                   b debug: `103.0`,\n",
+#     "                   ε label: `epsilon`,\n",
+#     "                   ε debug: `0.02`,\n",
+#     "                 | a - b |: `3.0`,\n",
+#     "             ε * min(a, b): `2.0`,\n",
+#     " | a - b | ≤ ε * min(a, b): false"
+# );
+# assert_eq!(actual, message);
+# }
+```
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+* [`assert_approx_eq_with_relative_error_as_result`](macro@crate::assert_approx_eq_with_relative_error_as_result)
+* [`debug_assert_approx_eq_with_relative_error`](macro@crate::debug_assert_approx_eq_with_relative_error)
+
+
+```rust
+pub macro_rules! assert_approx_eq_with_relative_error {
+    /* macro_rules! assert_approx_eq_with_relative_error {
+    ($a:expr, $b:expr, $epsilon:expr $(,)?) => { ... };
+    ($a:expr, $b:expr, $epsilon:expr, $($message:tt)+) => { ... };
+} */
+}
+```
+
+### Macro `debug_assert_approx_eq_with_relative_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | ≤ ε * min(a, b)
+
+This macro provides the same statements as [`assert_approx_eq_with_relative_error`](macro.assert_approx_eq_with_relative_error.html),
+except this macro's statements are only enabled in non-optimized
+builds by default. An optimized build will not execute this macro's
+statements unless `-C debug-assertions` is passed to the compiler.
+
+This macro is useful for checks that are too expensive to be present
+in a release build but may be helpful during development.
+
+The result of expanding this macro is always type checked.
+
+An unchecked assertion allows a program in an inconsistent state to
+keep running, which might have unexpected consequences but does not
+introduce unsafety as long as this only happens in safe code. The
+performance cost of assertions, however, is not measurable in general.
+Replacing `assert*!` with `debug_assert*!` is thus only encouraged
+after thorough profiling, and more importantly, only in safe code!
+
+This macro is intended to work in a similar way to
+[`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+
+# Module macros
+
+* [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
+* [`assert_approx_eq_with_relative_error_as_result`](macro@crate::assert_approx_eq_with_relative_error_as_result)
+* [`debug_assert_approx_eq_with_relative_error`](macro@crate::debug_assert_approx_eq_with_relative_error)
+
+
+```rust
+pub macro_rules! debug_assert_approx_eq_with_relative_error {
+    /* macro_rules! debug_assert_approx_eq_with_relative_error {
+    ($($arg:tt)*) => { ... };
+} */
+}
+```
+
+### Macro `assert_approx_ne_with_relative_error_as_result`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately not equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | > ε * min(a, b)
+
+* If true, return Result `Ok((lhs, rhs))`.
+
+* When false, return [`Err`] with a message and the values of the
+  expressions with their debug representations.
+
+This macro is useful for runtime checks, such as checking parameters, or
+sanitizing inputs, or handling different results in different ways.
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+* [`assert_approx_ne_with_relative_error_as_result`](macro@crate::assert_approx_ne_with_relative_error_as_result)
+* [`debug_assert_approx_ne_with_relative_error`](macro@crate::debug_assert_approx_ne_with_relative_error)
+
+
+```rust
+pub macro_rules! assert_approx_ne_with_relative_error_as_result {
+    /* macro_rules! assert_approx_ne_with_relative_error_as_result {
+    ($a:expr, $b:expr, $epsilon:expr $(,)?) => { ... };
+} */
+}
+```
+
+### Macro `assert_approx_ne_with_relative_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately not equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | > ε * min(a, b)
+
+* If true, return `(lhs, rhs)`.
+
+* Otherwise, call [`panic!`] with a message and the values of the
+  expressions with their debug representations.
+
+# Examples
+
+```rust
+use assertables::*;
+# use std::panic;
+
+# fn main() {
+let a: f32 = 100.0;
+let b: f32 = 103.0;
+let epsilon: f32 = 0.02;
+assert_approx_ne_with_relative_error!(a, b, epsilon);
+
+# let result = panic::catch_unwind(|| {
+// This will panic
+let a: f32 = 100.0;
+let b: f32 = 103.0;
+let epsilon: f32 = 0.03;
+assert_approx_ne_with_relative_error!(a, b, epsilon);
+# });
+// assertion failed: `assert_approx_ne_with_relative_error!(a, b, epsilon)`
+// https://docs.rs/assertables/…/assertables/macro.assert_approx_ne_with_relative_error.html
+//                    a label: `a`,
+//                    a debug: `100.0`,
+//                    b label: `b`,
+//                    b debug: `103.0`,
+//                    ε label: `epsilon`,
+//                    ε debug: `0.03`,
+//                  | a - b |: `3.0`,
+//              ε * min(a, b): `3.0`,\n",
+//  | a - b | > ε * min(a, b): false"
+# let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+# let message = concat!(
+#     "assertion failed: `assert_approx_ne_with_relative_error!(a, b, ε)`\n",
+#     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_ne_with_relative_error.html\n",
+#     "                   a label: `a`,\n",
+#     "                   a debug: `100.0`,\n",
+#     "                   b label: `b`,\n",
+#     "                   b debug: `103.0`,\n",
+#     "                   ε label: `epsilon`,\n",
+#     "                   ε debug: `0.03`,\n",
+#     "                 | a - b |: `3.0`,\n",
+#     "             ε * min(a, b): `3.0`,\n",
+#     " | a - b | > ε * min(a, b): false"
+# );
+# assert_eq!(actual, message);
+# }
+```
+
+## Absolute error and relative error
+
+* For an approximation, the absolute error (i.e. delta) is the magnitude of
+  the difference between the exact value and the approximation.
+
+* For an approximation, the relative error (i.e. epsilon) is the absolute
+  error divided by the magnitude of the minimum value. This is typically useful
+  when you want to compare approximations of numbers of wildly differing size.
+
+* For many kinds of applications, the relative error is more important than
+  the absolute error.
+
+## Absolute error and relative error: examples
+
+* Approximating the number 100 and 103 has an absolute error (delta) of 3
+  and a relative error (epsilon) of 0.03.
+
+* Approximating the number 1,000,000 and 1,000,003 has an absolute error
+  (delta) of 3, and a relative error (epsilon) of 0.000003.
+
+## Thanks
+
+* Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+  creating and maintaining the `assert_approx_eq` crate.
+
+* Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+  creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+
+# Module macros
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+* [`assert_approx_ne_with_relative_error_as_result`](macro@crate::assert_approx_ne_with_relative_error_as_result)
+* [`debug_assert_approx_ne_with_relative_error`](macro@crate::debug_assert_approx_ne_with_relative_error)
+
+
+```rust
+pub macro_rules! assert_approx_ne_with_relative_error {
+    /* macro_rules! assert_approx_ne_with_relative_error {
+    ($a:expr, $b:expr, $epsilon:expr $(,)?) => { ... };
+    ($a:expr, $b:expr, $epsilon:expr, $($message:tt)+) => { ... };
+} */
+}
+```
+
+### Macro `debug_assert_approx_ne_with_relative_error`
+
+**Attributes:**
+
+- `MacroExport`
+
+Assert a number is approximately not equal to another by using relative error a.k.a. epsilon.
+
+Pseudocode:<br>
+| a - b | > ε * min(a, b)
+
+This macro provides the same statements as [`assert_approx_ne_with_relative_error`](macro.assert_approx_ne_with_relative_error.html),
+except this macro's statements are only enabled in non-optimized
+builds by default. An optimized build will not execute this macro's
+statements unless `-C debug-assertions` is passed to the compiler.
+
+This macro is useful for checks that are too expensive to be present
+in a release build but may be helpful during development.
+
+The result of expanding this macro is always type checked.
+
+An unchecked assertion allows a program in an inconsistent state to
+keep running, which might have unexpected consequences but does not
+introduce unsafety as long as this only happens in safe code. The
+performance cost of assertions, however, is not measurable in general.
+Replacing `assert*!` with `debug_assert*!` is thus only encouraged
+after thorough profiling, and more importantly, only in safe code!
+
+This macro is intended to work in a similar way to
+[`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+
+# Module macros
+
+* [`assert_approx_ne_with_relative_error`](macro@crate::assert_approx_ne_with_relative_error)
+* [`assert_approx_ne_with_relative_error_as_result`](macro@crate::assert_approx_ne_with_relative_error_as_result)
+* [`debug_assert_approx_ne_with_relative_error`](macro@crate::debug_assert_approx_ne_with_relative_error)
+
+
+```rust
+pub macro_rules! debug_assert_approx_ne_with_relative_error {
+    /* macro_rules! debug_assert_approx_ne_with_relative_error {
+    ($($arg:tt)*) => { ... };
+} */
+}
+```
+
 ### Macro `assert_diff_eq_x_as_result`
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is equal to an expression.
 
@@ -14577,7 +15833,7 @@ pub macro_rules! assert_diff_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is equal to an expression.
 
@@ -14655,7 +15911,7 @@ pub macro_rules! assert_diff_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is equal to an expression.
 
@@ -14701,7 +15957,7 @@ pub macro_rules! debug_assert_diff_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is greater than or equal to an expression.
 
@@ -14738,7 +15994,7 @@ pub macro_rules! assert_diff_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is greater than or equal to an expression.
 
@@ -14816,7 +16072,7 @@ pub macro_rules! assert_diff_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is greater than or equal to an expression.
 
@@ -14862,7 +16118,7 @@ pub macro_rules! debug_assert_diff_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is greater than an expression.
 
@@ -14899,7 +16155,7 @@ pub macro_rules! assert_diff_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is greater than an expression.
 
@@ -14977,7 +16233,7 @@ pub macro_rules! assert_diff_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is greater than an expression.
 
@@ -15023,7 +16279,7 @@ pub macro_rules! debug_assert_diff_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is less than or equal to an expression.
 
@@ -15060,7 +16316,7 @@ pub macro_rules! assert_diff_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is less than or equal to an expression.
 
@@ -15138,7 +16394,7 @@ pub macro_rules! assert_diff_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is less than or equal to an expression.
 
@@ -15184,7 +16440,7 @@ pub macro_rules! debug_assert_diff_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is less than an expression.
 
@@ -15221,7 +16477,7 @@ pub macro_rules! assert_diff_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is less than an expression.
 
@@ -15299,7 +16555,7 @@ pub macro_rules! assert_diff_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is less than an expression.
 
@@ -15345,7 +16601,7 @@ pub macro_rules! debug_assert_diff_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is not equal to an expression.
 
@@ -15382,7 +16638,7 @@ pub macro_rules! assert_diff_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is not equal to an expression.
 
@@ -15460,7 +16716,7 @@ pub macro_rules! assert_diff_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a difference is not equal to an expression.
 
@@ -15506,7 +16762,7 @@ pub macro_rules! debug_assert_diff_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an item is in a container.
 
@@ -15539,7 +16795,7 @@ pub macro_rules! assert_in_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an item is in a container.
 
@@ -15607,7 +16863,7 @@ pub macro_rules! assert_in {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an item is in a container.
 
@@ -15653,7 +16909,7 @@ pub macro_rules! debug_assert_in {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is within delta of another.
 
@@ -15690,7 +16946,7 @@ pub macro_rules! assert_in_delta_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is within delta of another.
 
@@ -15752,8 +17008,7 @@ The macros `assert_in_delta` and `assert_in_epsilon` can test
 approximations:
 
 * For an approximation, the absolute error (i.e. delta) is the magnitude of
-  the difference between the exact value and the approximation. For this,
- use the macro
+  the difference between the exact value and the approximation.
 
 * For an approximation, the relative error (i.e. epsilon) is the absolute
   error divided by the magnitude of the exact value. This can be used to
@@ -15786,7 +17041,7 @@ pub macro_rules! assert_in_delta {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is within delta of another.
 
@@ -15832,7 +17087,7 @@ pub macro_rules! debug_assert_in_delta {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is within epsilon of another.
 
@@ -15866,7 +17121,7 @@ pub macro_rules! assert_in_epsilon_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is within epsilon of another.
 
@@ -15930,8 +17185,7 @@ The macros `assert_in_delta` and `assert_in_epsilon` can test
 approximations:
 
 * For an approximation, the absolute error (i.e. delta) is the magnitude of
-  the difference between the exact value and the approximation. For this,
- use the macro
+  the difference between the exact value and the approximation.
 
 * For an approximation, the relative error (i.e. epsilon) is the absolute
   error divided by the magnitude of the exact value. This can be used to
@@ -15964,7 +17218,7 @@ pub macro_rules! assert_in_epsilon {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a number is within epsilon of another.
 
@@ -16010,7 +17264,7 @@ pub macro_rules! debug_assert_in_epsilon {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an item is in a range.
 
@@ -16043,7 +17297,7 @@ pub macro_rules! assert_in_range_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an item is in a range.
 
@@ -16111,7 +17365,7 @@ pub macro_rules! assert_in_range {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an item is in a range.
 
@@ -16157,7 +17411,7 @@ pub macro_rules! debug_assert_in_range {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a predicate.
 
@@ -16192,7 +17446,7 @@ pub macro_rules! assert_all_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a predicate.
 
@@ -16258,7 +17512,7 @@ pub macro_rules! assert_all {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a predicate.
 
@@ -16304,7 +17558,7 @@ pub macro_rules! debug_assert_all {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are equal to a value.
 
@@ -16339,7 +17593,7 @@ pub macro_rules! assert_all_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are equal to a value.
 
@@ -16409,7 +17663,7 @@ pub macro_rules! assert_all_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are equal to a value.
 
@@ -16455,7 +17709,7 @@ pub macro_rules! debug_assert_all_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are greater than or equal to a value.
 
@@ -16490,7 +17744,7 @@ pub macro_rules! assert_all_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are greater than or equal to a value.
 
@@ -16560,7 +17814,7 @@ pub macro_rules! assert_all_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are greater than or equal to a value.
 
@@ -16606,7 +17860,7 @@ pub macro_rules! debug_assert_all_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are greater than a value.
 
@@ -16641,7 +17895,7 @@ pub macro_rules! assert_all_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are greater than a value.
 
@@ -16711,7 +17965,7 @@ pub macro_rules! assert_all_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable are greater than a value.
 
@@ -16757,7 +18011,7 @@ pub macro_rules! debug_assert_all_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -16792,7 +18046,7 @@ pub macro_rules! assert_all_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -16862,7 +18116,7 @@ pub macro_rules! assert_all_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -16908,7 +18162,7 @@ pub macro_rules! debug_assert_all_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -16943,7 +18197,7 @@ pub macro_rules! assert_all_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -17013,7 +18267,7 @@ pub macro_rules! assert_all_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -17059,7 +18313,7 @@ pub macro_rules! debug_assert_all_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -17094,7 +18348,7 @@ pub macro_rules! assert_all_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -17164,7 +18418,7 @@ pub macro_rules! assert_all_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert all elements of an iteratable match a x.
 
@@ -17210,7 +18464,7 @@ pub macro_rules! debug_assert_all_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable matches a predicate.
 
@@ -17245,7 +18499,7 @@ pub macro_rules! assert_any_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable matches a predicate.
 
@@ -17311,7 +18565,7 @@ pub macro_rules! assert_any {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable matches a predicate.
 
@@ -17357,7 +18611,7 @@ pub macro_rules! debug_assert_any {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is equal to a value.
 
@@ -17392,7 +18646,7 @@ pub macro_rules! assert_any_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is equal to a value.
 
@@ -17462,7 +18716,7 @@ pub macro_rules! assert_any_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is equal to a value.
 
@@ -17508,7 +18762,7 @@ pub macro_rules! debug_assert_any_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is greater than or equal to a value.
 
@@ -17543,7 +18797,7 @@ pub macro_rules! assert_any_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is greater than or equal to a value.
 
@@ -17613,7 +18867,7 @@ pub macro_rules! assert_any_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is greater than or equal to a value.
 
@@ -17659,7 +18913,7 @@ pub macro_rules! debug_assert_any_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is greater than a value.
 
@@ -17694,7 +18948,7 @@ pub macro_rules! assert_any_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is greater than a value.
 
@@ -17764,7 +19018,7 @@ pub macro_rules! assert_any_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is greater than a value.
 
@@ -17810,7 +19064,7 @@ pub macro_rules! debug_assert_any_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is less than or equal to a value.
 
@@ -17845,7 +19099,7 @@ pub macro_rules! assert_any_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is less than or equal to a value.
 
@@ -17915,7 +19169,7 @@ pub macro_rules! assert_any_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is less than or equal to a value.
 
@@ -17961,7 +19215,7 @@ pub macro_rules! debug_assert_any_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is less than a value.
 
@@ -17996,7 +19250,7 @@ pub macro_rules! assert_any_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is less than a value.
 
@@ -18066,7 +19320,7 @@ pub macro_rules! assert_any_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is less than a value.
 
@@ -18112,7 +19366,7 @@ pub macro_rules! debug_assert_any_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is not equal to another.
 
@@ -18147,7 +19401,7 @@ pub macro_rules! assert_any_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is not equal to a value.
 
@@ -18217,7 +19471,7 @@ pub macro_rules! assert_any_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert any element of an iterable is not equal to a value.
 
@@ -18263,7 +19517,7 @@ pub macro_rules! debug_assert_any_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a infix operator, such as assert_infix!(a == b).
 
@@ -18296,7 +19550,7 @@ pub macro_rules! assert_infix_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a infix operator, such as assert_infix!(a == b).
 
@@ -18350,19 +19604,19 @@ For values:
 
 * `==`  equal
 * `!=`  not equal
-* `<`	less than
-* `<=`	less than or equal to
-* `>`	greater than
-* `>=`	greater than or equal to
+* `<`   less than
+* `<=`  less than or equal to
+* `>`   greater than
+* `>=`  greater than or equal to
 
 For booleans:
 
-* `^`	logical XOR
-* `!`	logical NOT
-* `&`	logical AND
-* `|`	logical OR
-* `&&`	logical lazy AND
-* `||`	logical lazy OR
+* `^`   logical XOR
+* `!`   logical NOT
+* `&`   logical AND
+* `|`   logical OR
+* `&&`  logical lazy AND
+* `||`  logical lazy OR
 
 # Module macros
 
@@ -18384,7 +19638,7 @@ pub macro_rules! assert_infix {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a infix operator, such as assert_infix!(a == b).
 
@@ -18430,7 +19684,7 @@ pub macro_rules! debug_assert_infix {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) contains an expression (such as a substring).
 
@@ -18463,7 +19717,7 @@ pub macro_rules! assert_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a container is a match for an expression.
 
@@ -18554,7 +19808,7 @@ pub macro_rules! assert_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a container is a match for an expression.
 
@@ -18600,7 +19854,7 @@ pub macro_rules! debug_assert_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not contain an expression (such as a substring).
 
@@ -18633,7 +19887,7 @@ pub macro_rules! assert_not_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not contain an expression (such as a substring).
 
@@ -18726,7 +19980,7 @@ pub macro_rules! assert_not_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not contain an expression (such as a substring).
 
@@ -18772,7 +20026,7 @@ pub macro_rules! debug_assert_not_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is equal to another.
 
@@ -18805,7 +20059,7 @@ pub macro_rules! assert_count_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is equal to another.
 
@@ -18877,7 +20131,7 @@ pub macro_rules! assert_count_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is equal to another.
 
@@ -18923,7 +20177,7 @@ pub macro_rules! debug_assert_count_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than or equal to another.
 
@@ -18956,7 +20210,7 @@ pub macro_rules! assert_count_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than or equal to another.
 
@@ -19028,7 +20282,7 @@ pub macro_rules! assert_count_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than or equal to another.
 
@@ -19074,7 +20328,7 @@ pub macro_rules! debug_assert_count_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than another.
 
@@ -19107,7 +20361,7 @@ pub macro_rules! assert_count_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than another.
 
@@ -19179,7 +20433,7 @@ pub macro_rules! assert_count_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than another.
 
@@ -19225,7 +20479,7 @@ pub macro_rules! debug_assert_count_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than or equal to another.
 
@@ -19258,7 +20512,7 @@ pub macro_rules! assert_count_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than or equal to another.
 
@@ -19330,7 +20584,7 @@ pub macro_rules! assert_count_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than or equal to another.
 
@@ -19376,7 +20630,7 @@ pub macro_rules! debug_assert_count_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than another.
 
@@ -19409,7 +20663,7 @@ pub macro_rules! assert_count_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than another.
 
@@ -19481,7 +20735,7 @@ pub macro_rules! assert_count_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than another.
 
@@ -19527,7 +20781,7 @@ pub macro_rules! debug_assert_count_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is not equal to another.
 
@@ -19560,7 +20814,7 @@ pub macro_rules! assert_count_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is not equal to another.
 
@@ -19632,7 +20886,7 @@ pub macro_rules! assert_count_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is not equal to another.
 
@@ -19678,7 +20932,7 @@ pub macro_rules! debug_assert_count_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is equal to an expression.
 
@@ -19711,7 +20965,7 @@ pub macro_rules! assert_count_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is equal to an expression.
 
@@ -19781,7 +21035,7 @@ pub macro_rules! assert_count_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is equal to an expression.
 
@@ -19827,7 +21081,7 @@ pub macro_rules! debug_assert_count_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than or equal to an expression.
 
@@ -19860,7 +21114,7 @@ pub macro_rules! assert_count_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than or equal to an expression.
 
@@ -19930,7 +21184,7 @@ pub macro_rules! assert_count_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than or equal to an expression.
 
@@ -19976,7 +21230,7 @@ pub macro_rules! debug_assert_count_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than an expression.
 
@@ -20009,7 +21263,7 @@ pub macro_rules! assert_count_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than an expression.
 
@@ -20079,7 +21333,7 @@ pub macro_rules! assert_count_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is greater than an expression.
 
@@ -20125,7 +21379,7 @@ pub macro_rules! debug_assert_count_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than or equal to an expression.
 
@@ -20158,7 +21412,7 @@ pub macro_rules! assert_count_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than or equal to an expression.
 
@@ -20228,7 +21482,7 @@ pub macro_rules! assert_count_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than or equal to an expression.
 
@@ -20274,7 +21528,7 @@ pub macro_rules! debug_assert_count_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than an expression.
 
@@ -20307,7 +21561,7 @@ pub macro_rules! assert_count_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than an expression.
 
@@ -20377,7 +21631,7 @@ pub macro_rules! assert_count_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is less than an expression.
 
@@ -20423,7 +21677,7 @@ pub macro_rules! debug_assert_count_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is not equal to an expression.
 
@@ -20456,7 +21710,7 @@ pub macro_rules! assert_count_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is not equal to an expression.
 
@@ -20526,7 +21780,7 @@ pub macro_rules! assert_count_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a count is not equal to an expression.
 
@@ -20572,7 +21826,7 @@ pub macro_rules! debug_assert_count_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is possibly an email address.
 
@@ -20602,7 +21856,7 @@ pub macro_rules! assert_email_address_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is possibly an email address.
 
@@ -20665,7 +21919,7 @@ pub macro_rules! assert_email_address {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is possibly an email address.
 
@@ -20708,7 +21962,7 @@ pub macro_rules! debug_assert_email_address {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is possibly not an email address.
 
@@ -20738,7 +21992,7 @@ pub macro_rules! assert_not_email_address_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is possibly not an email address.
 
@@ -20805,7 +22059,7 @@ pub macro_rules! assert_not_email_address {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is possibly not an email address.
 
@@ -20848,7 +22102,7 @@ pub macro_rules! debug_assert_not_email_address {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) ends with an expression (such as a substring).
 
@@ -20881,7 +22135,7 @@ pub macro_rules! assert_ends_with_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) ends with an expression (such as a string).
 
@@ -20955,7 +22209,7 @@ pub macro_rules! assert_ends_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) ends with an expression (such as a string).
 
@@ -21001,7 +22255,7 @@ pub macro_rules! debug_assert_ends_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not end with an expression (such as a substring).
 
@@ -21034,7 +22288,7 @@ pub macro_rules! assert_not_ends_with_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not end with an expression (such as a string).
 
@@ -21108,7 +22362,7 @@ pub macro_rules! assert_not_ends_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not end with an expression (such as a string).
 
@@ -21154,7 +22408,7 @@ pub macro_rules! debug_assert_not_ends_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a regex) is a match for an expression (such as a string).
 
@@ -21187,7 +22441,7 @@ pub macro_rules! assert_is_empty_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string or array) is empty.
 
@@ -21249,7 +22503,7 @@ pub macro_rules! assert_is_empty {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string or array) is empty.
 
@@ -21295,7 +22549,7 @@ pub macro_rules! debug_assert_is_empty {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string or array) is not empty.
 
@@ -21328,7 +22582,7 @@ pub macro_rules! assert_not_empty_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string or array) is not empty.
 
@@ -21390,7 +22644,7 @@ pub macro_rules! assert_not_empty {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string or array) is not empty.
 
@@ -21436,7 +22690,7 @@ pub macro_rules! debug_assert_not_empty {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a regex) is a match for an expression (such as a string).
 
@@ -21469,7 +22723,7 @@ pub macro_rules! assert_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a matcher is a match for an expression.
 
@@ -21538,7 +22792,7 @@ pub macro_rules! assert_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a matcher is a match for an expression.
 
@@ -21584,7 +22838,7 @@ pub macro_rules! debug_assert_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a regex) is not a match for an expression (such as a string).
 
@@ -21617,7 +22871,7 @@ pub macro_rules! assert_not_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a regex) is not a match for an expression (such as a string).
 
@@ -21686,7 +22940,7 @@ pub macro_rules! assert_not_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a regex) is not a match for an expression (such as a string).
 
@@ -21732,7 +22986,7 @@ pub macro_rules! debug_assert_not_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is equal to another.
 
@@ -21765,7 +23019,7 @@ pub macro_rules! assert_len_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is equal to another.
 
@@ -21837,7 +23091,7 @@ pub macro_rules! assert_len_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is equal to another.
 
@@ -21883,7 +23137,7 @@ pub macro_rules! debug_assert_len_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than or equal to another.
 
@@ -21916,7 +23170,7 @@ pub macro_rules! assert_len_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than or equal to another.
 
@@ -21988,7 +23242,7 @@ pub macro_rules! assert_len_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than or equal to another.
 
@@ -22034,7 +23288,7 @@ pub macro_rules! debug_assert_len_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than another.
 
@@ -22067,7 +23321,7 @@ pub macro_rules! assert_len_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than another.
 
@@ -22139,7 +23393,7 @@ pub macro_rules! assert_len_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than another.
 
@@ -22185,7 +23439,7 @@ pub macro_rules! debug_assert_len_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than or equal to another.
 
@@ -22218,7 +23472,7 @@ pub macro_rules! assert_len_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than or equal to another.
 
@@ -22290,7 +23544,7 @@ pub macro_rules! assert_len_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than or equal to another.
 
@@ -22336,7 +23590,7 @@ pub macro_rules! debug_assert_len_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than another.
 
@@ -22369,7 +23623,7 @@ pub macro_rules! assert_len_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than another.
 
@@ -22441,7 +23695,7 @@ pub macro_rules! assert_len_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than another.
 
@@ -22487,7 +23741,7 @@ pub macro_rules! debug_assert_len_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is not equal to another.
 
@@ -22520,7 +23774,7 @@ pub macro_rules! assert_len_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is not equal to another.
 
@@ -22592,7 +23846,7 @@ pub macro_rules! assert_len_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is not equal to another.
 
@@ -22638,7 +23892,7 @@ pub macro_rules! debug_assert_len_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is equal to an expression.
 
@@ -22671,7 +23925,7 @@ pub macro_rules! assert_len_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is equal to an expression.
 
@@ -22741,7 +23995,7 @@ pub macro_rules! assert_len_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is equal to an expression.
 
@@ -22787,7 +24041,7 @@ pub macro_rules! debug_assert_len_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than or equal to an expression.
 
@@ -22820,7 +24074,7 @@ pub macro_rules! assert_len_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than or equal to an expression.
 
@@ -22890,7 +24144,7 @@ pub macro_rules! assert_len_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than or equal to an expression.
 
@@ -22936,7 +24190,7 @@ pub macro_rules! debug_assert_len_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than an expression.
 
@@ -22969,7 +24223,7 @@ pub macro_rules! assert_len_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than an expression.
 
@@ -23039,7 +24293,7 @@ pub macro_rules! assert_len_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is greater than an expression.
 
@@ -23085,7 +24339,7 @@ pub macro_rules! debug_assert_len_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than or equal to an expression.
 
@@ -23118,7 +24372,7 @@ pub macro_rules! assert_len_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than or equal to an expression.
 
@@ -23188,7 +24442,7 @@ pub macro_rules! assert_len_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than or equal to an expression.
 
@@ -23234,7 +24488,7 @@ pub macro_rules! debug_assert_len_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than an expression.
 
@@ -23267,7 +24521,7 @@ pub macro_rules! assert_len_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than an expression.
 
@@ -23337,7 +24591,7 @@ pub macro_rules! assert_len_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is less than an expression.
 
@@ -23383,7 +24637,7 @@ pub macro_rules! debug_assert_len_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is not equal to an expression.
 
@@ -23416,7 +24670,7 @@ pub macro_rules! assert_len_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is not equal to an expression.
 
@@ -23486,7 +24740,7 @@ pub macro_rules! assert_len_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a length is not equal to an expression.
 
@@ -23532,7 +24786,7 @@ pub macro_rules! debug_assert_len_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression matches a case.
 
@@ -23562,7 +24816,7 @@ pub macro_rules! assert_matches_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Some.
 
@@ -23621,7 +24875,7 @@ pub macro_rules! assert_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Some.
 
@@ -23664,7 +24918,7 @@ pub macro_rules! debug_assert_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression matches a case.
 
@@ -23694,7 +24948,7 @@ pub macro_rules! assert_not_matches_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Some.
 
@@ -23753,7 +25007,7 @@ pub macro_rules! assert_not_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Some.
 
@@ -23796,7 +25050,7 @@ pub macro_rules! debug_assert_not_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not start with an expression (such as a substring).
 
@@ -23829,7 +25083,7 @@ pub macro_rules! assert_not_starts_with_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not start with an expression (such as a string).
 
@@ -23903,7 +25157,7 @@ pub macro_rules! assert_not_starts_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) does not start with an expression (such as a string).
 
@@ -23949,7 +25203,7 @@ pub macro_rules! debug_assert_not_starts_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) starts with an expression (such as a substring).
 
@@ -23982,7 +25236,7 @@ pub macro_rules! assert_starts_with_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) starts with an expression (such as a string).
 
@@ -24056,7 +25310,7 @@ pub macro_rules! assert_starts_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression (such as a string) starts with an expression (such as a string).
 
@@ -24102,7 +25356,7 @@ pub macro_rules! debug_assert_starts_with {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Err.
 
@@ -24135,7 +25389,7 @@ pub macro_rules! assert_err_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Err.
 
@@ -24197,7 +25451,7 @@ pub macro_rules! assert_err {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Err.
 
@@ -24243,7 +25497,7 @@ pub macro_rules! debug_assert_err {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Err and their values are equal.
 
@@ -24276,7 +25530,7 @@ pub macro_rules! assert_err_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Err and their values are equal.
 
@@ -24348,7 +25602,7 @@ pub macro_rules! assert_err_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Err and their values are equal.
 
@@ -24394,7 +25648,7 @@ pub macro_rules! debug_assert_err_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Err and their values are not equal.
 
@@ -24427,7 +25681,7 @@ pub macro_rules! assert_err_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Err and their values are not equal.
 
@@ -24499,7 +25753,7 @@ pub macro_rules! assert_err_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Err and their values are not equal.
 
@@ -24542,7 +25796,7 @@ pub macro_rules! debug_assert_err_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Err and its value is equal to an expression.
 
@@ -24575,7 +25829,7 @@ pub macro_rules! assert_err_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Err and its value is equal to an expression.
 
@@ -24645,7 +25899,7 @@ pub macro_rules! assert_err_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Err and its value is equal to an expression.
 
@@ -24691,7 +25945,7 @@ pub macro_rules! debug_assert_err_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Err and its value is not equal to an expression.
 
@@ -24724,7 +25978,7 @@ pub macro_rules! assert_err_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Err and its value is not equal to an expression.
 
@@ -24794,7 +26048,7 @@ pub macro_rules! assert_err_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Err and its value is not equal to an expression.
 
@@ -24840,7 +26094,7 @@ pub macro_rules! debug_assert_err_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Ok.
 
@@ -24873,7 +26127,7 @@ pub macro_rules! assert_ok_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Ok.
 
@@ -24935,7 +26189,7 @@ pub macro_rules! assert_ok {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Ok.
 
@@ -24981,7 +26235,7 @@ pub macro_rules! debug_assert_ok {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ok and their values are equal.
 
@@ -25014,7 +26268,7 @@ pub macro_rules! assert_ok_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ok and their values are equal.
 
@@ -25086,7 +26340,7 @@ pub macro_rules! assert_ok_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ok and their values are equal.
 
@@ -25132,7 +26386,7 @@ pub macro_rules! debug_assert_ok_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ok and their values are not equal.
 
@@ -25165,7 +26419,7 @@ pub macro_rules! assert_ok_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ok and their values are not equal.
 
@@ -25237,7 +26491,7 @@ pub macro_rules! assert_ok_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ok and their values are not equal.
 
@@ -25280,7 +26534,7 @@ pub macro_rules! debug_assert_ok_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ok and its value is equal to an expression.
 
@@ -25313,7 +26567,7 @@ pub macro_rules! assert_ok_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ok and its value is equal to an expression.
 
@@ -25383,7 +26637,7 @@ pub macro_rules! assert_ok_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ok and its value is equal to an expression.
 
@@ -25429,7 +26683,7 @@ pub macro_rules! debug_assert_ok_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ok and its value is not equal to an expression.
 
@@ -25462,7 +26716,7 @@ pub macro_rules! assert_ok_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ok and its value is not equal to an expression.
 
@@ -25532,7 +26786,7 @@ pub macro_rules! assert_ok_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ok and its value is not equal to an expression.
 
@@ -25578,7 +26832,7 @@ pub macro_rules! debug_assert_ok_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_err_as_result` into `assert_err_as_result` because more developers prefer the shorter name.
 
@@ -25599,7 +26853,7 @@ pub macro_rules! assert_result_err_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_err` into `assert_err` because more developers prefer the shorter name.
 
@@ -25619,7 +26873,7 @@ pub macro_rules! assert_result_err {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_err` into `debug_assert_err` because more developers prefer the shorter name.
 
@@ -25640,7 +26894,7 @@ pub macro_rules! debug_assert_result_err {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_as_result` into `assert_ok_as_result` because more developers prefer the shorter name.
 
@@ -25661,7 +26915,7 @@ pub macro_rules! assert_result_ok_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok` into `assert_ok` because more developers prefer the shorter name.
 
@@ -25682,7 +26936,7 @@ pub macro_rules! assert_result_ok {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_ok` into `debug_assert_ok` because more developers prefer the shorter name.
 
@@ -25703,7 +26957,7 @@ pub macro_rules! debug_assert_result_ok {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_eq_as_result` into `assert_ok_eq_as_result` because more developers prefer the shorter name.
 
@@ -25724,7 +26978,7 @@ pub macro_rules! assert_result_ok_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_eq` into `assert_ok_eq` because more developers prefer the shorter name.
 
@@ -25745,7 +26999,7 @@ pub macro_rules! assert_result_ok_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_ok_eq` into `debug_assert_ok_eq` because more developers prefer the shorter name.
 
@@ -25766,7 +27020,7 @@ pub macro_rules! debug_assert_result_ok_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_ne_as_result` into `assert_ok_ne_as_result` because more developers prefer the shorter name.
 
@@ -25787,7 +27041,7 @@ pub macro_rules! assert_result_ok_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_ne` into `assert_ok_ne` because more developers prefer the shorter name.
 
@@ -25808,7 +27062,7 @@ pub macro_rules! assert_result_ok_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_ok_ne` into `debug_result_ok_ne` because more developers prefer the shorter name.
 
@@ -25829,7 +27083,7 @@ pub macro_rules! debug_assert_result_ok_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is None.
 
@@ -25862,7 +27116,7 @@ pub macro_rules! assert_none_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is None.
 
@@ -25924,7 +27178,7 @@ pub macro_rules! assert_none {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is None.
 
@@ -25970,7 +27224,7 @@ pub macro_rules! debug_assert_none {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_none_as_result` into `assert_none_as_result` because more developers prefer the shorter name.
 
@@ -25991,7 +27245,7 @@ pub macro_rules! assert_option_none_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_none` into `assert_none` because more developers prefer the shorter name.
 
@@ -26012,7 +27266,7 @@ pub macro_rules! assert_option_none {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_none` into `debug_assert_none` because more developers prefer the shorter name.
 
@@ -26033,7 +27287,7 @@ pub macro_rules! debug_assert_option_none {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_as_result` into `assert_some_as_result` because more developers prefer the shorter name.
 
@@ -26054,7 +27308,7 @@ pub macro_rules! assert_option_some_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some` into `assert_some` because more developers prefer the shorter name.
 
@@ -26075,7 +27329,7 @@ pub macro_rules! assert_option_some {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_some` into `debug_assert_some` because more developers prefer the shorter name.
 
@@ -26096,7 +27350,7 @@ pub macro_rules! debug_assert_option_some {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_eq_as_result` into `assert_some_eq_as_result` because more developers prefer the shorter name.
 
@@ -26117,7 +27371,7 @@ pub macro_rules! assert_option_some_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_eq` into `assert_some_eq` because more developers prefer the shorter name.
 
@@ -26138,7 +27392,7 @@ pub macro_rules! assert_option_some_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_some_eq` into `debug_assert_some_eq` because more developers prefer the shorter name.
 
@@ -26159,7 +27413,7 @@ pub macro_rules! debug_assert_option_some_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_ne_as_result` into `assert_some_ne_as_result` because more developers prefer the shorter name.
 
@@ -26180,7 +27434,7 @@ pub macro_rules! assert_option_some_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_ne` into `assert_some_ne` because more developers prefer the shorter name.
 
@@ -26201,7 +27455,7 @@ pub macro_rules! assert_option_some_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_some_ne` into `debug_assert_some_ne` because more developers prefer the shorter name.
 
@@ -26222,7 +27476,7 @@ pub macro_rules! debug_assert_option_some_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression.is_some() is true.
 
@@ -26255,7 +27509,7 @@ pub macro_rules! assert_some_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Some.
 
@@ -26317,7 +27571,7 @@ pub macro_rules! assert_some {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert expression is Some.
 
@@ -26363,8 +27617,9 @@ pub macro_rules! debug_assert_some {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
+Assert two expressions are Some and their values are equal.
 
 Pseudocode:<br>
 (a ⇒ Some(a1) ⇒ a1) = (b ⇒ Some(b1) ⇒ b1)
@@ -26398,7 +27653,7 @@ pub macro_rules! assert_some_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Some and their values are equal.
 
@@ -26470,7 +27725,7 @@ pub macro_rules! assert_some_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Some and their values are equal.
 
@@ -26516,7 +27771,7 @@ pub macro_rules! debug_assert_some_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Some and their values are not equal.
 
@@ -26552,7 +27807,7 @@ pub macro_rules! assert_some_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Some and their values are not equal.
 
@@ -26624,7 +27879,7 @@ pub macro_rules! assert_some_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Some and their values are not equal.
 
@@ -26670,7 +27925,7 @@ pub macro_rules! debug_assert_some_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a.is_some() and a.unwrap() are equal to another.
 
@@ -26706,7 +27961,7 @@ pub macro_rules! assert_some_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Some and its value is equal to an expression.
 
@@ -26776,7 +28031,7 @@ pub macro_rules! assert_some_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Some and its value is equal to an expression.
 
@@ -26822,7 +28077,7 @@ pub macro_rules! debug_assert_some_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a.is_some() and a.unwrap() are equal to another.
 
@@ -26858,7 +28113,7 @@ pub macro_rules! assert_some_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Some and its value is not equal to an expression.
 
@@ -26928,7 +28183,7 @@ pub macro_rules! assert_some_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Some and its value is not equal to an expression.
 
@@ -26974,7 +28229,7 @@ pub macro_rules! debug_assert_some_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression.is_pending() is true.
 
@@ -27007,7 +28262,7 @@ pub macro_rules! assert_pending_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Pending.
 
@@ -27070,7 +28325,7 @@ pub macro_rules! assert_pending {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Pending.
 
@@ -27116,7 +28371,7 @@ pub macro_rules! debug_assert_pending {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_pending_as_result` into `assert_pending_as_result` because more developers prefer the shorter name.
 
@@ -27137,7 +28392,7 @@ pub macro_rules! assert_poll_pending_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_pending` into `assert_pending` because more developers prefer the shorter name.
 
@@ -27158,7 +28413,7 @@ pub macro_rules! assert_poll_pending {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_pending` into `debug_assert_pending` because more developers prefer the shorter name.
 
@@ -27179,7 +28434,7 @@ pub macro_rules! debug_assert_poll_pending {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_as_result` into `assert_ready_as_result` because more developers prefer the shorter name.
 
@@ -27200,7 +28455,7 @@ pub macro_rules! assert_poll_ready_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready` into `assert_ready` because more developers prefer the shorter name.
 
@@ -27221,7 +28476,7 @@ pub macro_rules! assert_poll_ready {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_ready` into `debug_assert_ready` because more developers prefer the shorter name.
 
@@ -27242,7 +28497,7 @@ pub macro_rules! debug_assert_poll_ready {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_eq_as_result` into `assert_ready_eq_as_result` because more developers prefer the shorter name.
 
@@ -27263,7 +28518,7 @@ pub macro_rules! assert_poll_ready_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_eq` into `assert_ready_eq` because more developers prefer the shorter name.
 
@@ -27284,7 +28539,7 @@ pub macro_rules! assert_poll_ready_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_ready_eq` into `debug_assert_ready_eq` because more developers prefer the shorter name.
 
@@ -27305,7 +28560,7 @@ pub macro_rules! debug_assert_poll_ready_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_ne_as_result` into `assert_ready_ne_as_result` because more developers prefer the shorter name.
 
@@ -27326,7 +28581,7 @@ pub macro_rules! assert_poll_ready_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_ne` into `assert_ready_ne` because more developers prefer the shorter name.
 
@@ -27347,7 +28602,7 @@ pub macro_rules! assert_poll_ready_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_ready_ne` into `debug_assert_ready_ne` because more developers prefer the shorter name.
 
@@ -27368,7 +28623,7 @@ pub macro_rules! debug_assert_poll_ready_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready.
 
@@ -27401,7 +28656,7 @@ pub macro_rules! assert_ready_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready.
 
@@ -27464,7 +28719,7 @@ pub macro_rules! assert_ready {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready.
 
@@ -27510,7 +28765,7 @@ pub macro_rules! debug_assert_ready {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ready and their values are equal.
 
@@ -27546,7 +28801,7 @@ pub macro_rules! assert_ready_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ready and their values are equal.
 
@@ -27619,7 +28874,7 @@ pub macro_rules! assert_ready_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ready and their values are equal.
 
@@ -27665,7 +28920,7 @@ pub macro_rules! debug_assert_ready_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ready and their values are not equal.
 
@@ -27701,7 +28956,7 @@ pub macro_rules! assert_ready_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ready and their values are not equal.
 
@@ -27774,7 +29029,7 @@ pub macro_rules! assert_ready_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert two expressions are Ready and their values are not equal.
 
@@ -27820,7 +29075,7 @@ pub macro_rules! debug_assert_ready_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready and its value is equal to an expression.
 
@@ -27856,7 +29111,7 @@ pub macro_rules! assert_ready_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready and its value is equal to an expression.
 
@@ -27927,7 +29182,7 @@ pub macro_rules! assert_ready_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready and its value is equal to an expression.
 
@@ -27973,7 +29228,7 @@ pub macro_rules! debug_assert_ready_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready and its value is not equal to an expression.
 
@@ -28009,7 +29264,7 @@ pub macro_rules! assert_ready_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready and its value is not equal to an expression.
 
@@ -28080,7 +29335,7 @@ pub macro_rules! assert_ready_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an expression is Ready and its value is not equal to an expression.
 
@@ -28126,7 +29381,7 @@ pub macro_rules! debug_assert_ready_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert bag implementation preparation.
 
@@ -28142,7 +29397,7 @@ pub macro_rules! assert_bag_impl_prep {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is equal to another.
 
@@ -28175,7 +29430,7 @@ pub macro_rules! assert_bag_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is equal to another.
 
@@ -28249,7 +29504,7 @@ pub macro_rules! assert_bag_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is equal to another.
 
@@ -28295,7 +29550,7 @@ pub macro_rules! debug_assert_bag_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is not equal to another.
 
@@ -28328,7 +29583,7 @@ pub macro_rules! assert_bag_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is not equal to another.
 
@@ -28402,7 +29657,7 @@ pub macro_rules! assert_bag_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is not equal to another.
 
@@ -28448,7 +29703,7 @@ pub macro_rules! debug_assert_bag_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is a subbag of another.
 
@@ -28481,7 +29736,7 @@ pub macro_rules! assert_bag_subbag_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is a subbag of another.
 
@@ -28555,7 +29810,7 @@ pub macro_rules! assert_bag_subbag {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is a subbag of another.
 
@@ -28601,7 +29856,7 @@ pub macro_rules! debug_assert_bag_subbag {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is a superbag of another.
 
@@ -28634,7 +29889,7 @@ pub macro_rules! assert_bag_superbag_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is a superbag of another.
 
@@ -28708,7 +29963,7 @@ pub macro_rules! assert_bag_superbag {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a bag is a superbag of another.
 
@@ -28754,7 +30009,7 @@ pub macro_rules! debug_assert_bag_superbag {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is equal to another.
 
@@ -28789,7 +30044,7 @@ pub macro_rules! assert_iter_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is equal to another.
 
@@ -28859,7 +30114,7 @@ pub macro_rules! assert_iter_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is equal to another.
 
@@ -28905,7 +30160,7 @@ pub macro_rules! debug_assert_iter_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is greater than or equal to another.
 
@@ -28940,7 +30195,7 @@ pub macro_rules! assert_iter_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is greater than or equal to another.
 
@@ -29010,7 +30265,7 @@ pub macro_rules! assert_iter_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is greater than or equal to another.
 
@@ -29056,7 +30311,7 @@ pub macro_rules! debug_assert_iter_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is greater than another.
 
@@ -29091,7 +30346,7 @@ pub macro_rules! assert_iter_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is greater than another.
 
@@ -29161,7 +30416,7 @@ pub macro_rules! assert_iter_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is greater than another.
 
@@ -29207,7 +30462,7 @@ pub macro_rules! debug_assert_iter_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is less than or equal to another.
 
@@ -29242,7 +30497,7 @@ pub macro_rules! assert_iter_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is less than or equal to another.
 
@@ -29312,7 +30567,7 @@ pub macro_rules! assert_iter_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is less than or equal to another.
 
@@ -29358,7 +30613,7 @@ pub macro_rules! debug_assert_iter_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is less than another.
 
@@ -29393,7 +30648,7 @@ pub macro_rules! assert_iter_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is less than another.
 
@@ -29463,7 +30718,7 @@ pub macro_rules! assert_iter_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is less than another.
 
@@ -29509,7 +30764,7 @@ pub macro_rules! debug_assert_iter_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is not equal to another.
 
@@ -29544,7 +30799,7 @@ pub macro_rules! assert_iter_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is not equal to another.
 
@@ -29614,7 +30869,7 @@ pub macro_rules! assert_iter_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert an iterable is not equal to another.
 
@@ -29660,7 +30915,7 @@ pub macro_rules! debug_assert_iter_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert set implementation preparation.
 
@@ -29676,7 +30931,7 @@ pub macro_rules! assert_set_impl_prep {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is equal to another.
 
@@ -29711,7 +30966,7 @@ pub macro_rules! assert_set_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is equal to another.
 
@@ -29785,7 +31040,7 @@ pub macro_rules! assert_set_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is equal to another.
 
@@ -29831,7 +31086,7 @@ pub macro_rules! debug_assert_set_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is not equal to another.
 
@@ -29864,7 +31119,7 @@ pub macro_rules! assert_set_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is not equal to another.
 
@@ -29938,7 +31193,7 @@ pub macro_rules! assert_set_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is not equal to another.
 
@@ -29984,7 +31239,7 @@ pub macro_rules! debug_assert_set_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is disjoint with another.
 
@@ -30017,7 +31272,7 @@ pub macro_rules! assert_set_disjoint_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is disjoint with another.
 
@@ -30091,7 +31346,7 @@ pub macro_rules! assert_set_disjoint {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is disjoint with another.
 
@@ -30137,7 +31392,7 @@ pub macro_rules! debug_assert_set_disjoint {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is joint with another.
 
@@ -30170,7 +31425,7 @@ pub macro_rules! assert_set_joint_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is joint with another.
 
@@ -30244,7 +31499,7 @@ pub macro_rules! assert_set_joint {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is joint with another.
 
@@ -30290,7 +31545,7 @@ pub macro_rules! debug_assert_set_joint {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is a subset of another.
 
@@ -30323,7 +31578,7 @@ pub macro_rules! assert_set_subset_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is a subset of another.
 
@@ -30397,7 +31652,7 @@ pub macro_rules! assert_set_subset {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is a subset of another.
 
@@ -30443,7 +31698,7 @@ pub macro_rules! debug_assert_set_subset {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is a superset of another.
 
@@ -30478,7 +31733,7 @@ pub macro_rules! assert_set_superset_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is a superset of another.
 
@@ -30552,7 +31807,7 @@ pub macro_rules! assert_set_superset {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a set is a superset of another.
 
@@ -30598,7 +31853,7 @@ pub macro_rules! debug_assert_set_superset {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is equal to another.
 
@@ -30632,7 +31887,7 @@ pub macro_rules! assert_fn_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is equal to another.
 
@@ -30710,7 +31965,7 @@ pub macro_rules! assert_fn_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is equal to another.
 
@@ -30756,7 +32011,7 @@ pub macro_rules! debug_assert_fn_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than or equal to another.
 
@@ -30790,7 +32045,7 @@ pub macro_rules! assert_fn_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than or equal to another.
 
@@ -30868,7 +32123,7 @@ pub macro_rules! assert_fn_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than or equal to another.
 
@@ -30914,7 +32169,7 @@ pub macro_rules! debug_assert_fn_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than another.
 
@@ -30948,7 +32203,7 @@ pub macro_rules! assert_fn_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than another.
 
@@ -31026,7 +32281,7 @@ pub macro_rules! assert_fn_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than another.
 
@@ -31072,7 +32327,7 @@ pub macro_rules! debug_assert_fn_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than or equal to another.
 
@@ -31108,7 +32363,7 @@ pub macro_rules! assert_fn_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than or equal to another.
 
@@ -31186,7 +32441,7 @@ pub macro_rules! assert_fn_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than or equal to another.
 
@@ -31232,7 +32487,7 @@ pub macro_rules! debug_assert_fn_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than another.
 
@@ -31266,7 +32521,7 @@ pub macro_rules! assert_fn_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than another.
 
@@ -31344,7 +32599,7 @@ pub macro_rules! assert_fn_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than another.
 
@@ -31390,7 +32645,7 @@ pub macro_rules! debug_assert_fn_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is not equal to another.
 
@@ -31424,7 +32679,7 @@ pub macro_rules! assert_fn_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is not equal to another.
 
@@ -31502,7 +32757,7 @@ pub macro_rules! assert_fn_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is not equal to another.
 
@@ -31548,7 +32803,7 @@ pub macro_rules! debug_assert_fn_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is equal to an expression.
 
@@ -31582,7 +32837,7 @@ pub macro_rules! assert_fn_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is equal to an expression.
 
@@ -31658,7 +32913,7 @@ pub macro_rules! assert_fn_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is equal to an expression.
 
@@ -31704,7 +32959,7 @@ pub macro_rules! debug_assert_fn_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than or equal to an expression.
 
@@ -31738,7 +32993,7 @@ pub macro_rules! assert_fn_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than or equal to an expression.
 
@@ -31814,7 +33069,7 @@ pub macro_rules! assert_fn_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than or equal to an expression.
 
@@ -31860,7 +33115,7 @@ pub macro_rules! debug_assert_fn_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than an expression.
 
@@ -31894,7 +33149,7 @@ pub macro_rules! assert_fn_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than an expression.
 
@@ -31970,7 +33225,7 @@ pub macro_rules! assert_fn_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is greater than an expression.
 
@@ -32016,7 +33271,7 @@ pub macro_rules! debug_assert_fn_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than or equal to an expression.
 
@@ -32053,7 +33308,7 @@ pub macro_rules! assert_fn_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than or equal to an expression.
 
@@ -32129,7 +33384,7 @@ pub macro_rules! assert_fn_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than or equal to an expression.
 
@@ -32175,7 +33430,7 @@ pub macro_rules! debug_assert_fn_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than an expression.
 
@@ -32209,7 +33464,7 @@ pub macro_rules! assert_fn_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than an expression.
 
@@ -32285,7 +33540,7 @@ pub macro_rules! assert_fn_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is less than an expression.
 
@@ -32331,7 +33586,7 @@ pub macro_rules! debug_assert_fn_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is not equal to an expression.
 
@@ -32365,7 +33620,7 @@ pub macro_rules! assert_fn_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is not equal to an expression.
 
@@ -32439,7 +33694,7 @@ pub macro_rules! assert_fn_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function output is not equal to an expression.
 
@@ -32485,7 +33740,7 @@ pub macro_rules! debug_assert_fn_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is equal to another.
 
@@ -32519,7 +33774,7 @@ pub macro_rules! assert_fn_err_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is equal to another.
 
@@ -32603,7 +33858,7 @@ pub macro_rules! assert_fn_err_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is equal to another.
 
@@ -32649,7 +33904,7 @@ pub macro_rules! debug_assert_fn_err_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than or equal to another.
 
@@ -32683,7 +33938,7 @@ pub macro_rules! assert_fn_err_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than or equal to another.
 
@@ -32767,7 +34022,7 @@ pub macro_rules! assert_fn_err_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than or equal to another.
 
@@ -32813,7 +34068,7 @@ pub macro_rules! debug_assert_fn_err_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than another.
 
@@ -32847,7 +34102,7 @@ pub macro_rules! assert_fn_err_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than another.
 
@@ -32931,7 +34186,7 @@ pub macro_rules! assert_fn_err_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than another.
 
@@ -32977,7 +34232,7 @@ pub macro_rules! debug_assert_fn_err_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than or equal to another.
 
@@ -33011,7 +34266,7 @@ pub macro_rules! assert_fn_err_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than or equal to another.
 
@@ -33095,7 +34350,7 @@ pub macro_rules! assert_fn_err_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than or equal to another.
 
@@ -33141,7 +34396,7 @@ pub macro_rules! debug_assert_fn_err_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than another.
 
@@ -33172,7 +34427,7 @@ pub macro_rules! assert_fn_err_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than another.
 
@@ -33253,7 +34508,7 @@ pub macro_rules! assert_fn_err_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than another.
 
@@ -33296,7 +34551,7 @@ pub macro_rules! debug_assert_fn_err_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is not equal to another.
 
@@ -33330,7 +34585,7 @@ pub macro_rules! assert_fn_err_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is not equal to another.
 
@@ -33414,7 +34669,7 @@ pub macro_rules! assert_fn_err_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is not equal to another.
 
@@ -33460,7 +34715,7 @@ pub macro_rules! debug_assert_fn_err_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is equal to an expression.
 
@@ -33494,7 +34749,7 @@ pub macro_rules! assert_fn_err_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is equal to an expression.
 
@@ -33576,7 +34831,7 @@ pub macro_rules! assert_fn_err_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is equal to an expression.
 
@@ -33622,7 +34877,7 @@ pub macro_rules! debug_assert_fn_err_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than or equal to an expression.
 
@@ -33656,7 +34911,7 @@ pub macro_rules! assert_fn_err_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than or equal to an expression.
 
@@ -33738,7 +34993,7 @@ pub macro_rules! assert_fn_err_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than or equal to an expression.
 
@@ -33784,7 +35039,7 @@ pub macro_rules! debug_assert_fn_err_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than an expression.
 
@@ -33818,7 +35073,7 @@ pub macro_rules! assert_fn_err_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than an expression.
 
@@ -33900,7 +35155,7 @@ pub macro_rules! assert_fn_err_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is greater than an expression.
 
@@ -33946,7 +35201,7 @@ pub macro_rules! debug_assert_fn_err_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than or equal to an expression.
 
@@ -33980,7 +35235,7 @@ pub macro_rules! assert_fn_err_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than or equal to an expression.
 
@@ -34062,7 +35317,7 @@ pub macro_rules! assert_fn_err_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than or equal to an expression.
 
@@ -34108,7 +35363,7 @@ pub macro_rules! debug_assert_fn_err_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than an expression.
 
@@ -34142,7 +35397,7 @@ pub macro_rules! assert_fn_err_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than an expression.
 
@@ -34224,7 +35479,7 @@ pub macro_rules! assert_fn_err_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is less than an expression.
 
@@ -34270,7 +35525,7 @@ pub macro_rules! debug_assert_fn_err_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is not equal to an expression.
 
@@ -34304,7 +35559,7 @@ pub macro_rules! assert_fn_err_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is not equal to an expression.
 
@@ -34386,7 +35641,7 @@ pub macro_rules! assert_fn_err_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function error is not equal to an expression.
 
@@ -34432,7 +35687,7 @@ pub macro_rules! debug_assert_fn_err_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is equal to another.
 
@@ -34466,7 +35721,7 @@ pub macro_rules! assert_fn_ok_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is equal to another.
 
@@ -34550,7 +35805,7 @@ pub macro_rules! assert_fn_ok_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is equal to another.
 
@@ -34596,7 +35851,7 @@ pub macro_rules! debug_assert_fn_ok_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than or equal to another.
 
@@ -34630,7 +35885,7 @@ pub macro_rules! assert_fn_ok_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than or equal to another.
 
@@ -34714,7 +35969,7 @@ pub macro_rules! assert_fn_ok_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than or equal to another.
 
@@ -34760,7 +36015,7 @@ pub macro_rules! debug_assert_fn_ok_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than another.
 
@@ -34794,7 +36049,7 @@ pub macro_rules! assert_fn_ok_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than another.
 
@@ -34878,7 +36133,7 @@ pub macro_rules! assert_fn_ok_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than another.
 
@@ -34924,7 +36179,7 @@ pub macro_rules! debug_assert_fn_ok_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than or equal to another.
 
@@ -34958,7 +36213,7 @@ pub macro_rules! assert_fn_ok_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than or equal to another.
 
@@ -35042,7 +36297,7 @@ pub macro_rules! assert_fn_ok_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than or equal to another.
 
@@ -35088,7 +36343,7 @@ pub macro_rules! debug_assert_fn_ok_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than another.
 
@@ -35122,7 +36377,7 @@ pub macro_rules! assert_fn_ok_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than another.
 
@@ -35204,7 +36459,7 @@ pub macro_rules! assert_fn_ok_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than another.
 
@@ -35250,7 +36505,7 @@ pub macro_rules! debug_assert_fn_ok_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is not equal to another.
 
@@ -35284,7 +36539,7 @@ pub macro_rules! assert_fn_ok_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is not equal to another.
 
@@ -35368,7 +36623,7 @@ pub macro_rules! assert_fn_ok_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is not equal to another.
 
@@ -35414,7 +36669,7 @@ pub macro_rules! debug_assert_fn_ok_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is equal to an expression.
 
@@ -35448,7 +36703,7 @@ pub macro_rules! assert_fn_ok_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is equal to an expression.
 
@@ -35530,7 +36785,7 @@ pub macro_rules! assert_fn_ok_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is equal to an expression.
 
@@ -35576,7 +36831,7 @@ pub macro_rules! debug_assert_fn_ok_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than or equal to an expression.
 
@@ -35610,7 +36865,7 @@ pub macro_rules! assert_fn_ok_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than or equal to an expression.
 
@@ -35692,7 +36947,7 @@ pub macro_rules! assert_fn_ok_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than or equal to an expression.
 
@@ -35738,7 +36993,7 @@ pub macro_rules! debug_assert_fn_ok_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than an expression.
 
@@ -35772,7 +37027,7 @@ pub macro_rules! assert_fn_ok_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than an expression.
 
@@ -35854,7 +37109,7 @@ pub macro_rules! assert_fn_ok_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is greater than an expression.
 
@@ -35900,7 +37155,7 @@ pub macro_rules! debug_assert_fn_ok_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than or equal to an expression.
 
@@ -35934,7 +37189,7 @@ pub macro_rules! assert_fn_ok_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than or equal to an expression.
 
@@ -36016,7 +37271,7 @@ pub macro_rules! assert_fn_ok_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than or equal to an expression.
 
@@ -36062,7 +37317,7 @@ pub macro_rules! debug_assert_fn_ok_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than an expression.
 
@@ -36098,7 +37353,7 @@ pub macro_rules! assert_fn_ok_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than an expression.
 
@@ -36180,7 +37435,7 @@ pub macro_rules! assert_fn_ok_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is less than an expression.
 
@@ -36226,7 +37481,7 @@ pub macro_rules! debug_assert_fn_ok_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is not equal to an expression.
 
@@ -36260,7 +37515,7 @@ pub macro_rules! assert_fn_ok_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is not equal to an expression.
 
@@ -36342,7 +37597,7 @@ pub macro_rules! assert_fn_ok_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a function Ok(…) is not equal to an expression.
 
@@ -36388,7 +37643,7 @@ pub macro_rules! debug_assert_fn_ok_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is equal to another.
 
@@ -36421,7 +37676,7 @@ pub macro_rules! assert_fs_read_to_string_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is equal to another.
 
@@ -36494,7 +37749,7 @@ pub macro_rules! assert_fs_read_to_string_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is equal to another.
 
@@ -36540,7 +37795,7 @@ pub macro_rules! debug_assert_fs_read_to_string_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to another.
 
@@ -36573,7 +37828,7 @@ pub macro_rules! assert_fs_read_to_string_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to another.
 
@@ -36646,7 +37901,7 @@ pub macro_rules! assert_fs_read_to_string_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to another.
 
@@ -36692,7 +37947,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than another.
 
@@ -36725,7 +37980,7 @@ pub macro_rules! assert_fs_read_to_string_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than another.
 
@@ -36798,7 +38053,7 @@ pub macro_rules! assert_fs_read_to_string_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than another.
 
@@ -36844,7 +38099,7 @@ pub macro_rules! debug_assert_fs_read_to_string_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 
@@ -36877,7 +38132,7 @@ pub macro_rules! assert_fs_read_to_string_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 
@@ -36950,7 +38205,7 @@ pub macro_rules! assert_fs_read_to_string_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 
@@ -36996,7 +38251,7 @@ pub macro_rules! debug_assert_fs_read_to_string_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than another.
 
@@ -37029,7 +38284,7 @@ pub macro_rules! assert_fs_read_to_string_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than another.
 
@@ -37102,7 +38357,7 @@ pub macro_rules! assert_fs_read_to_string_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than another.
 
@@ -37148,7 +38403,7 @@ pub macro_rules! debug_assert_fs_read_to_string_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is not equal to another.
 
@@ -37181,7 +38436,7 @@ pub macro_rules! assert_fs_read_to_string_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is not equal to another.
 
@@ -37254,7 +38509,7 @@ pub macro_rules! assert_fs_read_to_string_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is not equal to another.
 
@@ -37300,7 +38555,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is equal to an expression.
 
@@ -37333,7 +38588,7 @@ pub macro_rules! assert_fs_read_to_string_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is equal to an expression.
 
@@ -37406,7 +38661,7 @@ pub macro_rules! assert_fs_read_to_string_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is equal to an expression.
 
@@ -37452,7 +38707,7 @@ pub macro_rules! debug_assert_fs_read_to_string_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to an expression.
 
@@ -37485,7 +38740,7 @@ pub macro_rules! assert_fs_read_to_string_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to an expression.
 
@@ -37558,7 +38813,7 @@ pub macro_rules! assert_fs_read_to_string_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to an expression.
 
@@ -37604,7 +38859,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than an expression.
 
@@ -37637,7 +38892,7 @@ pub macro_rules! assert_fs_read_to_string_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than an expression.
 
@@ -37710,7 +38965,7 @@ pub macro_rules! assert_fs_read_to_string_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is greater than an expression.
 
@@ -37756,7 +39011,7 @@ pub macro_rules! debug_assert_fs_read_to_string_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
 
@@ -37789,7 +39044,7 @@ pub macro_rules! assert_fs_read_to_string_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
 
@@ -37862,7 +39117,7 @@ pub macro_rules! assert_fs_read_to_string_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
 
@@ -37908,7 +39163,7 @@ pub macro_rules! debug_assert_fs_read_to_string_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than an expression.
 
@@ -37941,7 +39196,7 @@ pub macro_rules! assert_fs_read_to_string_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than an expression.
 
@@ -38014,7 +39269,7 @@ pub macro_rules! assert_fs_read_to_string_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) value is less than an expression.
 
@@ -38060,7 +39315,7 @@ pub macro_rules! debug_assert_fs_read_to_string_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is not equal to an expression.
 
@@ -38093,7 +39348,7 @@ pub macro_rules! assert_fs_read_to_string_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is not equal to an expression.
 
@@ -38166,7 +39421,7 @@ pub macro_rules! assert_fs_read_to_string_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is not equal to an expression.
 
@@ -38212,7 +39467,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) contains a pattern.
 
@@ -38245,7 +39500,7 @@ pub macro_rules! assert_fs_read_to_string_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) contains a pattern.
 
@@ -38316,7 +39571,7 @@ pub macro_rules! assert_fs_read_to_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) contains a pattern.
 
@@ -38362,7 +39617,7 @@ pub macro_rules! debug_assert_fs_read_to_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is a match to a regex.
 
@@ -38395,7 +39650,7 @@ pub macro_rules! assert_fs_read_to_string_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is a match to a regex.
 
@@ -38467,7 +39722,7 @@ pub macro_rules! assert_fs_read_to_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::fs::read_to_string(path) is a match to a regex.
 
@@ -38513,7 +39768,7 @@ pub macro_rules! debug_assert_fs_read_to_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_fs_read_to_string_matches_as_result` into `assert_fs_read_to_string_is_match_as_result`.
 
@@ -38534,7 +39789,7 @@ pub macro_rules! assert_fs_read_to_string_matches_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_fs_read_to_string_matches` into `assert_fs_read_to_string_is_match`.
 
@@ -38555,7 +39810,7 @@ pub macro_rules! assert_fs_read_to_string_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_fs_read_to_string_matches` into `debug_assert_fs_read_to_string_is_match`.
 
@@ -38576,7 +39831,7 @@ pub macro_rules! debug_assert_fs_read_to_string_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is equal to another.
 
@@ -38609,7 +39864,7 @@ pub macro_rules! assert_io_read_to_string_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is equal to another.
 
@@ -38682,7 +39937,7 @@ pub macro_rules! assert_io_read_to_string_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is equal to another.
 
@@ -38728,7 +39983,7 @@ pub macro_rules! debug_assert_io_read_to_string_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to another.
 
@@ -38761,7 +40016,7 @@ pub macro_rules! assert_io_read_to_string_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to another.
 
@@ -38834,7 +40089,7 @@ pub macro_rules! assert_io_read_to_string_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to another.
 
@@ -38880,7 +40135,7 @@ pub macro_rules! debug_assert_io_read_to_string_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than another.
 
@@ -38913,7 +40168,7 @@ pub macro_rules! assert_io_read_to_string_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than another.
 
@@ -38986,7 +40241,7 @@ pub macro_rules! assert_io_read_to_string_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than another.
 
@@ -39032,7 +40287,7 @@ pub macro_rules! debug_assert_io_read_to_string_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to another.
 
@@ -39065,7 +40320,7 @@ pub macro_rules! assert_io_read_to_string_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to another.
 
@@ -39138,7 +40393,7 @@ pub macro_rules! assert_io_read_to_string_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to another.
 
@@ -39184,7 +40439,7 @@ pub macro_rules! debug_assert_io_read_to_string_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than another.
 
@@ -39217,7 +40472,7 @@ pub macro_rules! assert_io_read_to_string_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than another.
 
@@ -39290,7 +40545,7 @@ pub macro_rules! assert_io_read_to_string_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than another.
 
@@ -39336,7 +40591,7 @@ pub macro_rules! debug_assert_io_read_to_string_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is not equal to another.
 
@@ -39369,7 +40624,7 @@ pub macro_rules! assert_io_read_to_string_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is not equal to another.
 
@@ -39442,7 +40697,7 @@ pub macro_rules! assert_io_read_to_string_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is not equal to another.
 
@@ -39488,7 +40743,7 @@ pub macro_rules! debug_assert_io_read_to_string_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is equal to an expression.
 
@@ -39521,7 +40776,7 @@ pub macro_rules! assert_io_read_to_string_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is equal to an expression.
 
@@ -39592,7 +40847,7 @@ pub macro_rules! assert_io_read_to_string_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is equal to an expression.
 
@@ -39638,7 +40893,7 @@ pub macro_rules! debug_assert_io_read_to_string_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 
@@ -39671,7 +40926,7 @@ pub macro_rules! assert_io_read_to_string_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 
@@ -39744,7 +40999,7 @@ pub macro_rules! assert_io_read_to_string_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert zzz.
 
@@ -39790,7 +41045,7 @@ pub macro_rules! debug_assert_io_read_to_string_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than an expression.
 
@@ -39823,7 +41078,7 @@ pub macro_rules! assert_io_read_to_string_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than an expression.
 
@@ -39896,7 +41151,7 @@ pub macro_rules! assert_io_read_to_string_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is greater than an expression.
 
@@ -39942,7 +41197,7 @@ pub macro_rules! debug_assert_io_read_to_string_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to an expression.
 
@@ -39975,7 +41230,7 @@ pub macro_rules! assert_io_read_to_string_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to an expression.
 
@@ -40048,7 +41303,7 @@ pub macro_rules! assert_io_read_to_string_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to an expression.
 
@@ -40094,7 +41349,7 @@ pub macro_rules! debug_assert_io_read_to_string_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than an expression.
 
@@ -40127,7 +41382,7 @@ pub macro_rules! assert_io_read_to_string_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than an expression.
 
@@ -40200,7 +41455,7 @@ pub macro_rules! assert_io_read_to_string_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() value is less than an expression.
 
@@ -40246,7 +41501,7 @@ pub macro_rules! debug_assert_io_read_to_string_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is not equal to an expression.
 
@@ -40279,7 +41534,7 @@ pub macro_rules! assert_io_read_to_string_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is not equal to an expression.
 
@@ -40352,7 +41607,7 @@ pub macro_rules! assert_io_read_to_string_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is not equal to an expression.
 
@@ -40398,7 +41653,7 @@ pub macro_rules! debug_assert_io_read_to_string_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() contains a pattern.
 
@@ -40431,7 +41686,7 @@ pub macro_rules! assert_io_read_to_string_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() contains a pattern.
 
@@ -40502,7 +41757,7 @@ pub macro_rules! assert_io_read_to_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() contains a pattern.
 
@@ -40548,7 +41803,7 @@ pub macro_rules! debug_assert_io_read_to_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is a match to a regex.
 
@@ -40581,7 +41836,7 @@ pub macro_rules! assert_io_read_to_string_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is a match to a regex.
 
@@ -40652,7 +41907,7 @@ pub macro_rules! assert_io_read_to_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a ::std::io::Read read_to_string() is a match to a regex.
 
@@ -40698,7 +41953,7 @@ pub macro_rules! debug_assert_io_read_to_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_io_read_to_string_matches_as_result` into `assert_io_read_to_string_is_match_as_result`.
 
@@ -40719,7 +41974,7 @@ pub macro_rules! assert_io_read_to_string_matches_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_io_read_to_string_matches` into `assert_io_read_to_string_is_match`.
 
@@ -40740,7 +41995,7 @@ pub macro_rules! assert_io_read_to_string_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_io_read_to_string_matches` into `debug_assert_io_read_to_string_is_match`.
 
@@ -40761,7 +42016,7 @@ pub macro_rules! debug_assert_io_read_to_string_matches {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is equal to another.
 
@@ -40794,7 +42049,7 @@ pub macro_rules! assert_command_stdout_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is equal to another.
 
@@ -40871,7 +42126,7 @@ pub macro_rules! assert_command_stdout_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is equal to another.
 
@@ -40914,7 +42169,7 @@ pub macro_rules! debug_assert_command_stdout_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than or equal to another.
 
@@ -40947,7 +42202,7 @@ pub macro_rules! assert_command_stdout_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than or equal to another.
 
@@ -41024,7 +42279,7 @@ pub macro_rules! assert_command_stdout_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than or equal to another.
 
@@ -41067,7 +42322,7 @@ pub macro_rules! debug_assert_command_stdout_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than another.
 
@@ -41100,7 +42355,7 @@ pub macro_rules! assert_command_stdout_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than another.
 
@@ -41177,7 +42432,7 @@ pub macro_rules! assert_command_stdout_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than another.
 
@@ -41220,7 +42475,7 @@ pub macro_rules! debug_assert_command_stdout_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than or equal to another.
 
@@ -41253,7 +42508,7 @@ pub macro_rules! assert_command_stdout_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than or equal to another.
 
@@ -41330,7 +42585,7 @@ pub macro_rules! assert_command_stdout_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than or equal to another.
 
@@ -41373,7 +42628,7 @@ pub macro_rules! debug_assert_command_stdout_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than another.
 
@@ -41406,7 +42661,7 @@ pub macro_rules! assert_command_stdout_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than another.
 
@@ -41483,7 +42738,7 @@ pub macro_rules! assert_command_stdout_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than another.
 
@@ -41526,7 +42781,7 @@ pub macro_rules! debug_assert_command_stdout_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is not equal to another.
 
@@ -41559,7 +42814,7 @@ pub macro_rules! assert_command_stdout_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is not equal to another.
 
@@ -41636,7 +42891,7 @@ pub macro_rules! assert_command_stdout_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is not equal to another.
 
@@ -41679,7 +42934,7 @@ pub macro_rules! debug_assert_command_stdout_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is equal to an expression.
 
@@ -41712,7 +42967,7 @@ pub macro_rules! assert_command_stdout_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is equal to an expression.
 
@@ -41787,7 +43042,7 @@ pub macro_rules! assert_command_stdout_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is equal to an expression.
 
@@ -41833,7 +43088,7 @@ pub macro_rules! debug_assert_command_stdout_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than or equal to an expression.
 
@@ -41866,7 +43121,7 @@ pub macro_rules! assert_command_stdout_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than or equal to an expression.
 
@@ -41941,7 +43196,7 @@ pub macro_rules! assert_command_stdout_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than or equal to an expression.
 
@@ -41987,7 +43242,7 @@ pub macro_rules! debug_assert_command_stdout_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than an expression.
 
@@ -42020,7 +43275,7 @@ pub macro_rules! assert_command_stdout_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than an expression.
 
@@ -42095,7 +43350,7 @@ pub macro_rules! assert_command_stdout_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is greater than an expression.
 
@@ -42141,7 +43396,7 @@ pub macro_rules! debug_assert_command_stdout_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than or equal to an expression.
 
@@ -42174,7 +43429,7 @@ pub macro_rules! assert_command_stdout_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than or equal to an expression.
 
@@ -42249,7 +43504,7 @@ pub macro_rules! assert_command_stdout_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than or equal to an expression.
 
@@ -42295,7 +43550,7 @@ pub macro_rules! debug_assert_command_stdout_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than an expression.
 
@@ -42328,7 +43583,7 @@ pub macro_rules! assert_command_stdout_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than an expression.
 
@@ -42403,7 +43658,7 @@ pub macro_rules! assert_command_stdout_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is less than an expression.
 
@@ -42449,7 +43704,7 @@ pub macro_rules! debug_assert_command_stdout_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is not equal to an expression.
 
@@ -42482,7 +43737,7 @@ pub macro_rules! assert_command_stdout_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is not equal to an expression.
 
@@ -42557,7 +43812,7 @@ pub macro_rules! assert_command_stdout_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is not equal to an expression.
 
@@ -42603,7 +43858,7 @@ pub macro_rules! debug_assert_command_stdout_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_contains_as_result` into `assert_command_stdout_string_contains_as_result`.
 
@@ -42624,7 +43879,7 @@ pub macro_rules! assert_command_stdout_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_contains` into `assert_command_stdout_string_contains`.
 
@@ -42645,7 +43900,7 @@ pub macro_rules! assert_command_stdout_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stdout_contains` into `debug_assert_command_stdout_string_contains`.
 
@@ -42666,7 +43921,7 @@ pub macro_rules! debug_assert_command_stdout_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_is_match_as_result` into `assert_command_stdout_string_is_match_as_result`.
 
@@ -42687,7 +43942,7 @@ pub macro_rules! assert_command_stdout_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_is_match` into `assert_command_stdout_string_is_match`.
 
@@ -42708,7 +43963,7 @@ pub macro_rules! assert_command_stdout_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stdout_is_match` into `debug_assert_command_stdout_string_is_match`.
 
@@ -42729,7 +43984,7 @@ pub macro_rules! debug_assert_command_stdout_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string contains a given containee.
 
@@ -42762,7 +44017,7 @@ pub macro_rules! assert_command_stdout_string_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string contains a given containee.
 
@@ -42777,7 +44032,7 @@ Pseudocode:<br>
 This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 
 * The containee can be a &str, char, a slice of chars, or a function or
-closure that determines if a character contains.
+  closure that determines if a character contains.
 
 # Examples
 
@@ -42842,7 +44097,7 @@ pub macro_rules! assert_command_stdout_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string contains a given containee.
 
@@ -42888,7 +44143,7 @@ pub macro_rules! debug_assert_command_stdout_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is a match to a regex.
 
@@ -42921,7 +44176,7 @@ pub macro_rules! assert_command_stdout_string_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is a match to a regex.
 
@@ -42997,7 +44252,7 @@ pub macro_rules! assert_command_stdout_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stdout string is a match to a regex.
 
@@ -43043,7 +44298,7 @@ pub macro_rules! debug_assert_command_stdout_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is equal to another.
 
@@ -43076,7 +44331,7 @@ pub macro_rules! assert_command_stderr_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is equal to another.
 
@@ -43153,7 +44408,7 @@ pub macro_rules! assert_command_stderr_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is equal to another.
 
@@ -43196,7 +44451,7 @@ pub macro_rules! debug_assert_command_stderr_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than or equal to another.
 
@@ -43229,7 +44484,7 @@ pub macro_rules! assert_command_stderr_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than or equal to another.
 
@@ -43306,7 +44561,7 @@ pub macro_rules! assert_command_stderr_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than or equal to another.
 
@@ -43349,7 +44604,7 @@ pub macro_rules! debug_assert_command_stderr_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than another.
 
@@ -43382,7 +44637,7 @@ pub macro_rules! assert_command_stderr_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than another.
 
@@ -43459,7 +44714,7 @@ pub macro_rules! assert_command_stderr_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than another.
 
@@ -43502,7 +44757,7 @@ pub macro_rules! debug_assert_command_stderr_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than or equal to another.
 
@@ -43535,7 +44790,7 @@ pub macro_rules! assert_command_stderr_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than or equal to another.
 
@@ -43612,7 +44867,7 @@ pub macro_rules! assert_command_stderr_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than or equal to another.
 
@@ -43655,7 +44910,7 @@ pub macro_rules! debug_assert_command_stderr_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than another.
 
@@ -43688,7 +44943,7 @@ pub macro_rules! assert_command_stderr_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than another.
 
@@ -43765,7 +45020,7 @@ pub macro_rules! assert_command_stderr_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than another.
 
@@ -43808,7 +45063,7 @@ pub macro_rules! debug_assert_command_stderr_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is not equal to another.
 
@@ -43841,7 +45096,7 @@ pub macro_rules! assert_command_stderr_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is not equal to another.
 
@@ -43918,7 +45173,7 @@ pub macro_rules! assert_command_stderr_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is not equal to another.
 
@@ -43961,7 +45216,7 @@ pub macro_rules! debug_assert_command_stderr_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is equal to an expression.
 
@@ -43994,7 +45249,7 @@ pub macro_rules! assert_command_stderr_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is equal to an expression.
 
@@ -44069,7 +45324,7 @@ pub macro_rules! assert_command_stderr_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is equal to an expression.
 
@@ -44115,7 +45370,7 @@ pub macro_rules! debug_assert_command_stderr_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than or equal to an expression.
 
@@ -44148,7 +45403,7 @@ pub macro_rules! assert_command_stderr_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than or equal to an expression.
 
@@ -44223,7 +45478,7 @@ pub macro_rules! assert_command_stderr_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than or equal to an expression.
 
@@ -44269,7 +45524,7 @@ pub macro_rules! debug_assert_command_stderr_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than an expression.
 
@@ -44302,7 +45557,7 @@ pub macro_rules! assert_command_stderr_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than an expression.
 
@@ -44377,7 +45632,7 @@ pub macro_rules! assert_command_stderr_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is greater than an expression.
 
@@ -44423,7 +45678,7 @@ pub macro_rules! debug_assert_command_stderr_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than or equal to an expression.
 
@@ -44456,7 +45711,7 @@ pub macro_rules! assert_command_stderr_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than or equal to an expression.
 
@@ -44531,7 +45786,7 @@ pub macro_rules! assert_command_stderr_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than or equal to an expression.
 
@@ -44577,7 +45832,7 @@ pub macro_rules! debug_assert_command_stderr_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than an expression.
 
@@ -44610,7 +45865,7 @@ pub macro_rules! assert_command_stderr_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than an expression.
 
@@ -44685,7 +45940,7 @@ pub macro_rules! assert_command_stderr_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is less than an expression.
 
@@ -44731,7 +45986,7 @@ pub macro_rules! debug_assert_command_stderr_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is not equal to an expression.
 
@@ -44764,7 +46019,7 @@ pub macro_rules! assert_command_stderr_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is not equal to an expression.
 
@@ -44839,7 +46094,7 @@ pub macro_rules! assert_command_stderr_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is not equal to an expression.
 
@@ -44885,11 +46140,10 @@ pub macro_rules! debug_assert_command_stderr_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_contains_as_result` into `assert_command_stderr_string_contains_as_result`.
 
-into `assert_command_stderr_string_contains`.
 Assert a command stderr string contains a given containee.
 
 Deprecated. Please rename from `assert_command_stderr_contains_as_result`
@@ -44908,7 +46162,7 @@ pub macro_rules! assert_command_stderr_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_contains` into `assert_command_stderr_string_contains`.
 
@@ -44930,7 +46184,7 @@ pub macro_rules! assert_command_stderr_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stderr_contains` into `debug_assert_command_stderr_string_contains`.
 
@@ -44952,7 +46206,7 @@ pub macro_rules! debug_assert_command_stderr_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_is_match_as_result` into `assert_command_stderr_string_is_match_as_result`.
 
@@ -44974,7 +46228,7 @@ pub macro_rules! assert_command_stderr_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_is_match` into `assert_command_stderr_string_is_match`.
 
@@ -44995,7 +46249,7 @@ pub macro_rules! assert_command_stderr_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stderr_is_match` into `debug_assert_command_stderr_string_is_match`.
 
@@ -45016,7 +46270,7 @@ pub macro_rules! debug_assert_command_stderr_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string contains a given containee.
 
@@ -45049,7 +46303,7 @@ pub macro_rules! assert_command_stderr_string_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string contains a given containee.
 
@@ -45064,7 +46318,7 @@ Pseudocode:<br>
 This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 
 * The containee can be a &str, char, a slice of chars, or a function or
-closure that determines if a character contains.
+  closure that determines if a character contains.
 
 # Examples
 
@@ -45129,7 +46383,7 @@ pub macro_rules! assert_command_stderr_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string contains a given containee.
 
@@ -45175,7 +46429,7 @@ pub macro_rules! debug_assert_command_stderr_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is a match to a regex.
 
@@ -45208,7 +46462,7 @@ pub macro_rules! assert_command_stderr_string_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is a match to a regex.
 
@@ -45284,7 +46538,7 @@ pub macro_rules! assert_command_stderr_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command stderr string is a match to a regex.
 
@@ -45330,7 +46584,7 @@ pub macro_rules! debug_assert_command_stderr_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert program args implementation preparation.
 
@@ -45346,7 +46600,7 @@ pub macro_rules! assert_program_args_impl_prep {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is equal to another.
 
@@ -45380,7 +46634,7 @@ pub macro_rules! assert_program_args_stdout_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is equal to another.
 
@@ -45464,7 +46718,7 @@ pub macro_rules! assert_program_args_stdout_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is equal to another.
 
@@ -45510,7 +46764,7 @@ pub macro_rules! debug_assert_program_args_stdout_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than or equal to another.
 
@@ -45544,7 +46798,7 @@ pub macro_rules! assert_program_args_stdout_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than or equal to another.
 
@@ -45628,7 +46882,7 @@ pub macro_rules! assert_program_args_stdout_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than or equal to another.
 
@@ -45674,7 +46928,7 @@ pub macro_rules! debug_assert_program_args_stdout_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than to another.
 
@@ -45708,7 +46962,7 @@ pub macro_rules! assert_program_args_stdout_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than another.
 
@@ -45792,7 +47046,7 @@ pub macro_rules! assert_program_args_stdout_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than another.
 
@@ -45838,7 +47092,7 @@ pub macro_rules! debug_assert_program_args_stdout_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than or equal to another.
 
@@ -45872,7 +47126,7 @@ pub macro_rules! assert_program_args_stdout_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than or equal to another.
 
@@ -45956,7 +47210,7 @@ pub macro_rules! assert_program_args_stdout_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than or equal to another.
 
@@ -46002,7 +47256,7 @@ pub macro_rules! debug_assert_program_args_stdout_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than another.
 
@@ -46036,7 +47290,7 @@ pub macro_rules! assert_program_args_stdout_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than another.
 
@@ -46120,7 +47374,7 @@ pub macro_rules! assert_program_args_stdout_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than another.
 
@@ -46166,7 +47420,7 @@ pub macro_rules! debug_assert_program_args_stdout_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is not equal to another.
 
@@ -46200,7 +47454,7 @@ pub macro_rules! assert_program_args_stdout_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is not equal to another.
 
@@ -46284,7 +47538,7 @@ pub macro_rules! assert_program_args_stdout_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is not equal to another.
 
@@ -46327,7 +47581,7 @@ pub macro_rules! debug_assert_program_args_stdout_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is equal to an expression.
 
@@ -46360,7 +47614,7 @@ pub macro_rules! assert_program_args_stdout_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is equal to an expression.
 
@@ -46438,7 +47692,7 @@ pub macro_rules! assert_program_args_stdout_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is equal to an expression.
 
@@ -46484,7 +47738,7 @@ pub macro_rules! debug_assert_program_args_stdout_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than or equal to an expression.
 
@@ -46517,7 +47771,7 @@ pub macro_rules! assert_program_args_stdout_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than or equal to an expression.
 
@@ -46595,7 +47849,7 @@ pub macro_rules! assert_program_args_stdout_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than or equal to an expression.
 
@@ -46641,7 +47895,7 @@ pub macro_rules! debug_assert_program_args_stdout_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than an expression.
 
@@ -46674,7 +47928,7 @@ pub macro_rules! assert_program_args_stdout_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than an expression.
 
@@ -46752,7 +48006,7 @@ pub macro_rules! assert_program_args_stdout_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is greater than an expression.
 
@@ -46798,7 +48052,7 @@ pub macro_rules! debug_assert_program_args_stdout_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than or equal to an expression.
 
@@ -46831,7 +48085,7 @@ pub macro_rules! assert_program_args_stdout_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than or equal to an expression.
 
@@ -46909,7 +48163,7 @@ pub macro_rules! assert_program_args_stdout_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than or equal to an expression.
 
@@ -46955,7 +48209,7 @@ pub macro_rules! debug_assert_program_args_stdout_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than an expression.
 
@@ -46988,7 +48242,7 @@ pub macro_rules! assert_program_args_stdout_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than an expression.
 
@@ -47066,7 +48320,7 @@ pub macro_rules! assert_program_args_stdout_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is less than an expression.
 
@@ -47112,7 +48366,7 @@ pub macro_rules! debug_assert_program_args_stdout_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is not equal to an expression.
 
@@ -47145,7 +48399,7 @@ pub macro_rules! assert_program_args_stdout_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is not equal to an expression.
 
@@ -47223,7 +48477,7 @@ pub macro_rules! assert_program_args_stdout_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout is not equal to an expression.
 
@@ -47269,7 +48523,7 @@ pub macro_rules! debug_assert_program_args_stdout_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_contains_as_result` to `assert_program_args_stdout_string_contains_as_result`.
 
@@ -47290,7 +48544,7 @@ pub macro_rules! assert_program_args_stdout_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_contains` to `assert_program_args_stdout_string_contains`.
 
@@ -47311,7 +48565,7 @@ pub macro_rules! assert_program_args_stdout_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stdout_contains` to `debug_assert_program_args_stdout_string_contains`.
 
@@ -47332,7 +48586,7 @@ pub macro_rules! debug_assert_program_args_stdout_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_is_match_as_result` to `assert_program_args_stdout_string_is_match_as_result`.
 
@@ -47353,7 +48607,7 @@ pub macro_rules! assert_program_args_stdout_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_is_match` to `assert_program_args_stdout_string_is_match`.
 
@@ -47374,7 +48628,7 @@ pub macro_rules! assert_program_args_stdout_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stdout_is_match` to `debug_assert_program_args_stdout_string_is_match`.
 
@@ -47395,7 +48649,7 @@ pub macro_rules! debug_assert_program_args_stdout_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout into a string contains a given containee.
 
@@ -47428,7 +48682,7 @@ pub macro_rules! assert_program_args_stdout_string_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout into a string contains a given containee.
 
@@ -47443,7 +48697,7 @@ Pseudocode:<br>
 This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 
 * The containee can be a &str, char, a slice of chars, or a function or
-closure that determines if a character contains.
+  closure that determines if a character contains.
 
 # Examples
 
@@ -47511,7 +48765,7 @@ pub macro_rules! assert_program_args_stdout_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout into a string contains a given containee.
 
@@ -47554,7 +48808,7 @@ pub macro_rules! debug_assert_program_args_stdout_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout into a string is a match to a regex.
 
@@ -47587,7 +48841,7 @@ pub macro_rules! assert_program_args_stdout_string_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout into a string is a match to a regex.
 
@@ -47666,7 +48920,7 @@ pub macro_rules! assert_program_args_stdout_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stdout into a string is a match to a regex.
 
@@ -47712,7 +48966,7 @@ pub macro_rules! debug_assert_program_args_stdout_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is equal to another.
 
@@ -47745,7 +48999,7 @@ pub macro_rules! assert_program_args_stderr_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is equal to another.
 
@@ -47829,7 +49083,7 @@ pub macro_rules! assert_program_args_stderr_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is equal to another.
 
@@ -47875,7 +49129,7 @@ pub macro_rules! debug_assert_program_args_stderr_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than or equal to another.
 
@@ -47908,7 +49162,7 @@ pub macro_rules! assert_program_args_stderr_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than or equal to another.
 
@@ -47992,7 +49246,7 @@ pub macro_rules! assert_program_args_stderr_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr greater than or equal to another.
 
@@ -48038,7 +49292,7 @@ pub macro_rules! debug_assert_program_args_stderr_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than another.
 
@@ -48071,7 +49325,7 @@ pub macro_rules! assert_program_args_stderr_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than to another.
 
@@ -48155,7 +49409,7 @@ pub macro_rules! assert_program_args_stderr_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than another.
 
@@ -48201,7 +49455,7 @@ pub macro_rules! debug_assert_program_args_stderr_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than or equal to another.
 
@@ -48234,7 +49488,7 @@ pub macro_rules! assert_program_args_stderr_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than or equal to another.
 
@@ -48318,7 +49572,7 @@ pub macro_rules! assert_program_args_stderr_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than or equal to another.
 
@@ -48364,7 +49618,7 @@ pub macro_rules! debug_assert_program_args_stderr_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than another.
 
@@ -48397,7 +49651,7 @@ pub macro_rules! assert_program_args_stderr_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than another.
 
@@ -48481,7 +49735,7 @@ pub macro_rules! assert_program_args_stderr_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than another.
 
@@ -48527,7 +49781,7 @@ pub macro_rules! debug_assert_program_args_stderr_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is not equal to another.
 
@@ -48560,7 +49814,7 @@ pub macro_rules! assert_program_args_stderr_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is not equal to another.
 
@@ -48644,7 +49898,7 @@ pub macro_rules! assert_program_args_stderr_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is not equal to another.
 
@@ -48690,7 +49944,7 @@ pub macro_rules! debug_assert_program_args_stderr_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is equal to an expression.
 
@@ -48723,7 +49977,7 @@ pub macro_rules! assert_program_args_stderr_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is equal to an expression.
 
@@ -48801,7 +50055,7 @@ pub macro_rules! assert_program_args_stderr_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is equal to an expression.
 
@@ -48847,7 +50101,7 @@ pub macro_rules! debug_assert_program_args_stderr_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than or equal to an expression.
 
@@ -48880,7 +50134,7 @@ pub macro_rules! assert_program_args_stderr_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than or equal to an expression.
 
@@ -48958,7 +50212,7 @@ pub macro_rules! assert_program_args_stderr_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than or equal to an expression.
 
@@ -49004,7 +50258,7 @@ pub macro_rules! debug_assert_program_args_stderr_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than an expression.
 
@@ -49037,7 +50291,7 @@ pub macro_rules! assert_program_args_stderr_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than an expression.
 
@@ -49115,7 +50369,7 @@ pub macro_rules! assert_program_args_stderr_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is greater than an expression.
 
@@ -49161,7 +50415,7 @@ pub macro_rules! debug_assert_program_args_stderr_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than or equal to an expression.
 
@@ -49194,7 +50448,7 @@ pub macro_rules! assert_program_args_stderr_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than or equal to an expression.
 
@@ -49272,7 +50526,7 @@ pub macro_rules! assert_program_args_stderr_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than or equal to an expression.
 
@@ -49318,7 +50572,7 @@ pub macro_rules! debug_assert_program_args_stderr_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than an expression.
 
@@ -49351,7 +50605,7 @@ pub macro_rules! assert_program_args_stderr_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than an expression.
 
@@ -49429,7 +50683,7 @@ pub macro_rules! assert_program_args_stderr_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is less than an expression.
 
@@ -49475,7 +50729,7 @@ pub macro_rules! debug_assert_program_args_stderr_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is not equal to an expression.
 
@@ -49508,7 +50762,7 @@ pub macro_rules! assert_program_args_stderr_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is not equal to an expression.
 
@@ -49586,7 +50840,7 @@ pub macro_rules! assert_program_args_stderr_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr is not equal to an expression.
 
@@ -49632,7 +50886,7 @@ pub macro_rules! debug_assert_program_args_stderr_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_contains_as_result` to `assert_program_args_stderr_string_contains_as_result`.
 
@@ -49653,7 +50907,7 @@ pub macro_rules! assert_program_args_stderr_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_contains` to `assert_program_args_stderr_string_contains`.
 
@@ -49674,7 +50928,7 @@ pub macro_rules! assert_program_args_stderr_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stderr_contains` to `debug_assert_program_args_stderr_string_contains`.
 
@@ -49695,7 +50949,7 @@ pub macro_rules! debug_assert_program_args_stderr_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_is_match_as_result` to `assert_program_args_stderr_string_is_match_as_result`.
 
@@ -49716,7 +50970,7 @@ pub macro_rules! assert_program_args_stderr_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_is_match` to `assert_program_args_stderr_string_is_match`.
 
@@ -49737,7 +50991,7 @@ pub macro_rules! assert_program_args_stderr_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stderr_is_match` to `debug_assert_program_args_stderr_string_is_match`.
 
@@ -49758,7 +51012,7 @@ pub macro_rules! debug_assert_program_args_stderr_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr into a string contains a given containee.
 
@@ -49791,7 +51045,7 @@ pub macro_rules! assert_program_args_stderr_string_contains_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr into a string contains a given containee.
 
@@ -49806,7 +51060,7 @@ Pseudocode:<br>
 This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 
 * The containee can be a &str, char, a slice of chars, or a function or
-closure that determines if a character contains.
+  closure that determines if a character contains.
 
 # Examples
 
@@ -49874,7 +51128,7 @@ pub macro_rules! assert_program_args_stderr_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr into a string contains a given containee.
 
@@ -49920,7 +51174,7 @@ pub macro_rules! debug_assert_program_args_stderr_string_contains {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr into a string is a match to a regex.
 
@@ -49953,7 +51207,7 @@ pub macro_rules! assert_program_args_stderr_string_is_match_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr into a string is a match to a regex.
 
@@ -50032,7 +51286,7 @@ pub macro_rules! assert_program_args_stderr_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a command (built with program and args) stderr into a string is a match to a regex.
 
@@ -50078,7 +51332,7 @@ pub macro_rules! debug_assert_program_args_stderr_string_is_match {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a failure.
 
@@ -50111,7 +51365,7 @@ pub macro_rules! assert_status_failure_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a failure.
 
@@ -50174,7 +51428,7 @@ pub macro_rules! assert_status_failure {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a failure.
 
@@ -50220,7 +51474,7 @@ pub macro_rules! debug_assert_status_failure {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a success.
 
@@ -50253,7 +51507,7 @@ pub macro_rules! assert_status_success_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a success.
 
@@ -50316,7 +51570,7 @@ pub macro_rules! assert_status_success {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a success.
 
@@ -50362,7 +51616,7 @@ pub macro_rules! debug_assert_status_success {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a failure.
 
@@ -50395,7 +51649,7 @@ pub macro_rules! assert_status_success_false_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a failure.
 
@@ -50458,7 +51712,7 @@ pub macro_rules! assert_status_success_false {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status is a failure.
 
@@ -50504,7 +51758,7 @@ pub macro_rules! debug_assert_status_success_false {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is equal to another.
 
@@ -50537,7 +51791,7 @@ pub macro_rules! assert_status_code_value_eq_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is equal to another.
 
@@ -50610,7 +51864,7 @@ pub macro_rules! assert_status_code_value_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is equal to another.
 
@@ -50656,7 +51910,7 @@ pub macro_rules! debug_assert_status_code_value_eq {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than or equal to another.
 
@@ -50689,7 +51943,7 @@ pub macro_rules! assert_status_code_value_ge_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than or equal to another.
 
@@ -50762,7 +52016,7 @@ pub macro_rules! assert_status_code_value_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than or equal to another.
 
@@ -50808,7 +52062,7 @@ pub macro_rules! debug_assert_status_code_value_ge {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than another.
 
@@ -50841,7 +52095,7 @@ pub macro_rules! assert_status_code_value_gt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than another.
 
@@ -50914,7 +52168,7 @@ pub macro_rules! assert_status_code_value_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than another.
 
@@ -50960,7 +52214,7 @@ pub macro_rules! debug_assert_status_code_value_gt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than or equal to another.
 
@@ -50993,7 +52247,7 @@ pub macro_rules! assert_status_code_value_le_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than or equal to another.
 
@@ -51066,7 +52320,7 @@ pub macro_rules! assert_status_code_value_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than or equal to another.
 
@@ -51112,7 +52366,7 @@ pub macro_rules! debug_assert_status_code_value_le {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than another.
 
@@ -51145,7 +52399,7 @@ pub macro_rules! assert_status_code_value_lt_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than another.
 
@@ -51218,7 +52472,7 @@ pub macro_rules! assert_status_code_value_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than another.
 
@@ -51264,7 +52518,7 @@ pub macro_rules! debug_assert_status_code_value_lt {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is not equal to another.
 
@@ -51297,7 +52551,7 @@ pub macro_rules! assert_status_code_value_ne_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is not equal to another.
 
@@ -51370,7 +52624,7 @@ pub macro_rules! assert_status_code_value_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is not equal to another.
 
@@ -51416,7 +52670,7 @@ pub macro_rules! debug_assert_status_code_value_ne {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is equal to an expression.
 
@@ -51449,7 +52703,7 @@ pub macro_rules! assert_status_code_value_eq_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is equal to an expression.
 
@@ -51520,7 +52774,7 @@ pub macro_rules! assert_status_code_value_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is equal to an expression.
 
@@ -51566,7 +52820,7 @@ pub macro_rules! debug_assert_status_code_value_eq_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than or equal to an expression.
 
@@ -51599,7 +52853,7 @@ pub macro_rules! assert_status_code_value_ge_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than or equal to an expression.
 
@@ -51670,7 +52924,7 @@ pub macro_rules! assert_status_code_value_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than or equal to an expression.
 
@@ -51716,7 +52970,7 @@ pub macro_rules! debug_assert_status_code_value_ge_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than an expression.
 
@@ -51749,7 +53003,7 @@ pub macro_rules! assert_status_code_value_gt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than an expression.
 
@@ -51820,7 +53074,7 @@ pub macro_rules! assert_status_code_value_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is greater than an expression.
 
@@ -51866,7 +53120,7 @@ pub macro_rules! debug_assert_status_code_value_gt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than or equal to an expression.
 
@@ -51899,7 +53153,7 @@ pub macro_rules! assert_status_code_value_le_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than or equal to an expression.
 
@@ -51970,7 +53224,7 @@ pub macro_rules! assert_status_code_value_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than or equal to an expression.
 
@@ -52016,7 +53270,7 @@ pub macro_rules! debug_assert_status_code_value_le_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than an expression.
 
@@ -52049,7 +53303,7 @@ pub macro_rules! assert_status_code_value_lt_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than an expression.
 
@@ -52120,7 +53374,7 @@ pub macro_rules! assert_status_code_value_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is less than an expression.
 
@@ -52166,7 +53420,7 @@ pub macro_rules! debug_assert_status_code_value_lt_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is not equal to an expression.
 
@@ -52199,7 +53453,7 @@ pub macro_rules! assert_status_code_value_ne_x_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is not equal to an expression.
 
@@ -52270,7 +53524,7 @@ pub macro_rules! assert_status_code_value_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a status code value is not equal to an expression.
 
@@ -52316,7 +53570,7 @@ pub macro_rules! debug_assert_status_code_value_ne_x {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a success method is true.
 
@@ -52349,7 +53603,7 @@ pub macro_rules! assert_success_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a success method is true.
 
@@ -52417,7 +53671,7 @@ pub macro_rules! assert_success {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a success method is true.
 
@@ -52463,7 +53717,7 @@ pub macro_rules! debug_assert_success {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a failure method is true.
 
@@ -52496,7 +53750,7 @@ pub macro_rules! assert_success_false_as_result {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a failure method is true.
 
@@ -52564,7 +53818,7 @@ pub macro_rules! assert_success_false {
 
 **Attributes:**
 
-- `macro_export`
+- `MacroExport`
 
 Assert a failure method is true.
 

@@ -2,18 +2,18 @@
 
 Assertables comparisons to other Rust crates and assertion techniques.
 
-| Name                                                          | Version | Updated | Licenses              |
-| ------------------------------------------------------------- | ------- | ------- | --------------------- |
-| [assertables](https://crates.io/crates/assertables)           | 10.0.0  | 2026    | Apache, MIT, BSD, GPL |
-| [assert_approx_eq](https://crates.io/crates/assert_approx_eq) | 1.1.0   | 2018    | Apache, MIT           |
-| [assert_matches](https://crates.io/crates/assert_matches)     | 1.5.0   | 2021    | Apache, MIT           |
-| [assert2](https://crates.io/crates/assert2)                   | 0.4.0   | 2026    | BSD                   |
-| [claim](https://crates.io/crates/claim)                       | 0.5.0   | 2021    | Apache, MIT           |
-| [claims](https://crates.io/crates/claims)                     | 0.8.0   | 2024    | Apache, MIT           |
-| [cool_asserts](https://crates.io/crates/cool_asserts)         | 2.0.4   | 2025    | Mozilla               |
-| [galvanic-assert](https://crates.io/crates/galvanic-assert)   | 0.8.7   | 2018    | Apache                |
-| [more_asserts](https://crates.io/crates/more_asserts)         | 0.3.1   | 2022    | Apache, MIT           |
-| [totems](https://crates.io/crates/totems)                     | 0.2.7   | 2019    | MIT                   |
+| Name                                                | Version | Updated | Licenses              |
+| --------------------------------------------------- | ------- | ------- | --------------------- |
+| [assertables](https://crates.io/crates/assertables) | 10.0.0  | 2026    | Apache, MIT, BSD, GPL |
+| [assert_approx_eq](assert_approx_eq)                | 1.1.0   | 2018    | Apache, MIT           |
+| [assert_matches](assert_matches)                    | 1.5.0   | 2021    | Apache, MIT           |
+| [assert2](assert2)                                  | 0.4.0   | 2026    | BSD                   |
+| [claim](claim)                                      | 0.5.0   | 2021    | Apache, MIT           |
+| [claims](claims)                                    | 0.8.0   | 2024    | Apache, MIT           |
+| [cool_asserts](cool_asserts)                        | 2.0.4   | 2025    | Mozilla               |
+| [galvanic-assert](galvanic-assert)                  | 0.8.7   | 2018    | Apache                |
+| [more_asserts](more_asserts)                        | 0.3.1   | 2022    | Apache, MIT           |
+| [totems](totems)                                    | 0.2.7   | 2019    | MIT                   |
 
 Assertables aims for comparable goals as these crates:
 

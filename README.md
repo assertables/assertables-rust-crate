@@ -8,17 +8,19 @@ Assertables is a Rust crate of assert macros to improve your compile-time tests 
 
 **[documentation](https://docs.rs/assertables/)**
 •
+**[comparisons](help/comparisons/)**
+•
 **[llms](https://raw.githubusercontent.com/assertables/assertables-rust-crate/refs/heads/main/llms.txt)**
 •
 **[email](mailto:joel@joelparkerhenderson.com)**
+•
+**[codeberg](https://codeberg.org/assertables/assertables-rust-crate/)**
 •
 **[crates.io](https://crates.io/crates/assertables)**
 •
 **[github](https://github.com/assertables/assertables-rust-crate/)**
 •
 **[gitlab](https://gitlab.com/assertables/assertables-rust-crate/)**
-•
-**[codeberg](https://codeberg.org/assertables/assertables-rust-crate/)**
 
 ## Introduction
 
@@ -268,6 +270,6 @@ Many of the macros has a "success return", which means the macro returns data th
 - Package: assertables-rust-crate
 - Version: 10.0.0
 - Created: 2021-03-30T15:47:49Z
-- Updated: 2026-05-04T06:59:00Z
-- License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
+- Updated: 2026-05-23T16:03:31Z
+- License: MIT or BSD or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 - Contact: Joel Parker Henderson <joel@joelparkerhenderson.com>

@@ -9,7 +9,13 @@
       "Bash(cargo doc *)",
       "Bash(RUSTDOCFLAGS='-D rustdoc::broken_intra_doc_links' cargo doc --no-deps)",
       "Bash(find src *)",
-      "Bash(awk *)"
+      "Bash(awk *)",
+      "Bash(cargo --version)",
+      "Bash(rustc --version)",
+      "Bash(rustdoc-md --version)",
+      "Bash(cargo install *)",
+      "Bash(RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS=\"-Z unstable-options --output-format json\" cargo doc --no-deps)",
+      "Bash(rustdoc-md --path target/doc/assertables.json --output assertables.md)"
     ]
   }
 }

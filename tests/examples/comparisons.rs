@@ -89,9 +89,11 @@ fn verify_command_stdout_contains_text() {
     let containee = "fa";
 
     // Standard Rust
-    assert!(String::from_utf8(command.output().unwrap().stdout)
-        .unwrap()
-        .contains(containee));
+    assert!(
+        String::from_utf8(command.output().unwrap().stdout)
+            .unwrap()
+            .contains(containee)
+    );
 
     // Assertables
     assert_command_stdout_string_contains!(command, containee);

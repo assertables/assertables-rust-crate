@@ -4,9 +4,11 @@ Changes are summarized here as highlights for recent major versions.
 
 ## Version 10.x
 
-- 10.0.0 Upgrade Rust edition from 2021 to 2024. Upgrade org from SixArm to Assertables.
+- 10.0.0 Create new Assertables organization for code repositories. Mirror to Codeberg.org, GitHub.com, GitLab.com. Upgrade Rust edition from 2021 to 2024. 
 
 ## Version 9.x
+
+- 9.10.0 Add `assert_approx_eq_with_absolute_error_*` and `assert_approx_eq_with_relative_error_*`.
 
 - 9.9.0 Add `assert_all_*` and `assert_any_*`.
 
@@ -51,9 +53,7 @@ Changes are summarized here as highlights for recent major versions.
 
 - 9.1.0 Add absolute difference macros: `assert_abs_diff*`.
 
-- 9.0.0 Breaking change: many macros now return data upon success.
-
-- 9.0.0 Breaking change: rename macros from `assert_*_expr` into `assert_*_x`.
+- 9.0.0 Breaking change: many macros now return data upon success. Breaking change: ename macros from `assert_*_expr` into `assert_*_x`.
 
 ## Version 8.x
 

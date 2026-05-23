@@ -47,7 +47,7 @@ This documentation is also available as
   [assert_matches](https://docs.rs/assertables/10.0.0/assertables/assert_matches),
   [assert_is_match](https://docs.rs/assertables/10.0.0/assertables/assert_is_match),
   […](https://docs.rs/assertables)
-- Test nearness with
+- Test approximations with
   [assert_approx](https://docs.rs/assertables/10.0.0/assertables/assert_approx),
   [assert_abs_diff](https://docs.rs/assertables/10.0.0/assertables/assert_abs_diff),
   […](https://docs.rs/assertables/)
@@ -126,9 +126,14 @@ Floats:
 - [`assert_f32_eq!(a, b)`](https://docs.rs/assertables/10.0.0/assertables/assert_f32/assert_f32_eq/)
 - [`assert_f64_eq!(a, b)`](https://docs.rs/assertables/10.0.0/assertables/assert_f64/assert_f64_eq/)
 
-Nearness:
+Approximations:
 
 - [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/10.0.0/assertables/assert_approx/assert_approx_eq/)
+- [`assert_approx_eq_with_absolute_error!(a, b, err)`](https://docs.rs/assertables/10.0.0/assertables/assert_approx/assert_approx_eq_with_absolute_error/)
+- [`assert_approx_eq_with_relative_error!(a, b, err)`](https://docs.rs/assertables/10.0.0/assertables/assert_approx/assert_approx_eq_with_relative_error/)
+
+Nearness:
+
 - [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/10.0.0/assertables/assert_in/assert_in_delta/)
 - [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/10.0.0/assertables/assert_in/assert_in_epsilon/)
 - [`assert_in_range!(a, range)`](https://docs.rs/assertables/10.0.0/assertables/assert_in/assert_in_range/)

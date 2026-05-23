@@ -1,7 +1,7 @@
-//! Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+//! Assert a number is approximately equal to another by using absolute error a.k.a. delta.
 //!
 //! Pseudocode:<br>
-//! | a - b | > Δ
+//! | a - b | ≤ Δ
 //!
 //! # Example
 //!
@@ -9,9 +9,9 @@
 //! use assertables::*;
 //!
 //! let a: i8 = 10;
-//! let b: i8 = 12;
+//! let b: i8 = 11;
 //! let delta: i8 = 1;
-//! assert_approx_ne_using_absolute_error!(a, b, delta);    
+//! assert_approx_eq_with_absolute_error!(a, b, delta);    
 //! ```
 //!
 //! ## Comparisons
@@ -23,16 +23,16 @@
 //!   equality within 1e-6. The macro name and the approximate value are chosen
 //!   to be similar to the longtime popular rust crate `assert_approx_eq`.
 //!
-//! * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
+//! * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
 //!   tests the absolute error (i.e. delta). This is the magnitude of the
 //!   difference between the exact value and the approximation.
 //!   This macro is purposefully identical to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
 //!
-//! * [`assert_approx_eq_using_relative_error`](macro@crate::assert_approx_eq_using_relative_error)
+//! * [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
 //!   tests the relative error (i.e. epsilon). This is the absolute error divided
 //!   by the magnitude of the minimum value. This can be used to compare
 //!   approximations of numbers of wildly differing size.
-//!   This macro is purposefully identical to [`assert_approx_eq_using_relative_error`](macro@crate::assert_approx_eq_using_relative_error).
+//!   This macro is purposefully identical to [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error).
 //!
 //! ## Absolute error and relative error
 //!
@@ -64,14 +64,14 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
-//! * [`assert_approx_ne_using_absolute_error_as_result`](macro@crate::assert_approx_ne_using_absolute_error_as_result)
-//! * [`debug_assert_approx_ne_using_absolute_error`](macro@crate::debug_assert_approx_ne_using_absolute_error)
+//! * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+//! * [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
+//! * [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
 
-//! Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+//! Assert a number is approximately equal to another by using absolute error a.k.a. delta.
 ///
 /// Pseudocode:<br>
-/// | a - b | > Δ
+/// | a - b | ≤ Δ
 ///
 /// * If true, return Result `Ok((lhs, rhs))`.
 ///
@@ -93,16 +93,16 @@
 ///   equality within 1e-6. The macro name and the approximate value are chosen
 ///   to be similar to the longtime popular rust crate `assert_approx_eq`.
 ///
-/// * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
 ///   tests the absolute error (i.e. delta). This is the magnitude of the
 ///   difference between the exact value and the approximation.
 ///   This macro is purposefully identical to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
 ///
-/// * [`assert_approx_eq_using_relative_error`](macro@crate::assert_approx_eq_using_relative_error)
+/// * [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
 ///   tests the relative error (i.e. epsilon). This is the absolute error divided
 ///   by the magnitude of the minimum value. This can be used to compare
 ///   approximations of numbers of wildly differing size.
-///   This macro is purposefully identical to [`assert_approx_eq_using_relative_error`](macro@crate::assert_approx_eq_using_relative_error).
+///   This macro is purposefully identical to [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error).
 ///
 /// ## Absolute error and relative error
 ///
@@ -134,23 +134,23 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
-/// * [`assert_approx_ne_using_absolute_error_as_result`](macro@crate::assert_approx_ne_using_absolute_error_as_result)
-/// * [`debug_assert_approx_ne_using_absolute_error`](macro@crate::debug_assert_approx_ne_using_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
+/// * [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
 ///
 #[macro_export]
-macro_rules! assert_approx_ne_using_absolute_error_as_result {
+macro_rules! assert_approx_eq_with_absolute_error_as_result {
     ($a:expr, $b:expr, $delta:expr $(,)?) => {
         match (&$a, &$b, &$delta) {
             (a, b, delta) => {
                 let abs_diff = if (a >= b) { a - b } else { b - a };
-                if abs_diff > *delta {
+                if abs_diff <= *delta {
                     Ok((abs_diff, *delta))
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_approx_ne_using_absolute_error!(a, b, Δ)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_ne_using_absolute_error.html\n",
+                            "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
+                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
                             "       a label: `{}`,\n",
                             "       a debug: `{:?}`,\n",
                             "       b label: `{}`,\n",
@@ -158,7 +158,7 @@ macro_rules! assert_approx_ne_using_absolute_error_as_result {
                             "       Δ label: `{}`,\n",
                             "       Δ debug: `{:?}`,\n",
                             "     | a - b |: `{:?}`,\n",
-                            " | a - b | > Δ: {}"
+                            " | a - b | ≤ Δ: {}"
                         ),
                         stringify!($a),
                         a,
@@ -176,17 +176,17 @@ macro_rules! assert_approx_ne_using_absolute_error_as_result {
 }
 
 #[cfg(test)]
-mod test_assert_approx_ne_using_absolute_error_as_result {
+mod test_assert_approx_eq_with_absolute_error_as_result {
     use std::sync::Once;
 
     #[test]
     fn success() {
         let a: i8 = 10;
-        let b: i8 = 12;
+        let b: i8 = 11;
         let delta: i8 = 1;
         for _ in 0..1 {
-            let actual = assert_approx_ne_using_absolute_error_as_result!(a, b, delta);
-            assert_eq!(actual.unwrap(), (2 as i8, 1 as i8));
+            let actual = assert_approx_eq_with_absolute_error_as_result!(a, b, delta);
+            assert_eq!(actual.unwrap(), (1 as i8, 1 as i8));
         }
     }
 
@@ -209,7 +209,7 @@ mod test_assert_approx_ne_using_absolute_error_as_result {
             } else {
                 B.call_once(|| {})
             }
-            12
+            11
         }
 
         static DELTA: Once = Once::new();
@@ -225,7 +225,7 @@ mod test_assert_approx_ne_using_absolute_error_as_result {
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
         assert_eq!(DELTA.is_completed(), false);
-        let result = assert_approx_ne_using_absolute_error_as_result!(a(), b(), delta());
+        let result = assert_approx_eq_with_absolute_error_as_result!(a(), b(), delta());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
@@ -235,29 +235,29 @@ mod test_assert_approx_ne_using_absolute_error_as_result {
     #[test]
     fn failure() {
         let a: i8 = 10;
-        let b: i8 = 11;
+        let b: i8 = 12;
         let delta: i8 = 1;
-        let actual = assert_approx_ne_using_absolute_error_as_result!(a, b, delta);
+        let actual = assert_approx_eq_with_absolute_error_as_result!(a, b, delta);
         let message = concat!(
-            "assertion failed: `assert_approx_ne_using_absolute_error!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_ne_using_absolute_error.html\n",
+            "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
-            "       b debug: `11`,\n",
+            "       b debug: `12`,\n",
             "       Δ label: `delta`,\n",
             "       Δ debug: `1`,\n",
-            "     | a - b |: `1`,\n",
-            " | a - b | > Δ: false"
+            "     | a - b |: `2`,\n",
+            " | a - b | ≤ Δ: false"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 }
 
-/// Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+/// Assert a number is approximately equal to another by using absolute error a.k.a. delta.
 ///
 /// Pseudocode:<br>
-/// | a - b | > Δ
+/// | a - b | ≤ Δ
 ///
 /// * If true, return `(lhs, rhs)`.
 ///
@@ -272,31 +272,31 @@ mod test_assert_approx_ne_using_absolute_error_as_result {
 ///
 /// # fn main() {
 /// let a: i8 = 10;
-/// let b: i8 = 12;
+/// let b: i8 = 11;
 /// let delta: i8 = 1;
-/// assert_approx_ne_using_absolute_error!(a, b, delta);
+/// assert_approx_eq_with_absolute_error!(a, b, delta);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: i8 = 10;
-/// let b: i8 = 11;
+/// let b: i8 = 12;
 /// let delta: i8 = 1;
-/// assert_approx_ne_using_absolute_error!(a, b, delta);
+/// assert_approx_eq_with_absolute_error!(a, b, delta);
 /// # });
-/// // assertion failed: `assert_approx_ne_using_absolute_error!(a, b, Δ)`
-/// // https://docs.rs/assertables/…/assertables/macro.assert_approx_ne_using_absolute_error.html
+/// // assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`
+/// // https://docs.rs/assertables/…/assertables/macro.assert_approx_eq_with_absolute_error.html
 /// //        a label: `a`,
 /// //        a debug: `10`,
 /// //        b label: `b`,
-/// //        b debug: `11`,
+/// //        b debug: `12`,
 /// //        Δ label: `delta`,
 /// //        Δ debug: `1`,
-/// //      | a - b |: `1`,
-/// //  | a - b | > Δ: false
+/// //      | a - b |: `2`,
+/// //  | a - b | ≤ Δ: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_approx_ne_using_absolute_error!(a, b, Δ)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_ne_using_absolute_error.html\n",
+/// #     "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
+/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",
@@ -304,7 +304,7 @@ mod test_assert_approx_ne_using_absolute_error_as_result {
 /// #     "       Δ label: `delta`,\n",
 /// #     "       Δ debug: `1`,\n",
 /// #     "     | a - b |: `2`,\n",
-/// #     " | a - b | > Δ: false",
+/// #     " | a - b | ≤ Δ: false",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -319,16 +319,16 @@ mod test_assert_approx_ne_using_absolute_error_as_result {
 ///   equality within 1e-6. The macro name and the approximate value are chosen
 ///   to be similar to the longtime popular rust crate `assert_approx_eq`.
 ///
-/// * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
 ///   tests the absolute error (i.e. delta). This is the magnitude of the
 ///   difference between the exact value and the approximation.
 ///   This macro is purposefully identical to the macro [`assert_in_delta`](macro@crate::assert_in_delta).
 ///
-/// * [`assert_approx_eq_using_relative_error`](macro@crate::assert_approx_eq_using_relative_error)
+/// * [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error)
 ///   tests the relative error (i.e. epsilon). This is the absolute error divided
 ///   by the magnitude of the minimum value. This can be used to compare
 ///   approximations of numbers of wildly differing size.
-///   This macro is purposefully identical to [`assert_approx_eq_using_relative_error`](macro@crate::assert_approx_eq_using_relative_error).
+///   This macro is purposefully identical to [`assert_approx_eq_with_relative_error`](macro@crate::assert_approx_eq_with_relative_error).
 ///
 /// ## Absolute error and relative error
 ///
@@ -360,20 +360,20 @@ mod test_assert_approx_ne_using_absolute_error_as_result {
 ///
 /// # Module macros
 ///
-/// * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
-/// * [`assert_approx_ne_using_absolute_error_as_result`](macro@crate::assert_approx_ne_using_absolute_error_as_result)
-/// * [`debug_assert_approx_ne_using_absolute_error`](macro@crate::debug_assert_approx_ne_using_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error_as_result`](macro@crate::assert_approx_eq_with_absolute_error_as_result)
+/// * [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
 ///
 #[macro_export]
-macro_rules! assert_approx_ne_using_absolute_error {
+macro_rules! assert_approx_eq_with_absolute_error {
     ($a:expr, $b:expr, $delta:expr $(,)?) => {
-        match $crate::assert_approx_ne_using_absolute_error_as_result!($a, $b, $delta) {
+        match $crate::assert_approx_eq_with_absolute_error_as_result!($a, $b, $delta) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     };
     ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {
-        match $crate::assert_approx_ne_using_absolute_error_as_result!($a, $b, $delta) {
+        match $crate::assert_approx_eq_with_absolute_error_as_result!($a, $b, $delta) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
@@ -381,39 +381,39 @@ macro_rules! assert_approx_ne_using_absolute_error {
 }
 
 #[cfg(test)]
-mod test_assert_approx_ne_using_absolute_error {
+mod test_assert_approx_eq_with_absolute_error {
     use std::panic;
 
     #[test]
     fn success() {
         let a: i8 = 10;
-        let b: i8 = 12;
+        let b: i8 = 11;
         let delta: i8 = 1;
         for _ in 0..1 {
-            let actual = assert_approx_ne_using_absolute_error!(a, b, delta);
-            assert_eq!(actual, (2 as i8, 1 as i8));
+            let actual = assert_approx_eq_with_absolute_error!(a, b, delta);
+            assert_eq!(actual, (1 as i8, 1 as i8));
         }
     }
 
     #[test]
     fn failure() {
         let a: i8 = 10;
-        let b: i8 = 11;
+        let b: i8 = 12;
         let delta: i8 = 1;
         let result = panic::catch_unwind(|| {
-            let _actual = assert_approx_ne_using_absolute_error!(a, b, delta);
+            let _actual = assert_approx_eq_with_absolute_error!(a, b, delta);
         });
         let message = concat!(
-            "assertion failed: `assert_approx_ne_using_absolute_error!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_ne_using_absolute_error.html\n",
+            "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
-            "       b debug: `11`,\n",
+            "       b debug: `12`,\n",
             "       Δ label: `delta`,\n",
             "       Δ debug: `1`,\n",
-            "     | a - b |: `1`,\n",
-            " | a - b | > Δ: false"
+            "     | a - b |: `2`,\n",
+            " | a - b | ≤ Δ: false"
         );
         assert_eq!(
             result
@@ -426,12 +426,12 @@ mod test_assert_approx_ne_using_absolute_error {
     }
 }
 
-/// Assert a number is approximately not equal to another by using absolute error a.k.a. delta.
+/// Assert a number is approximately equal to another by using absolute error a.k.a. delta.
 ///
 /// Pseudocode:<br>
-/// | a - b | > Δ
+/// | a - b | ≤ Δ
 ///
-/// This macro provides the same statements as [`assert_approx_ne_using_absolute_error`](macro.assert_approx_ne_using_absolute_error.html),
+/// This macro provides the same statements as [`assert_approx_eq_with_absolute_error`](macro.assert_approx_eq_with_absolute_error.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -453,53 +453,53 @@ mod test_assert_approx_ne_using_absolute_error {
 ///
 /// # Module macros
 ///
-/// * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
-/// * [`assert_approx_ne_using_absolute_error`](macro@crate::assert_approx_ne_using_absolute_error)
-/// * [`debug_assert_approx_ne_using_absolute_error`](macro@crate::debug_assert_approx_ne_using_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+/// * [`assert_approx_eq_with_absolute_error`](macro@crate::assert_approx_eq_with_absolute_error)
+/// * [`debug_assert_approx_eq_with_absolute_error`](macro@crate::debug_assert_approx_eq_with_absolute_error)
 ///
 #[macro_export]
-macro_rules! debug_assert_approx_ne_using_absolute_error {
+macro_rules! debug_assert_approx_eq_with_absolute_error {
     ($($arg:tt)*) => {
         if cfg!(debug_assertions) {
-            $crate::assert_approx_ne_using_absolute_error!($($arg)*);
+            $crate::assert_approx_eq_with_absolute_error!($($arg)*);
         }
     };
 }
 
 #[cfg(test)]
-mod test_debug_assert_approx_ne_using_absolute_error {
+mod test_debug_assert_approx_eq_with_absolute_error {
     use std::panic;
 
     #[test]
     fn success() {
         let a: i8 = 10;
-        let b: i8 = 12;
+        let b: i8 = 11;
         let delta: i8 = 1;
         for _ in 0..1 {
-            let _actual = debug_assert_approx_ne_using_absolute_error!(a, b, delta);
-            // assert_eq!(actual, (2 as i8, 1 as i8));
+            let _actual = debug_assert_approx_eq_with_absolute_error!(a, b, delta);
+            // assert_eq!(actual, (1 as i8, 1 as i8));
         }
     }
 
     #[test]
     fn failure() {
         let a: i8 = 10;
-        let b: i8 = 11;
+        let b: i8 = 12;
         let delta: i8 = 1;
         let result = panic::catch_unwind(|| {
-            let _actual = debug_assert_approx_ne_using_absolute_error!(a, b, delta);
+            let _actual = debug_assert_approx_eq_with_absolute_error!(a, b, delta);
         });
         let message = concat!(
-            "assertion failed: `assert_approx_ne_using_absolute_error!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_ne_using_absolute_error.html\n",
+            "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
+            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
-            "       b debug: `11`,\n",
+            "       b debug: `12`,\n",
             "       Δ label: `delta`,\n",
             "       Δ debug: `1`,\n",
-            "     | a - b |: `1`,\n",
-            " | a - b | > Δ: false"
+            "     | a - b |: `2`,\n",
+            " | a - b | ≤ Δ: false"
         );
         assert_eq!(
             result

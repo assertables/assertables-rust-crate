@@ -238,7 +238,7 @@ mod test_assert_approx_eq_as_result {
 ///  use the macro
 ///
 /// * For an approximation, the relative error (i.e. epsilon) is the absolute
-///   error divided by the magnitude of the exact value. This can be used to
+///   error divided by the magnitude of the minimum value. This can be used to
 ///   compare approximations of numbers of wildly differing size.
 ///
 /// * For example, approximating the number 1,000 with an absolute error of 3

@@ -65,6 +65,13 @@ To use this crate, add it to your file `Cargo.toml`:
 assertables = "10.0.0"
 ```
 
+To enable all the assert macros everywhere in your code, add it to your `src/lib.rs`:
+
+```rust
+#[cfg(test)]
+#[macro_use] extern crate assertables;
+```
+
 Benefits:
 
 - You can write better tests to improve reliability and maintainability.

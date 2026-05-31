@@ -1,0 +1,150 @@
+⏺ 🧭 SOTA Standing — assertables-rust-crate · mode: standard
+
+  ▎ Verdict: You're broadly competitive — you out-cover every comparator on breadth (sets, bags, polls, commands), but you lack the one feature every other modern asserter ships: colored diff output on equality failures.
+
+  Tier: COMPETITIVE (2 table-stakes gaps)   ·   Coverage ███████░░░ 78% (7/9 table-stakes met, 1 partial)   ·   Field scanned: 9 repos
+
+  ▎ Since last scan: baseline — no prior scan to diff.
+
+  Field framing
+
+  Detected domain: rust-assertion-library  ·  Adjacent considered: rust-snapshot-testing (insta/k9), rust-testing-framework  ·  Excluded: BDD/cucumber frameworks — different goal (scenarios, not values)
+  Benchmark assumption: this crate competes as a macro-based assertion library (not a fluent/matcher framework like googletest or speculoos); fluent-matcher gaps are graded as edge, not table-stakes, because they require a fundamentally different API.
+
+  ▶ Do this next
+
+  ▎ Add a colored-diff failure renderer for assert_eq! and assert_ne! — copy the approach from rust-pretty-assertions/rust-pretty-assertions → src/lib.rs. First step: add pretty_assertions = "1" as an optional dep in Cargo.toml behind a pretty feature, then in
+  ▎ src/assert_eq.rs swap the format!(…) panic body for pretty_assertions::Comparison::new(&a, &b) when the feature is enabled. Effort ~1d · confidence: high.
+
+  🏆 The field
+
+  ┌─────┬───────────────────────────────────────────────┬─────────────────────────────────┬───────────┬───────────────────────────────────────────────────────────────────┐
+  │  #  │                     Repo                      │              Type               │ Stars (~) │                           Why included                            │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 1   │ mitsuhiko/insta                               │ canonical (adjacent — snapshot) │ ~2.9k     │ dominant adjacent domain; sets the bar for "failure UX"           │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 2   │ rust-pretty-assertions/rust-pretty-assertions │ popular                         │ ~1.3k     │ the de-facto colored-diff baseline (148M downloads)               │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 3   │ nvzqz/static-assertions-rs                    │ stale-reference                 │ ~663      │ last release 2019-11 — historical bar for compile-time assertions │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 4   │ assert-rs/assert_cmd                          │ popular (CLI subdomain)         │ ~550      │ canonical for CLI assertions                                      │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 5   │ google/googletest-rust                        │ technically advanced            │ ~414      │ richest matcher composition + non-fatal expect_that!              │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 6   │ aaronabramov/k9                               │ niche-relevant                  │ ~355      │ "better assertions + snapshots" in one crate                      │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 7   │ de-vri-es/assert2-rs                          │ technically advanced            │ ~130      │ expression-parsing assert!, check!, let_assert!                   │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 8   │ svartalf/rust-claim                           │ niche-relevant                  │ ~79       │ closest direct competitor on shape (no_std + ok/some/poll)        │
+  ├─────┼───────────────────────────────────────────────┼─────────────────────────────────┼───────────┼───────────────────────────────────────────────────────────────────┤
+  │ 9   │ oknozor/speculoos                             │ niche-relevant                  │ ~54       │ fluent-style alternative (active 2025 spectral fork)              │
+  └─────┴───────────────────────────────────────────────┴─────────────────────────────────┴───────────┴───────────────────────────────────────────────────────────────────┘
+
+  📊 Capability matrix
+
+  ┌────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────┬─────────────────────────────────────────┬────────────────────────┬────────────────────────────────────────────────────────┐
+  │                     Capability                     │                                  Us                                  │            SOTA (who has it)            │          Gap?          │                       Reference                        │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Ordering comparisons (lt/gt/le/ge)                 │ ✅ src/assert_lt.rs, src/assert_gt.rs                                │ claim, more_asserts                     │ —                      │ svartalf/rust-claim → assert_ge/gt/le/lt               │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Custom failure messages                            │ ✅ src/lib.rs:251-254                                                │ all majors                              │ —                      │ rust-pretty-assertions/rust-pretty-assertions          │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Result-returning variant                           │ ✅ *_as_result everywhere (src/assert.rs:37)                         │ googletest verify_that!                 │ —                      │ google/googletest-rust → verify_that!                  │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Float comparison (abs/rel/ulps)                    │ ⚠️ src/assert_approx/ — abs+rel only, no ulps                        │ approx, assert_approx_eq                │ table-stakes (partial) │ rust-num/approx → relative_eq/ulps_eq                  │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Option/Result wrappers                             │ ✅ src/assert_ok/, src/assert_some/ (returns inner)                  │ claim, claims                           │ —                      │ svartalf/rust-claim → assert_ok                        │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Pattern matching                                   │ ✅ src/assert_matches/                                               │ assert2, std matches!                   │ —                      │ de-vri-es/assert2-rs → let_assert!                     │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Colored diff on eq failure                         │ ❌ plain format! in src/assert_eq.rs                                 │ pretty_assertions, k9, assert2          │ table-stakes           │ rust-pretty-assertions/rust-pretty-assertions → README │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Container assertions (contains/len/is_empty)       │ ✅ src/assert_contains/, src/assert_len/, src/assert_is_empty/       │ googletest                              │ —                      │ google/googletest-rust → contains_each                 │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Verbose error messages (labels + debug + doc link) │ ✅ src/assert.rs:44-53 (URL embedded)                                │ — (you lead)                            │ —                      │ self — src/assert.rs                                   │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Async/Poll-aware                                   │ ✅ src/assert_ready/, src/assert_pending/                            │ claim                                   │ —                      │ svartalf/rust-claim → poll macros                      │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ CLI command assertions                             │ ✅ src/assert_command/, src/assert_program_args/, src/assert_status/ │ assert_cmd                              │ —                      │ assert-rs/assert_cmd                                   │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Set/bag assertions                                 │ ✅ src/assert_set/, src/assert_bag/                                  │ — (you lead)                            │ —                      │ self — unique among the field                          │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Non-fatal / multi-failure                          │ ❌ panics on first failure                                           │ assert2 check!, googletest expect_that! │ edge                   │ de-vri-es/assert2-rs → check!                          │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Compile-time assertions                            │ ❌                                                                   │ static_assertions                       │ edge                   │ nvzqz/static-assertions-rs → const_assert!             │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Snapshot testing                                   │ ❌                                                                   │ insta, k9                               │ edge (adjacent domain) │ mitsuhiko/insta                                        │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Fluent matcher composition                         │ ❌ (macro-only by design)                                            │ googletest, speculoos                   │ edge (design tradeoff) │ google/googletest-rust → matches_pattern!              │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ no_std support                                     │ ❌ uses format!                                                      │ claim, static_assertions                │ edge                   │ svartalf/rust-claim                                    │
+  ├────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────┼────────────────────────┼────────────────────────────────────────────────────────┤
+  │ Drop-in std assert! replacement                    │ ❌ named differently                                                 │ assert2, pretty_assertions              │ edge                   │ de-vri-es/assert2-rs → README                          │
+  └────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────┴─────────────────────────────────────────┴────────────────────────┴────────────────────────────────────────────────────────┘
+
+  🔧 Gaps — your to-do list, worst first
+
+  [!]  #1  Colored diff output on assert_eq/ne failure       table-stakes · effort ~1d · confidence: high
+       Why:    Every modern Rust asserter (pretty_assertions, k9, assert2, googletest) ships
+               readable colored diffs; assertables emits a plain text dump. This is the single
+               biggest UX gap vs. the field's baseline.
+       Study:  rust-pretty-assertions/rust-pretty-assertions → src/lib.rs (Comparison::new)
+       Step 1: Add `pretty_assertions = { version = "1", optional = true }` to Cargo.toml and a
+               `pretty` feature. In src/assert_eq.rs, gate a new failure path that calls
+               `pretty_assertions::Comparison::new(&a, &b)` and embeds its output in the panic
+               message; keep the existing path as fallback when the feature is off.
+
+  [!]  #2  Float ULPs comparison                              table-stakes (partial) · effort ~2h · confidence: high
+       Why:    `assert_approx` covers absolute and relative error but not ULPs, the standard
+               IEEE-754 comparison the `approx` crate (108M downloads) makes canonical.
+               Without it, low-level numeric tests must reach for a second crate.
+       Study:  rust-num/approx → src/ulps.rs (UlpsEq trait)
+       Step 1: Create src/assert_approx/assert_approx_eq_with_ulps.rs containing
+               `assert_approx_eq_with_ulps!(a, b, ulps)` and its `_as_result` twin, modeled on
+               assert_approx_eq_with_absolute_error.rs. Add the module to src/assert_approx/mod.rs.
+
+  [~]  #3  Non-fatal `check!` / multi-failure mode             edge · effort ~3d · confidence: medium
+       Why:    assert2's `check!` and googletest's `expect_that!` let a test collect every
+               failure instead of stopping at the first — a meaningful workflow improvement
+               for snapshot-style tests with many independent comparisons.
+       Study:  de-vri-es/assert2-rs → src/check.rs (the failure-aggregator)
+       Step 1: Add src/check.rs exporting `check_*!` variants of the top-tier macros that push
+               to a thread-local Vec<String> instead of panicking, with a `#[test]` harness
+               helper that drains and reports at end-of-test.
+
+  [~]  #4  no_std support                                      edge · effort ~2d · confidence: medium
+       Why:    claim and static_assertions both support no_std; assertables's `format!()` in
+               every macro forces `alloc`. Locks out embedded users — a niche but real audience.
+       Study:  svartalf/rust-claim → src/lib.rs (no_std-compatible message builder)
+       Step 1: Add `#![cfg_attr(not(feature = "std"), no_std)]` to src/lib.rs with a `std`
+               default feature; swap `format!` for `core::fmt::Write` into a stack/heapless
+               buffer in src/assert.rs first as a proof-of-concept, then propagate.
+
+  [~]  #5  Drop-in std `assert!` replacement                   edge · effort ~1d · confidence: low
+       Why:    assert2 and pretty_assertions both pitch themselves as "just import and your
+               existing `assert!` calls get richer output." assertables requires renaming.
+               Closing this lowers adoption friction.
+       Study:  de-vri-es/assert2-rs → README ("drop in replacement for std::assert!")
+       Step 1: Add a `prelude` module that re-exports a custom `assert!` macro_rules! using the
+               same name as std — document the `use assertables::prelude::*;` pattern.
+
+  What we already match
+
+  ✅ ordering · ✅ custom messages · ✅ _as_result everywhere · ✅ option/result wrappers · ✅ pattern matching · ✅ container/len/is_empty · ✅ verbose error messages (with doc URLs — uniquely good) · ✅ async poll · ✅ CLI commands · ✅ set + bag assertions (no
+  comparator has these)
+
+  ---Persisted: .sota/rubric.rust-assertion-library.json (v1, derived this run) and .sota/last-scan.json. Both belong to the repo so the next /sota-scan can diff against them — commit or .gitignore as you prefer.
+
+  Caveats: gh CLI was unauthenticated so star counts are web-scraped (~). static-assertions-rs last released 2019 — treated as stale-reference, not the bar.
+
+  Sources:
+  - google/googletest-rust
+  - de-vri-es/assert2-rs
+  - rust-pretty-assertions/rust-pretty-assertions
+  - mitsuhiko/insta
+  - aaronabramov/k9
+  - svartalf/rust-claim
+  - nvzqz/static-assertions-rs
+  - assert-rs/assert_cmd
+  - oknozor/speculoos
+  - Rust unit testing: assertion libraries — Jorge Ortiz-Fuentes

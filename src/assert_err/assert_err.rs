@@ -100,6 +100,16 @@ mod test_assert_err_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Err(NoCopy);
+
+        let actual = assert_err_as_result!(a);
+        assert!(actual.is_ok());
+    }
 }
 
 /// Assert expression is Err.
@@ -198,6 +208,15 @@ mod test_assert_err {
             message
         );
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Err(NoCopy);
+
+        assert_err!(a);
+    }
 }
 
 /// Assert expression is Err.
@@ -273,5 +292,14 @@ mod test_debug_assert_err {
                 .to_string(),
             message
         );
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Err(NoCopy);
+
+        debug_assert_err!(a);
     }
 }

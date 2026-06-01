@@ -41,31 +41,29 @@
 macro_rules! assert_ok_ne_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match ($a, $b) {
-            (a, b) => match (a, b) {
-                (Ok(a1), Ok(b1)) => {
-                    if a1 != b1 {
-                        Ok((a1, b1))
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_ok_ne.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " a inner: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                " b inner: `{:?}`"
-                            ),
-                            stringify!($a),
-                            a,
-                            a1,
-                            stringify!($b),
-                            b,
-                            b1
-                        ))
-                    }
-                }
+            // Match by move here because we return the values back to the caller
+            (Ok(a), Ok(b)) if a != b => Ok((a, b)),
+            // Match by borrow here because we need to reference both the inner and outer values.
+            // The outer value would be inaccessible in the format invocation if we moved.
+            (ref a, ref b) => match (a, b) {
+                (Ok(a1), Ok(b1)) => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_ok_ne!(a, b)`\n",
+                        "https://docs.rs/assertables/10.0.0/assertables/macro.assert_ok_ne.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " a inner: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`,\n",
+                        " b inner: `{:?}`"
+                    ),
+                    stringify!($a),
+                    a,
+                    a1,
+                    stringify!($b),
+                    b,
+                    b1
+                )),
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_ok_ne!(a, b)`\n",
@@ -201,6 +199,17 @@ mod test_assert_ok_ne_as_result {
             " b debug: `Ok(1)`",
         );
         assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy(i8);
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy(1));
+        let b: Result<NoCopy, NoCopy> = Ok(NoCopy(2));
+
+        let actual = assert_ok_ne_as_result!(a, b);
+        assert!(actual.is_ok())
     }
 }
 
@@ -341,6 +350,16 @@ mod test_assert_ok_ne {
             message
         );
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy(i8);
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy(1));
+        let b: Result<NoCopy, NoCopy> = Ok(NoCopy(2));
+
+        assert_ok_ne!(a, b);
+    }
 }
 
 /// Assert two expressions are Ok and their values are not equal.
@@ -444,5 +463,15 @@ mod test_debug_assert_ok_ne {
                 .to_string(),
             message
         );
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy(i8);
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy(1));
+        let b: Result<NoCopy, NoCopy> = Ok(NoCopy(2));
+
+        debug_assert_ok_ne!(a, b);
     }
 }

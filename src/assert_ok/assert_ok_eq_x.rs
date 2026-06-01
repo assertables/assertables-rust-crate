@@ -41,29 +41,27 @@
 macro_rules! assert_ok_eq_x_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match ($a, $b) {
-            (a, b) => match (a) {
-                Ok(a1) => {
-                    if a1 == b {
-                        Ok(a1)
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-                                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_ok_eq_x.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " a inner: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            a,
-                            a1,
-                            stringify!($b),
-                            b
-                        ))
-                    }
-                }
+            // Match by move here because we return the value back to the caller
+            (Ok(a), b) if a == b => Ok(a),
+            // Match by borrow here because we need to reference both the inner and outer values.
+            // The outer value would be inaccessible in the format invocation if we moved.
+            (ref a, ref b) => match (a) {
+                Ok(a1) => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_ok_eq_x!(a, b)`\n",
+                        "https://docs.rs/assertables/10.0.0/assertables/macro.assert_ok_eq_x.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " a inner: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`",
+                    ),
+                    stringify!($a),
+                    a,
+                    a1,
+                    stringify!($b),
+                    b
+                )),
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_ok_eq_x!(a, b)`\n",
@@ -158,6 +156,17 @@ mod test_assert_ok_eq_x_as_result {
             " b debug: `1`",
         );
         assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy);
+        let b = NoCopy;
+
+        let actual = assert_ok_eq_x_as_result!(a, b);
+        assert!(actual.is_ok());
     }
 }
 
@@ -295,6 +304,16 @@ mod test_assert_ok_eq_x {
             message
         );
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy);
+        let b = NoCopy;
+
+        assert_ok_eq_x!(a, b);
+    }
 }
 
 /// Assert an expression is Ok and its value is equal to an expression.
@@ -400,5 +419,15 @@ mod test_debug_assert_ok_eq_x {
                 .to_string(),
             message
         );
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy);
+        let b = NoCopy;
+
+        debug_assert_ok_eq_x!(a, b);
     }
 }

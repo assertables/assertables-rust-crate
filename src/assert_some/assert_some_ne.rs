@@ -44,44 +44,44 @@
 macro_rules! assert_some_ne_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match ($a, $b) {
-            (Some(a1), Some(b1)) => {
-                if a1 != b1 {
-                    Ok((a1, b1))
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_some_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_some_ne.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " a inner: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            " b inner: `{:?}`"
-                        ),
-                        stringify!($a),
-                        $a,
-                        a1,
-                        stringify!($b),
-                        $b,
-                        b1
-                    ))
-                }
+            // Match by move here because we return the values back to the caller
+            (Some(a), Some(b)) if a != b => Ok((a, b)),
+            // Match by borrow here because we need to reference both the inner and outer values.
+            // The outer value would be inaccessible in the format invocation if we moved.
+            (ref a, ref b) => match (a, b) {
+                (Some(a1), Some(b1)) => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_some_ne!(a, b)`\n",
+                        "https://docs.rs/assertables/10.0.0/assertables/macro.assert_some_ne.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " a inner: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`,\n",
+                        " b inner: `{:?}`"
+                    ),
+                    stringify!($a),
+                    a,
+                    a1,
+                    stringify!($b),
+                    b,
+                    b1
+                )),
+                _ => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_some_ne!(a, b)`\n",
+                        "https://docs.rs/assertables/10.0.0/assertables/macro.assert_some_ne.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`",
+                    ),
+                    stringify!($a),
+                    a,
+                    stringify!($b),
+                    b,
+                )),
             }
-            _ => Err(format!(
-                concat!(
-                    "assertion failed: `assert_some_ne!(a, b)`\n",
-                    "https://docs.rs/assertables/10.0.0/assertables/macro.assert_some_ne.html\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`,\n",
-                    " b label: `{}`,\n",
-                    " b debug: `{:?}`",
-                ),
-                stringify!($a),
-                $a,
-                stringify!($b),
-                $b,
-            )),
         }
     };
 }
@@ -202,6 +202,17 @@ mod test_assert_some_ne_as_result {
             " b debug: `Some(1)`",
         );
         assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy(i8);
+        let a: Option<NoCopy> = Some(NoCopy(1));
+        let b: Option<NoCopy> = Some(NoCopy(2));
+
+        let actual = assert_some_ne_as_result!(a, b);
+        assert!(actual.is_ok())
     }
 }
 
@@ -342,6 +353,16 @@ mod test_assert_some_ne {
             message
         );
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy(i8);
+        let a: Option<NoCopy> = Some(NoCopy(1));
+        let b: Option<NoCopy> = Some(NoCopy(2));
+
+        assert_some_ne!(a, b);
+    }
 }
 
 /// Assert two expressions are Some and their values are not equal.
@@ -448,5 +469,15 @@ mod test_debug_assert_some_ne {
                 .to_string(),
             message
         );
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy(i8);
+        let a: Option<NoCopy> = Some(NoCopy(1));
+        let b: Option<NoCopy> = Some(NoCopy(2));
+
+        debug_assert_some_ne!(a, b);
     }
 }

@@ -15,7 +15,9 @@
       "Bash(rustdoc-md --version)",
       "Bash(cargo install *)",
       "Bash(RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS=\"-Z unstable-options --output-format json\" cargo doc --no-deps)",
-      "Bash(rustdoc-md --path target/doc/assertables.json --output assertables.md)"
+      "Bash(rustdoc-md --path target/doc/assertables.json --output assertables.md)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
     ]
   }
 }

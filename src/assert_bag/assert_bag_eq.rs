@@ -50,7 +50,7 @@ macro_rules! assert_bag_eq_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_bag_eq.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_bag_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -125,7 +125,7 @@ mod test_assert_bag_eq_as_result {
         let actual = assert_bag_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_bag_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_bag_eq.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 1]`,\n",
             " b label: `b`,\n",
@@ -175,7 +175,7 @@ mod test_assert_bag_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_bag_eq.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_bag_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `b`,\n",
@@ -236,7 +236,7 @@ mod test_assert_bag_eq {
         });
         let message = concat!(
             "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_bag_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_bag_eq.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 1]`,\n",
             " b label: `b`,\n",
@@ -320,7 +320,7 @@ mod test_debug_assert_bag_eq {
         });
         let message = concat!(
             "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_bag_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_bag_eq.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 1]`,\n",
             " b label: `b`,\n",

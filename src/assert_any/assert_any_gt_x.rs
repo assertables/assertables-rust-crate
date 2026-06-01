@@ -52,7 +52,7 @@ macro_rules! assert_any_gt_x_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
                             " iter label: `{}`,\n",
                             " iter debug: `{:?}`,\n",
                             " x label: `{}`,\n",
@@ -92,7 +92,7 @@ mod test_assert_any_gt_x_as_result {
             let actual = assert_any_gt_x_as_result!(a.iter(), b);
             let message = concat!(
                 "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
                 " iter label: `a.iter()`,\n",
                 " iter debug: `Iter([])`,\n",
                 " x label: `b`,\n",
@@ -108,7 +108,7 @@ mod test_assert_any_gt_x_as_result {
             let actual = assert_any_gt_x_as_result!(a.iter(), b);
             let message = concat!(
                 "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
                 " iter label: `a.iter()`,\n",
                 " iter debug: `Iter([])`,\n",
                 " x label: `b`,\n",
@@ -150,7 +150,7 @@ mod test_assert_any_gt_x_as_result {
             let actual = assert_any_gt_x_as_result!(a.iter(), b);
             let message = concat!(
                 "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
                 " iter label: `a.iter()`,\n",
                 " iter debug: `Iter([])`,\n",
                 " x label: `b`,\n",
@@ -197,7 +197,7 @@ mod test_assert_any_gt_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
 /// #     " iter label: `a.iter()`,\n",
 /// #     " iter debug: `Iter([])`,\n",
 /// #     " x label: `b`,\n",
@@ -254,7 +254,7 @@ mod test_assert_any_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
             " iter label: `a.iter()`,\n",
             " iter debug: `Iter([])`,\n",
             " x label: `b`,\n",
@@ -279,7 +279,7 @@ mod test_assert_any_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
             " iter label: `a.iter()`,\n",
             " iter debug: `Iter([])`,\n",
             " x label: `b`,\n",
@@ -359,7 +359,7 @@ mod test_debug_assert_any_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_any_gt_x!(iter, x)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_any_gt_x.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_any_gt_x.html\n",
             " iter label: `a.iter()`,\n",
             " iter debug: `Iter([])`,\n",
             " x label: `b`,\n",

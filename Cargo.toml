@@ -1,6 +1,6 @@
 [package]
 name = "assertables"
-version = "10.0.0"
+version = "10.1.0"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2024"
 description = "Assertables: assert macros for better testing, debugging, quality assurance, and runtime reliability."

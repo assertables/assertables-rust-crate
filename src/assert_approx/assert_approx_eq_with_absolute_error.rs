@@ -150,7 +150,7 @@ macro_rules! assert_approx_eq_with_absolute_error_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
                             "       a label: `{}`,\n",
                             "       a debug: `{:?}`,\n",
                             "       b label: `{}`,\n",
@@ -240,7 +240,7 @@ mod test_assert_approx_eq_with_absolute_error_as_result {
         let actual = assert_approx_eq_with_absolute_error_as_result!(a, b, delta);
         let message = concat!(
             "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
@@ -296,7 +296,7 @@ mod test_assert_approx_eq_with_absolute_error_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",
@@ -405,7 +405,7 @@ mod test_assert_approx_eq_with_absolute_error {
         });
         let message = concat!(
             "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
@@ -491,7 +491,7 @@ mod test_debug_assert_approx_eq_with_absolute_error {
         });
         let message = concat!(
             "assertion failed: `assert_approx_eq_with_absolute_error!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_approx_eq_with_absolute_error.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",

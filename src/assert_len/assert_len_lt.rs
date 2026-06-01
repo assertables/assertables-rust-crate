@@ -50,7 +50,7 @@ macro_rules! assert_len_lt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_len_lt!(a, b)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.len(): `{:?}`,\n",
@@ -122,7 +122,7 @@ mod test_assert_len_lt_as_result {
         let actual = assert_len_lt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_len_lt!(a, b)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",
@@ -140,7 +140,7 @@ mod test_assert_len_lt_as_result {
         let actual = assert_len_lt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_len_lt!(a, b)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"xx\"`,\n",
             " a.len(): `2`,\n",
@@ -190,7 +190,7 @@ mod test_assert_len_lt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_len_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"xx\"`,\n",
 /// #     " a.len(): `2`,\n",
@@ -247,7 +247,7 @@ mod test_assert_len_lt {
         });
         let message = concat!(
             "assertion failed: `assert_len_lt!(a, b)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",
@@ -274,7 +274,7 @@ mod test_assert_len_lt {
         });
         let message = concat!(
             "assertion failed: `assert_len_lt!(a, b)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"xx\"`,\n",
             " a.len(): `2`,\n",
@@ -356,7 +356,7 @@ mod test_debug_assert_len_lt {
         });
         let message = concat!(
             "assertion failed: `assert_len_lt!(a, b)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",
@@ -383,7 +383,7 @@ mod test_debug_assert_len_lt {
         });
         let message = concat!(
             "assertion failed: `assert_len_lt!(a, b)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_len_lt.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_len_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"xx\"`,\n",
             " a.len(): `2`,\n",

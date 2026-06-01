@@ -41,31 +41,29 @@
 macro_rules! assert_err_eq_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match ($a, $b) {
-            (a, b) => match (a, b) {
-                (Err(a1), Err(b1)) => {
-                    if a1 == b1 {
-                        Ok((a1, b1))
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_err_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_err_eq.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " a inner: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                " b inner: `{:?}`"
-                            ),
-                            stringify!($a),
-                            a,
-                            a1,
-                            stringify!($b),
-                            b,
-                            b1
-                        ))
-                    }
-                }
+            // Match by move here because we return the values back to the caller
+            (Err(a), Err(b)) if a == b => Ok((a, b)),
+            // Match by borrow here because we need to reference both the inner and outer values.
+            // The outer value would be inaccessible in the format invocation if we moved.
+            (ref a, ref b) => match (a, b) {
+                (Err(a1), Err(b1)) => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_err_eq!(a, b)`\n",
+                        "https://docs.rs/assertables/10.0.0/assertables/macro.assert_err_eq.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " a inner: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`,\n",
+                        " b inner: `{:?}`",
+                    ),
+                    stringify!($a),
+                    a,
+                    a1,
+                    stringify!($b),
+                    b,
+                    b1
+                )),
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_err_eq!(a, b)`\n",
@@ -161,6 +159,17 @@ mod test_assert_err_eq_as_result {
             " b debug: `Err(1)`",
         );
         assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Err(NoCopy);
+        let b: Result<NoCopy, NoCopy> = Err(NoCopy);
+
+        let actual = assert_err_eq_as_result!(a, b);
+        assert!(actual.is_ok())
     }
 }
 
@@ -301,6 +310,16 @@ mod test_assert_err_eq {
             message
         );
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Err(NoCopy);
+        let b: Result<NoCopy, NoCopy> = Err(NoCopy);
+
+        assert_err_eq!(a, b);
+    }
 }
 
 /// Assert two expressions are Err and their values are equal.
@@ -407,5 +426,15 @@ mod test_debug_assert_err_eq {
                 .to_string(),
             message
         );
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Err(NoCopy);
+        let b: Result<NoCopy, NoCopy> = Err(NoCopy);
+
+        debug_assert_err_eq!(a, b);
     }
 }

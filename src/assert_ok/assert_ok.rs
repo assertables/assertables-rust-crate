@@ -100,6 +100,16 @@ mod test_assert_ok_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy);
+
+        let actual = assert_ok_as_result!(a);
+        assert!(actual.is_ok())
+    }
 }
 
 /// Assert expression is Ok.
@@ -198,6 +208,15 @@ mod test_assert_ok {
             message
         );
     }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy);
+
+        assert_ok!(a);
+    }
 }
 
 /// Assert expression is Ok.
@@ -273,5 +292,14 @@ mod test_debug_assert_ok {
                 .to_string(),
             message
         );
+    }
+
+    #[test]
+    fn move_semantics() {
+        #[derive(Debug, PartialEq)]
+        struct NoCopy;
+        let a: Result<NoCopy, NoCopy> = Ok(NoCopy);
+
+        debug_assert_ok!(a);
     }
 }

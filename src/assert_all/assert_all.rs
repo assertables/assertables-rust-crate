@@ -51,7 +51,7 @@ macro_rules! assert_all_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_all!(iter, predicate)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_all.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_all.html\n",
                             " iter label: `{}`,\n",
                             " iter debug: `{:?}`,\n",
                             " predicate: `{}`"
@@ -103,7 +103,7 @@ mod test_assert_all_as_result {
         let actual = assert_all_as_result!(a.iter(), |&x| x > 0);
         let message = concat!(
             "assertion failed: `assert_all!(iter, predicate)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_all.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_all.html\n",
             " iter label: `a.iter()`,\n",
             " iter debug: `Iter([1, -2, 3])`,\n",
             " predicate: `|&x| x > 0`"
@@ -145,7 +145,7 @@ mod test_assert_all_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_all!(iter, predicate)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_all.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_all.html\n",
 /// #     " iter label: `a.iter()`,\n",
 /// #     " iter debug: `Iter([1, -2, 3])`,\n",
 /// #     " predicate: `|&x| x > 0`",
@@ -199,7 +199,7 @@ mod test_assert_all {
         });
         let message = concat!(
             "assertion failed: `assert_all!(iter, predicate)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_all.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_all.html\n",
             " iter label: `a.iter()`,\n",
             " iter debug: `Iter([1, -2, 3])`,\n",
             " predicate: `|&x| x > 0`"
@@ -276,7 +276,7 @@ mod test_debug_assert_all {
         });
         let message = concat!(
             "assertion failed: `assert_all!(iter, predicate)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_all.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_all.html\n",
             " iter label: `a.iter()`,\n",
             " iter debug: `Iter([1, -2, 3])`,\n",
             " predicate: `|&x| x > 0`"

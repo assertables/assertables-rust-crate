@@ -50,7 +50,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.8.4"
+//! assertables = "10"
 //! ```
 //!
 //! Benefits:
@@ -258,10 +258,10 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 10.0.0
+//! * Version: 10.1.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2026-05-23T16:03:31Z
-//! * License: MIT or BSD or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
+//! * Updated: 2026-06-01T07:30:16Z
+//! * License: MIT or Apache-2.0 or BSD-3-Clause or or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
 // Each macro group lives in `src/assert_X/` with a `mod.rs` that re-exports

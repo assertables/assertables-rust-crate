@@ -53,7 +53,7 @@ macro_rules! assert_command_stderr_eq_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a value: `{:?}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_command_stderr_eq_as_result {
             (a, b) => Err(format!(
                 concat!(
                     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-                    "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+                    "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`,\n",
                     " a value: `{:?}`,\n",
@@ -155,7 +155,7 @@ mod test_assert_command_stderr_eq_as_result {
         let actual = assert_command_stderr_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -175,7 +175,7 @@ mod test_assert_command_stderr_eq_as_result {
         let actual = assert_command_stderr_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -230,7 +230,7 @@ mod test_assert_command_stderr_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " a value: `[97, 108, 102, 97]`,\n",
@@ -293,7 +293,7 @@ mod test_assert_command_stderr_eq {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -322,7 +322,7 @@ mod test_assert_command_stderr_eq {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -407,7 +407,7 @@ mod test_debug_assert_command_stderr_eq {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -436,7 +436,7 @@ mod test_debug_assert_command_stderr_eq {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",

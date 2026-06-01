@@ -52,7 +52,7 @@ macro_rules! assert_command_stderr_string_contains_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-                                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+                                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_string_contains.html\n",
                                 "   command label: `{}`,\n",
                                 "   command debug: `{:?}`,\n",
                                 "   command value: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_command_stderr_string_contains_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_string_contains.html\n",
                             "   command label: `{}`,\n",
                             "   command debug: `{:?}`,\n",
                             "   command value: `{:?}`,\n",
@@ -152,7 +152,7 @@ mod test_assert_command_stderr_string_contains_as_result {
         let actual = assert_command_stderr_string_contains_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             "   command value: `\"alfa\"`,\n",
@@ -210,7 +210,7 @@ mod test_assert_command_stderr_string_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_string_contains.html\n",
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     "   command value: `\"alfa\"`,\n",
@@ -270,7 +270,7 @@ mod test_assert_command_stderr_string_contains {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             "   command value: `\"alfa\"`,\n",
@@ -355,7 +355,7 @@ mod test_debug_assert_command_stderr_string_contains {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_command_stderr_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             "   command value: `\"alfa\"`,\n",

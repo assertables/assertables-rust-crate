@@ -52,7 +52,7 @@ macro_rules! assert_abs_diff_le_x_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-                                    "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                                    "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_abs_diff_le_x_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-                                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -220,7 +220,7 @@ mod test_assert_abs_diff_le_x_as_result {
         let actual = assert_abs_diff_le_x_as_result!(a, b, x);
         let message = concat!(
             "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -242,7 +242,7 @@ mod test_assert_abs_diff_le_x_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",
@@ -299,7 +299,7 @@ mod test_assert_abs_diff_le_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `10`,\n",
 /// #     " b label: `b`,\n",
@@ -372,7 +372,7 @@ mod test_assert_abs_diff_le_x {
         });
         let message = concat!(
             "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -403,7 +403,7 @@ mod test_assert_abs_diff_le_x {
         let message = format!(
             concat!(
                 "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",
@@ -503,7 +503,7 @@ mod test_debug_assert_abs_diff_le_x {
         });
         let message = concat!(
             "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -534,7 +534,7 @@ mod test_debug_assert_abs_diff_le_x {
         let message = format!(
             concat!(
                 "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/10.0.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                "https://docs.rs/assertables/10.1.0/assertables/macro.assert_abs_diff_le_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",

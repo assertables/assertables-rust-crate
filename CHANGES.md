@@ -4,7 +4,9 @@ Changes are summarized here as highlights for recent major versions.
 
 ## Version 10.x
 
-- 10.0.0 Create new Assertables organization for code repositories. Mirror to Codeberg.org, GitHub.com, GitLab.com. Upgrade Rust edition from 2021 to 2024. 
+- 10.1.0 Add NoCopy capabilities for assert_ok, assert_err, etc. Thank you Adam Cooper.
+
+- 10.1.0 Create new Assertables organization for code repositories. Mirror to Codeberg.org, GitHub.com, GitLab.com. Upgrade Rust edition from 2021 to 2024.
 
 ## Version 9.x
 

@@ -54,7 +54,7 @@ macro_rules! assert_starts_with_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-                            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_starts_with.html\n",
+                            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_starts_with.html\n",
                             "     sequence label: `{}`,\n",
                             "     sequence debug: `{:?}`,\n",
                             "  subsequence label: `{}`,\n",
@@ -122,7 +122,7 @@ mod test_assert_starts_with_as_result {
         let actual = assert_starts_with_as_result!(sequence, subsequence);
         let message = concat!(
             "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_starts_with.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_starts_with.html\n",
             "     sequence label: `sequence`,\n",
             "     sequence debug: `\"alfa\"`,\n",
             "  subsequence label: `subsequence`,\n",
@@ -174,7 +174,7 @@ mod test_assert_starts_with_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-/// #     "https://docs.rs/assertables/10.0.0/assertables/macro.assert_starts_with.html\n",
+/// #     "https://docs.rs/assertables/10.1.0/assertables/macro.assert_starts_with.html\n",
 /// #     "     sequence label: `sequence`,\n",
 /// #     "     sequence debug: `\"alfa\"`,\n",
 /// #     "  subsequence label: `subsequence`,\n",
@@ -229,7 +229,7 @@ mod test_assert_starts_with {
         });
         let message = concat!(
             "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_starts_with.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_starts_with.html\n",
             "     sequence label: `sequence`,\n",
             "     sequence debug: `\"alfa\"`,\n",
             "  subsequence label: `subsequence`,\n",
@@ -309,7 +309,7 @@ mod test_debug_assert_starts_with {
         });
         let message = concat!(
             "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-            "https://docs.rs/assertables/10.0.0/assertables/macro.assert_starts_with.html\n",
+            "https://docs.rs/assertables/10.1.0/assertables/macro.assert_starts_with.html\n",
             "     sequence label: `sequence`,\n",
             "     sequence debug: `\"alfa\"`,\n",
             "  subsequence label: `subsequence`,\n",

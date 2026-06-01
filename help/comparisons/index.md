@@ -4,7 +4,7 @@ Assertables comparisons to other Rust crates and assertion techniques.
 
 | Name                                                | Version | Updated | Licenses              |
 | --------------------------------------------------- | ------- | ------- | --------------------- |
-| [assertables](https://crates.io/crates/assertables) | 10.0.0  | 2026    | Apache, MIT, BSD, GPL |
+| [assertables](https://crates.io/crates/assertables) | 10.1.0  | 2026    | Apache, MIT, BSD, GPL |
 | [assert_approx_eq](assert_approx_eq)                | 1.1.0   | 2018    | Apache, MIT           |
 | [assert_matches](assert_matches)                    | 1.5.0   | 2021    | Apache, MIT           |
 | [assert2](assert2)                                  | 0.4.0   | 2026    | BSD                   |

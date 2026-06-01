@@ -23,7 +23,7 @@ With:
 
 ```toml
 [dev-dependencies]
-assertables = "10.0.0"
+assertables = "10.1.0"
 ```
 
 In your test files, replace:
